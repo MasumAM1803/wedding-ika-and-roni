@@ -1,0 +1,24 @@
+{
+  "guests": [
+    {
+      "id": 1,
+      "name": "Abdul",
+      "fullName": "Abdul Rahman",
+      "slug": "abdul",
+      "relationship": "Friend",
+      "invitationMessage": "Dear Abdul, you are cordially invited to our wedding celebration.",
+      "isActive": true
+    },
+    {
+      "id": 2,
+      "name": "Sarah",
+      "fullName": "Sarah Johnson",
+      "slug": "sarah",
+      "relationship": "Family",
+      "invitationMessage": "Dear Sarah, we would be honored by your presence at our special day.",
+      "isActive": true
+    }
+  ],
+  "totalGuests": 2,
+  "lastUpdated": "2024-08-24T12:00:00.000Z"
+}
