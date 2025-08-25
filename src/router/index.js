@@ -5,12 +5,11 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: WeddingInvitation,
-    props: { guestSlug: null }
+    component: WeddingInvitation
   },
   {
     path: '/guest/:slug',
-    name: 'Guest',
+    name: 'GuestInvitation',
     component: WeddingInvitation,
     props: true
   }

@@ -1,27 +1,27 @@
-// Guest data embedded directly for Vercel serverless compatibility
+// Simple guest API endpoint for Vercel
 const guestsData = {
-  guests: [
+  "guests": [
     {
-      id: 1,
-      name: "masum",
-      fullName: "Masum Abdul Matin",
-      slug: "masum",
-      relationship: "family",
-      invitationMessage: "Dear Abdul, you are cordially invited to our wedding celebration.",
-      isActive: true
+      "id": 1,
+      "name": "masum",
+      "fullName": "Ma'sum Abdul Matin",
+      "slug": "masum",
+      "relationship": "family",
+      "invitationMessage": "Dear Abdul, you are cordially invited to our wedding celebration.",
+      "isActive": true
     },
     {
-      id: 2,
-      name: "Rani",
-      fullName: "Rani",
-      slug: "rani",
-      relationship: "Friend",
-      invitationMessage: "Dear Sarah, we would be honored by your presence at our special day.",
-      isActive: true
+      "id": 2,
+      "name": "Rani",
+      "fullName": "Rani",
+      "slug": "rani",
+      "relationship": "Friend",
+      "invitationMessage": "Dear Sarah, we would be honored by your presence at our special day.",
+      "isActive": true
     }
   ],
-  totalGuests: 2,
-  lastUpdated: new Date().toISOString()
+  "totalGuests": 2,
+  "lastUpdated": new Date().toISOString()
 };
 
 export default function handler(req, res) {

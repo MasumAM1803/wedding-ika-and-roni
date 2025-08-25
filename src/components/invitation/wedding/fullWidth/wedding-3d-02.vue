@@ -97,9 +97,9 @@
       
       <!-- Right Section - Photo and Formal Invitation (25-30% width) -->
       <div class="right-section">
-                 <!-- Initial State - Photo and Button -->
-         <div v-if="!isInvitationOpen" class="photo-section">
-                       <!-- Text Overlay -->
+          <!-- Initial State - Photo and Button -->
+          <div v-if="!isInvitationOpen" class="photo-section">
+            <!-- Text Overlay -->
             <div class="text-overlay">
               <h3 class="overlay-title">The Wedding Of</h3>
               <h2 class="overlay-couple">{{ wedding.couple.bride.shortName }} & {{ wedding.couple.groom.shortName }}</h2>
@@ -108,11 +108,8 @@
               <div v-if="currentGuest" class="guest-welcome">
                 <p class="overlay-greeting">Kepada Yth.</p>
                 <p class="overlay-recipient">Bapak/Ibu/Saudara/i</p>
-                <p class="guest-name">{{ currentGuest.fullName }}</p>
-                <p class="guest-relationship">{{ currentGuest.relationship }}</p>
-                <p class="guest-message">{{ currentGuest.invitationMessage }}</p>
+                <p class="overlay-guest">{{ currentGuest.fullName }}</p>
               </div>
-              
               <!-- Default Greeting (when no specific guest) -->
               <div v-else>
                 <p class="overlay-greeting">Kepada Yth.</p>
@@ -120,356 +117,356 @@
                 <p class="overlay-disclaimer">*Mohon maaf jika ada kesalahan dalam penulisan nama / gelar.</p>
               </div>
             </div>
-           
-                       <!-- Open Invitation Button -->
+            <!-- Open Invitation Button -->
             <button class="open-invitation-btn" @click="openInvitation">
               <i class="fas fa-envelope"></i>
               <span>Buka Undangan</span>
             </button>
          </div>
 
-                                        <!-- Invitation Content Overlay (Shown after video ends) -->
-             <div v-if="isInvitationOpen" class="content-overlay">
-               <div class="content-scroll">
-                            <!-- Hero Section -->
-                               <div class="hero-section-right">
-                  <video class="hero-video-bg" autoplay muted playsinline @ended="onVideoEnded">
-                    <source src="../../../../assets/videos/background/background-1.mp4" type="video/mp4">
-                  </video>
-                  <div class="hero-content">
-                   <h1 class="hero-title">The Wedding Of</h1>
-                   <div class="hero-couple-names">
-                     <h2 class="hero-bride">{{ wedding.couple.bride.shortName }}</h2>
-                     <span class="hero-and">&</span>
-                     <h2 class="hero-groom">{{ wedding.couple.groom.shortName }}</h2>
-                   </div>
-                   <p class="hero-date">{{ wedding.date.fullDate }}</p>
-                 </div>
-               </div>
-
-              <!-- Quotes Section -->
-              <div class="section-right quotes-section-right">
-                <div class="quote-card">
-                  <div class="quote-initials">{{ wedding.couple.bride.shortName.charAt(0) }} & {{ wedding.couple.groom.shortName.charAt(0) }}</div>
-                  <div class="quote-text">
-                    "{{ quotes.main }}"
+          <!-- Invitation Content Overlay (Shown after video ends) -->
+          <div v-if="isInvitationOpen" class="content-overlay">
+              <div class="content-scroll">
+                          <!-- Hero Section -->
+                              <div class="hero-section-right">
+                <video class="hero-video-bg" autoplay muted playsinline @ended="onVideoEnded">
+                  <source src="../../../../assets/videos/background/background-1.mp4" type="video/mp4">
+                </video>
+                <div class="hero-content">
+                  <h1 class="hero-title">The Wedding Of</h1>
+                  <div class="hero-couple-names">
+                    <h2 class="hero-bride">{{ wedding.couple.bride.shortName }}</h2>
+                    <span class="hero-and">&</span>
+                    <h2 class="hero-groom">{{ wedding.couple.groom.shortName }}</h2>
                   </div>
-                  <div class="quote-source">{{ quotes.source }}</div>
-                  
-                  <!-- Decorative corner elements -->
-                  <div class="quote-corner top-left"></div>
-                  <div class="quote-corner top-right"></div>
+                  <p class="hero-date">{{ wedding.date.fullDate }}</p>
                 </div>
               </div>
 
-            <!-- Couple Section -->
-            <div class="section-right couple-section-right">
-              <div class="couple-arch-container">
-                <div class="couple-arch-background">
-                  <div class="couple-profiles-arch">
-                    <div class="profile-card-arch">
-                      <div class="arch-title-profile">The Bride</div>
-                      <div class="profile-image-arch">
-                        <div class="image-frame">
-                          <div class="image-placeholder-arch">{{ wedding.couple.bride.shortName.charAt(0) }}</div>
-                        </div>
-                      </div>
-                      <h3 class="profile-name-arch">{{ wedding.couple.bride.name }}</h3>
-                      <p class="profile-desc-arch">Putri dari</p>
-                      <p class="profile-parents-arch">{{ wedding.couple.bride.parents }}</p>
-                      <button class="instagram-btn-profile">
-                        <i class="fab fa-instagram"></i>
-                        <span>{{ wedding.couple.bride.instagram }}</span>
-                      </button>
-                    </div>
-                    
-                    <div class="profile-card-arch">
-                      <div class="arch-title-profile">The Groom</div>
-                      <div class="profile-image-arch">
-                        <div class="image-frame">
-                          <div class="image-placeholder-arch">{{ wedding.couple.groom.shortName.charAt(0) }}</div>
-                        </div>
-                      </div>
-                      <h3 class="profile-name-arch">{{ wedding.couple.groom.name }}</h3>
-                      <p class="profile-desc-arch">Putra dari</p>
-                      <p class="profile-parents-arch">{{ wedding.couple.groom.parents }}</p>
-                      <button class="instagram-btn-profile">
-                        <i class="fab fa-instagram"></i>
-                        <span>{{ wedding.couple.groom.instagram }}</span>
-                      </button>
-                    </div>
-                  </div>
+            <!-- Quotes Section -->
+            <div class="section-right quotes-section-right">
+              <div class="quote-card">
+                <div class="quote-initials">{{ wedding.couple.bride.shortName.charAt(0) }} & {{ wedding.couple.groom.shortName.charAt(0) }}</div>
+                <div class="quote-text">
+                  "{{ quotes.main }}"
                 </div>
+                <div class="quote-source">{{ quotes.source }}</div>
                 
                 <!-- Decorative corner elements -->
-                <div class="arch-corner top-left-arch"></div>
-                <div class="arch-corner top-right-arch"></div>
-                <div class="arch-corner bottom-left-arch"></div>
-                <div class="arch-corner bottom-right-arch"></div>
+                <div class="quote-corner top-left"></div>
+                <div class="quote-corner top-right"></div>
               </div>
             </div>
 
-            <!-- Countdown Section -->
-            <div class="section-right countdown-section-right">
-              <h2 class="section-title">Save The Date</h2>
-              <div class="countdown-timer">
-                <div class="countdown-item">
-                  <span class="countdown-number">{{ countdown.days }}</span>
-                  <span class="countdown-label">Hari</span>
-                </div>
-                <div class="countdown-item">
-                  <span class="countdown-number">{{ countdown.hours }}</span>
-                  <span class="countdown-label">Jam</span>
-                </div>
-                <div class="countdown-item">
-                  <span class="countdown-number">{{ countdown.minutes }}</span>
-                  <span class="countdown-label">Menit</span>
-                </div>
-                <div class="countdown-item">
-                  <span class="countdown-number">{{ countdown.seconds }}</span>
-                  <span class="countdown-label">Detik</span>
+          <!-- Couple Section -->
+          <div class="section-right couple-section-right">
+            <div class="couple-arch-container">
+              <div class="couple-arch-background">
+                <div class="couple-profiles-arch">
+                  <div class="profile-card-arch">
+                    <div class="arch-title-profile">The Bride</div>
+                    <div class="profile-image-arch">
+                      <div class="image-frame">
+                        <div class="image-placeholder-arch">{{ wedding.couple.bride.shortName.charAt(0) }}</div>
+                      </div>
+                    </div>
+                    <h3 class="profile-name-arch">{{ wedding.couple.bride.name }}</h3>
+                    <p class="profile-desc-arch">Putri dari</p>
+                    <p class="profile-parents-arch">{{ wedding.couple.bride.parents }}</p>
+                    <button class="instagram-btn-profile">
+                      <i class="fab fa-instagram"></i>
+                      <span>{{ wedding.couple.bride.instagram }}</span>
+                    </button>
+                  </div>
+                  
+                  <div class="profile-card-arch">
+                    <div class="arch-title-profile">The Groom</div>
+                    <div class="profile-image-arch">
+                      <div class="image-frame">
+                        <div class="image-placeholder-arch">{{ wedding.couple.groom.shortName.charAt(0) }}</div>
+                      </div>
+                    </div>
+                    <h3 class="profile-name-arch">{{ wedding.couple.groom.name }}</h3>
+                    <p class="profile-desc-arch">Putra dari</p>
+                    <p class="profile-parents-arch">{{ wedding.couple.groom.parents }}</p>
+                    <button class="instagram-btn-profile">
+                      <i class="fab fa-instagram"></i>
+                      <span>{{ wedding.couple.groom.instagram }}</span>
+                    </button>
+                  </div>
                 </div>
               </div>
+              
+              <!-- Decorative corner elements -->
+              <div class="arch-corner top-left-arch"></div>
+              <div class="arch-corner top-right-arch"></div>
+              <div class="arch-corner bottom-left-arch"></div>
+              <div class="arch-corner bottom-right-arch"></div>
             </div>
+          </div>
 
-            <!-- Events Section -->
-            <div class="section-right events-section-right">
-              <h2 class="section-title">Events</h2>
-              <div class="event-card">
-                <h3 class="event-title">AKAD NIKAH</h3>
-                <div class="event-date">
-                  <div class="date-main">{{ wedding.akad.date.split(', ')[0] }}</div>
-                  <div class="date-number">{{ wedding.akad.date.split(', ')[1].split(' ')[1] }}</div>
-                  <div class="date-month-year">
-                    <span class="month">{{ wedding.akad.date.split(', ')[1].split(' ')[2].toUpperCase() }}</span>
-                    <span class="year">{{ wedding.akad.date.split(', ')[1].split(' ')[3] }}</span>
-                  </div>
-                  <div class="event-time">
-                    <i class="fas fa-clock"></i>
-                    {{ wedding.akad.time }}
-                  </div>
+          <!-- Countdown Section -->
+          <div class="section-right countdown-section-right">
+            <h2 class="section-title">Save The Date</h2>
+            <div class="countdown-timer">
+              <div class="countdown-item">
+                <span class="countdown-number">{{ countdown.days }}</span>
+                <span class="countdown-label">Hari</span>
+              </div>
+              <div class="countdown-item">
+                <span class="countdown-number">{{ countdown.hours }}</span>
+                <span class="countdown-label">Jam</span>
+              </div>
+              <div class="countdown-item">
+                <span class="countdown-number">{{ countdown.minutes }}</span>
+                <span class="countdown-label">Menit</span>
+              </div>
+              <div class="countdown-item">
+                <span class="countdown-number">{{ countdown.seconds }}</span>
+                <span class="countdown-label">Detik</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Events Section -->
+          <div class="section-right events-section-right">
+            <h2 class="section-title">Events</h2>
+            <div class="event-card">
+              <h3 class="event-title">AKAD NIKAH</h3>
+              <div class="event-date">
+                <div class="date-main">{{ wedding.akad.date.split(', ')[0] }}</div>
+                <div class="date-number">{{ wedding.akad.date.split(', ')[1].split(' ')[1] }}</div>
+                <div class="date-month-year">
+                  <span class="month">{{ wedding.akad.date.split(', ')[1].split(' ')[2].toUpperCase() }}</span>
+                  <span class="year">{{ wedding.akad.date.split(', ')[1].split(' ')[3] }}</span>
                 </div>
-                <div class="event-location">
-                  <h4>Lokasi Acara</h4>
-                  <p><strong>{{ wedding.akad.location }}</strong><br>{{ wedding.akad.address }}</p>
-                  <button class="maps-btn" @click="openMaps(`${wedding.akad.location}, ${wedding.akad.address}`)">
-                    <i class="fas fa-map-marker-alt"></i>
-                    Google Maps
+                <div class="event-time">
+                  <i class="fas fa-clock"></i>
+                  {{ wedding.akad.time }}
+                </div>
+              </div>
+              <div class="event-location">
+                <h4>Lokasi Acara</h4>
+                <p><strong>{{ wedding.akad.location }}</strong><br>{{ wedding.akad.address }}</p>
+                <button class="maps-btn" @click="openMaps(`${wedding.akad.location}, ${wedding.akad.address}`)">
+                  <i class="fas fa-map-marker-alt"></i>
+                  Google Maps
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Wishes Section -->
+          <div class="section-right wishes-section-right">
+            <h2 class="section-title">Wishes</h2>
+            <p class="wishes-desc">Berikan doa dan ucapan terbaik untuk kami.</p>
+            
+            <div class="wishes-form">
+              <div class="form-group">
+                <input type="text" id="wishName" v-model="wishData.name" placeholder="Nama" minlength="2">
+              </div>
+              
+              <div class="form-group">
+                <textarea id="wishMessage" v-model="wishData.message" placeholder="Ucapan" rows="3"></textarea>
+              </div>
+              
+              <div class="attendance-section">
+                <div class="attendance-header">
+                  <span>Konfirmasi Kehadiran</span>
+                </div>
+                <div class="attendance-buttons">
+                  <button 
+                    class="attendance-btn present-btn" 
+                    :class="{ active: wishData.attendance === 'present' }"
+                    @click="wishData.attendance = 'present'"
+                  >
+                    <i class="fas fa-check"></i>
+                    <span>Hadir</span>
+                  </button>
+                  <button 
+                    class="attendance-btn absent-btn" 
+                    :class="{ active: wishData.attendance === 'absent' }"
+                    @click="wishData.attendance = 'absent'"
+                  >
+                    <i class="fas fa-times"></i>
+                    <span>Tidak Hadir</span>
                   </button>
                 </div>
               </div>
+              
+              <button class="submit-wish-btn" @click="submitWish">Kirim</button>
+              
+
             </div>
-
-            <!-- Wishes Section -->
-            <div class="section-right wishes-section-right">
-              <h2 class="section-title">Wishes</h2>
-              <p class="wishes-desc">Berikan doa dan ucapan terbaik untuk kami.</p>
-              
-              <div class="wishes-form">
-                <div class="form-group">
-                  <input type="text" id="wishName" v-model="wishData.name" placeholder="Nama" minlength="2">
+            
+            <div class="wishes-counter">
+              <span class="counter-number">{{ wishesCount }}</span> Messages
+            </div>
+            
+            <!-- Wishes Display Section -->
+            <div class="wishes-display-section">
+              <h3 class="wishes-display-title">Ucapan & Doa</h3>
+              <div class="wishes-container">
+                <div v-if="wishes.length === 0" class="no-wishes">
+                  <p>Belum ada ucapan. Jadilah yang pertama!</p>
                 </div>
-                
-                <div class="form-group">
-                  <textarea id="wishMessage" v-model="wishData.message" placeholder="Ucapan" rows="3"></textarea>
-                </div>
-                
-                <div class="attendance-section">
-                  <div class="attendance-header">
-                    <span>Konfirmasi Kehadiran</span>
-                  </div>
-                  <div class="attendance-buttons">
-                    <button 
-                      class="attendance-btn present-btn" 
-                      :class="{ active: wishData.attendance === 'present' }"
-                      @click="wishData.attendance = 'present'"
-                    >
-                      <i class="fas fa-check"></i>
-                      <span>Hadir</span>
-                    </button>
-                    <button 
-                      class="attendance-btn absent-btn" 
-                      :class="{ active: wishData.attendance === 'absent' }"
-                      @click="wishData.attendance = 'absent'"
-                    >
-                      <i class="fas fa-times"></i>
-                      <span>Tidak Hadir</span>
-                    </button>
-                  </div>
-                </div>
-                
-                <button class="submit-wish-btn" @click="submitWish">Kirim</button>
-                
-
-              </div>
-              
-              <div class="wishes-counter">
-                <span class="counter-number">{{ wishesCount }}</span> Messages
-              </div>
-              
-              <!-- Wishes Display Section -->
-              <div class="wishes-display-section">
-                <h3 class="wishes-display-title">Ucapan & Doa</h3>
-                <div class="wishes-container">
-                  <div v-if="wishes.length === 0" class="no-wishes">
-                    <p>Belum ada ucapan. Jadilah yang pertama!</p>
-                  </div>
-                  <div v-else class="wishes-list">
-                    <div 
-                      v-for="(wish, index) in paginatedWishes" 
-                      :key="index" 
-                      class="wish-item"
-                      :class="wish.attendance"
-                    >
-                      <div class="wish-header">
-                        <div class="wish-name">{{ wish.name }}</div>
-                        <div class="wish-attendance" :class="wish.attendance">
-                          <i :class="wish.attendance === 'present' ? 'fas fa-check' : 'fas fa-times'"></i>
-                          <span>{{ wish.attendance === 'present' ? 'Hadir' : 'Tidak Hadir' }}</span>
-                        </div>
+                <div v-else class="wishes-list">
+                  <div 
+                    v-for="(wish, index) in paginatedWishes" 
+                    :key="index" 
+                    class="wish-item"
+                    :class="wish.attendance"
+                  >
+                    <div class="wish-header">
+                      <div class="wish-name">{{ wish.name }}</div>
+                      <div class="wish-attendance" :class="wish.attendance">
+                        <i :class="wish.attendance === 'present' ? 'fas fa-check' : 'fas fa-times'"></i>
+                        <span>{{ wish.attendance === 'present' ? 'Hadir' : 'Tidak Hadir' }}</span>
                       </div>
-                      <div class="wish-message">{{ wish.message }}</div>
-                      <div class="wish-timestamp">{{ wish.timestamp }}</div>
+                    </div>
+                    <div class="wish-message">{{ wish.message }}</div>
+                    <div class="wish-timestamp">{{ wish.timestamp }}</div>
+                  </div>
+                  
+                  <!-- Pagination Buttons -->
+                  <div v-if="totalPages > 1" class="pagination-container">
+                    <button 
+                      class="pagination-btn prev-btn" 
+                      @click="goToPage(currentPage - 1)"
+                      :disabled="currentPage === 1"
+                    >
+                      <i class="fas fa-chevron-left"></i>
+                      <span>Sebelumnya</span>
+                    </button>
+                    
+                    <div class="page-numbers">
+                      <button 
+                        v-for="page in visiblePages" 
+                        :key="page"
+                        class="pagination-btn page-btn"
+                        :class="{ active: page === currentPage }"
+                        @click="goToPage(page)"
+                      >
+                        {{ page }}
+                      </button>
                     </div>
                     
-                    <!-- Pagination Buttons -->
-                    <div v-if="totalPages > 1" class="pagination-container">
-                      <button 
-                        class="pagination-btn prev-btn" 
-                        @click="goToPage(currentPage - 1)"
-                        :disabled="currentPage === 1"
-                      >
-                        <i class="fas fa-chevron-left"></i>
-                        <span>Sebelumnya</span>
-                      </button>
-                      
-                      <div class="page-numbers">
-                        <button 
-                          v-for="page in visiblePages" 
-                          :key="page"
-                          class="pagination-btn page-btn"
-                          :class="{ active: page === currentPage }"
-                          @click="goToPage(page)"
-                        >
-                          {{ page }}
-                        </button>
-                      </div>
-                      
-                      <button 
-                        class="pagination-btn next-btn" 
-                        @click="goToPage(currentPage + 1)"
-                        :disabled="currentPage === totalPages"
-                      >
-                        <span>Selanjutnya</span>
-                        <i class="fas fa-chevron-right"></i>
-                      </button>
-                    </div>
+                    <button 
+                      class="pagination-btn next-btn" 
+                      @click="goToPage(currentPage + 1)"
+                      :disabled="currentPage === totalPages"
+                    >
+                      <span>Selanjutnya</span>
+                      <i class="fas fa-chevron-right"></i>
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            <!-- Gift Section -->
-            <div class="section-right gift-section-right">
-              <div class="gift-container">
-                <h2 class="gift-title">Tanda Kasih</h2>
-                <p class="gift-message">
-                  Terima kasih telah menambah semangat kegembiraan pernikahan kami dengan kehadiran dan hadiah indah Anda.
+          <!-- Gift Section -->
+          <div class="section-right gift-section-right">
+            <div class="gift-container">
+              <h2 class="gift-title">Tanda Kasih</h2>
+              <p class="gift-message">
+                Terima kasih telah menambah semangat kegembiraan pernikahan kami dengan kehadiran dan hadiah indah Anda.
+              </p>
+              
+              <div class="gift-options">
+                <button class="gift-option-btn cashless-btn" @click="selectGiftType('cashless')">Cashless</button>
+                <button class="gift-option-btn physical-btn" @click="selectGiftType('physical')">Kirim Kado</button>
+              </div>
+              
+              <!-- Cashless Section -->
+              <div v-if="giftType === 'cashless'" class="cashless-section">
+                <h3 class="cashless-title">Transfer Bank</h3>
+                <p class="cashless-message">
+                  Anda dapat melakukan transfer ke rekening berikut:
                 </p>
                 
-                <div class="gift-options">
-                  <button class="gift-option-btn cashless-btn" @click="selectGiftType('cashless')">Cashless</button>
-                  <button class="gift-option-btn physical-btn" @click="selectGiftType('physical')">Kirim Kado</button>
-                </div>
-                
-                <!-- Cashless Section -->
-                <div v-if="giftType === 'cashless'" class="cashless-section">
-                  <h3 class="cashless-title">Transfer Bank</h3>
-                  <p class="cashless-message">
-                    Anda dapat melakukan transfer ke rekening berikut:
-                  </p>
-                  
-                  <div class="bank-accounts">
-                    <div v-for="account in bankAccounts" :key="account.bank" class="bank-account">
-                      <div class="bank-row">
-                        <div class="flex">
-                          <div class="bank-logo" :class="`${account.logo}`">{{ account.bank }}</div>
-                        </div>
-                        <div class="account-details">
-                          <div class="account-number">{{ account.accountNumber }}</div>
-                          <button class="copy-btn" @click="copyAccountNumber(account.accountNumber, account.bank)">
-                            Salin Rekening
-                          </button>
-                          <div class="account-holder">{{ account.bank }} : {{ account.accountHolder }}</div>
-                        </div>
+                <div class="bank-accounts">
+                  <div v-for="account in bankAccounts" :key="account.bank" class="bank-account">
+                    <div class="bank-row">
+                      <div class="flex">
+                        <div class="bank-logo" :class="`${account.logo}`">{{ account.bank }}</div>
+                      </div>
+                      <div class="account-details">
+                        <div class="account-number">{{ account.accountNumber }}</div>
+                        <button class="copy-btn" @click="copyAccountNumber(account.accountNumber, account.bank)">
+                          Salin Rekening
+                        </button>
+                        <div class="account-holder">{{ account.bank }} : {{ account.accountHolder }}</div>
                       </div>
                     </div>
                   </div>
                 </div>
-                
-                <!-- Physical Gift Section -->
-                <div v-if="giftType === 'physical'" class="physical-gift-section">
-                  <h3 class="physical-gift-title">Kirim Kado</h3>
-                  <p class="physical-gift-address">
-                    Anda dapat mengirim kado ke:<br>
-                    <strong>{{ giftAddress.address }}<br>{{ giftAddress.city }} {{ giftAddress.postalCode }}</strong>
-                  </p>
-                  <button class="copy-address-btn" @click="copyAddress(`${giftAddress.address}, ${giftAddress.city} ${giftAddress.postalCode}`)">
-                    <i class="fas fa-copy"></i>
-                    Salin Alamat
-                  </button>
+              </div>
+              
+              <!-- Physical Gift Section -->
+              <div v-if="giftType === 'physical'" class="physical-gift-section">
+                <h3 class="physical-gift-title">Kirim Kado</h3>
+                <p class="physical-gift-address">
+                  Anda dapat mengirim kado ke:<br>
+                  <strong>{{ giftAddress.address }}<br>{{ giftAddress.city }} {{ giftAddress.postalCode }}</strong>
+                </p>
+                <button class="copy-address-btn" @click="copyAddress(`${giftAddress.address}, ${giftAddress.city} ${giftAddress.postalCode}`)">
+                  <i class="fas fa-copy"></i>
+                  Salin Alamat
+                </button>
+              </div>
+            </div>
+          </div>
+
+            <!-- Gallery Section -->
+            <div class="section-right gallery-section-right">
+              <h2 class="section-title">Gallery</h2>
+              <p class="gallery-desc">Our precious moments together</p>
+              
+              <div class="gallery-grid">
+                <div class="gallery-item">
+                  <div class="gallery-placeholder">Photo 1</div>
+                </div>
+                <div class="gallery-item">
+                  <div class="gallery-placeholder">Photo 2</div>
+                </div>
+                <div class="gallery-item">
+                  <div class="gallery-placeholder">Photo 3</div>
+                </div>
+                <div class="gallery-item">
+                  <div class="gallery-placeholder">Photo 4</div>
                 </div>
               </div>
             </div>
 
-             <!-- Gallery Section -->
-             <div class="section-right gallery-section-right">
-               <h2 class="section-title">Gallery</h2>
-               <p class="gallery-desc">Our precious moments together</p>
-               
-               <div class="gallery-grid">
-                 <div class="gallery-item">
-                   <div class="gallery-placeholder">Photo 1</div>
-                 </div>
-                 <div class="gallery-item">
-                   <div class="gallery-placeholder">Photo 2</div>
-                 </div>
-                 <div class="gallery-item">
-                   <div class="gallery-placeholder">Photo 3</div>
-                 </div>
-                 <div class="gallery-item">
-                   <div class="gallery-placeholder">Photo 4</div>
-                 </div>
-               </div>
-             </div>
-
-            <!-- Thanks Section -->
-             <div class="section-right thanks-section-right">
-               <h2 class="section-title">Terima Kasih</h2>
-               <p class="thanks-desc">
-                 Merupakan suatu kebahagiaan dan kehormatan bagi kami, apabila Bapak/Ibu/Saudara/i, berkenan hadir dan memberikan do'a restu kepada kami.
-               </p>
-               <p class="thanks-closing"><strong>Wassalamu'alaikum warahmatullahi wabarakatuh</strong></p>
-               
-               <div class="signature">
-                 <p>Kami Yang Berbahagia</p>
-                 <h3>{{ wedding.couple.bride.shortName }} & {{ wedding.couple.groom.shortName }}</h3>
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
+          <!-- Thanks Section -->
+            <div class="section-right thanks-section-right">
+              <h2 class="section-title">Terima Kasih</h2>
+              <p class="thanks-desc">
+                Merupakan suatu kebahagiaan dan kehormatan bagi kami, apabila Bapak/Ibu/Saudara/i, berkenan hadir dan memberikan do'a restu kepada kami.
+              </p>
+              <p class="thanks-closing"><strong>Wassalamu'alaikum warahmatullahi wabarakatuh</strong></p>
+              
+              <div class="signature">
+                <p>Kami Yang Berbahagia</p>
+                <h3>{{ wedding.couple.bride.shortName }} & {{ wedding.couple.groom.shortName }}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
  </template>
 
 <script>
 import wishesData from '../../../../assets/data/wishes.json'
 import weddingConfig from '../../../../assets/data/wedding-config.json'
+import guestsData from '../../../../assets/data/guests.json'
 export default {
   name: 'Wedding3D02FullWidth',
   props: {
-    guestSlug: {
+    slug: {
       type: String,
       default: null
     }
@@ -503,7 +500,8 @@ export default {
       bankAccounts: weddingConfig.bankAccounts,
       giftAddress: weddingConfig.giftAddress,
       quotes: weddingConfig.quotes,
-      settings: weddingConfig.settings
+      settings: weddingConfig.settings,
+             guest: guestsData.guests,
     }
   },
   computed: {
@@ -531,8 +529,16 @@ export default {
       return pages
     }
   },
+  watch: {
+    // Watch for route changes to update guest information
+    '$route'(to, from) {
+      if (to.params.slug !== from.params.slug) {
+        this.checkGuestFromRoute()
+      }
+    }
+  },
   mounted() {
-    this.checkGuestFromProps()
+    this.checkGuestFromRoute()
     this.initializeData()
     this.startCountdown()
     this.scrollToActiveButton()
@@ -540,31 +546,28 @@ export default {
   updated() {
     this.scrollToActiveButton()
   },
-  watch: {
-    guestSlug: {
-      handler(newSlug) {
-        if (newSlug !== this.currentGuest?.slug) {
-          this.checkGuestFromProps()
-        }
-      },
-      immediate: false
-    }
-  },
   methods: {
-    async checkGuestFromProps() {
-      // Check if we have a guest slug from the route
-      if (this.guestSlug) {
+    async checkGuestFromRoute() {
+      // Get the guest slug from route parameters
+      const guestSlug = this.$route.params.slug || this.slug
+      
+      if (guestSlug) {
         try {
           // Try to fetch guest information from API
-          const apiUrl = import.meta.env.DEV ? `http://localhost:3001/api/guest/${this.guestSlug}` : `/api/guest/${this.guestSlug}`;
+          const apiUrl = `/api/guest?slug=${guestSlug}`;
           const response = await fetch(apiUrl);
           
-          if (response.ok) {
-            const guestData = await response.json();
-            this.currentGuest = guestData.guest;
-            console.log('Guest found:', this.currentGuest);
+          if (response.ok && response.headers.get('content-type')?.includes('application/json')) {
+            try {
+              const guestData = await response.json();
+              this.currentGuest = guestData.guest;
+              console.log('Guest found:', this.currentGuest);
+            } catch (jsonErr) {
+              console.error('Invalid JSON from guest API:', jsonErr);
+              this.currentGuest = null;
+            }
           } else {
-            console.log('Guest not found or invalid slug:', this.guestSlug);
+            console.warn('Guest API returned non-JSON or error status', response.status);
             this.currentGuest = null;
           }
         } catch (error) {
@@ -575,6 +578,12 @@ export default {
         // No guest slug, reset to null
         this.currentGuest = null;
       }
+    },
+    
+    async checkGuestFromURL() {
+      // This method is kept for backward compatibility
+      // Now we use checkGuestFromRoute instead
+      this.checkGuestFromRoute()
     },
     
     async initializeData() {
@@ -1361,11 +1370,11 @@ export default {
   color: #8B4513; /* Muted dark reddish-brown/maroon */
 }
 
-.guest-name {
+.overlay-guest {
   font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   color: #DAA520; /* Rich warm gold/bronze */
+  font-weight: 600;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -3349,9 +3358,9 @@ export default {
      margin-bottom: 0.5rem;
    }
    
-   .guest-name {
+   .overlay-guest {
      font-size: 1.2rem;
-     margin-bottom: 0.5rem;
+     margin-bottom: 0.75rem;
    }
 
    .overlay-disclaimer {

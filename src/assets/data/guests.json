@@ -2,19 +2,19 @@
   "guests": [
     {
       "id": 1,
-      "name": "Abdul",
-      "fullName": "Abdul Rahman",
-      "slug": "abdul",
-      "relationship": "Friend",
+      "name": "masum",
+      "fullName": "Masum Abdul Matin",
+      "slug": "masum",
+      "relationship": "family",
       "invitationMessage": "Dear Abdul, you are cordially invited to our wedding celebration.",
       "isActive": true
     },
     {
       "id": 2,
-      "name": "Sarah",
-      "fullName": "Sarah Johnson",
-      "slug": "sarah",
-      "relationship": "Family",
+      "name": "Rani",
+      "fullName": "Rani",
+      "slug": "rani",
+      "relationship": "Friend",
       "invitationMessage": "Dear Sarah, we would be honored by your presence at our special day.",
       "isActive": true
     }

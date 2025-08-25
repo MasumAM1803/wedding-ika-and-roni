@@ -14,10 +14,8 @@ const PORT = 3001; // Different port from Vite
 app.use(cors());
 app.use(express.json());
 
-// Path to wishes.json file
+// Path to data files
 const WISHES_FILE_PATH = path.join(__dirname, 'src/assets/data/wishes.json');
-
-// Path to guests.json file
 const GUESTS_FILE_PATH = path.join(__dirname, 'src/assets/data/guests.json');
 
 // Helper function to read wishes from file
@@ -118,25 +116,38 @@ app.post('/api/wishes', (req, res) => {
 app.get('/api/guest/:slug', (req, res) => {
   try {
     const { slug } = req.params;
+    
+    if (!slug) {
+      return res.status(400).json({ error: 'Guest slug is required' });
+    }
+
     const guestsData = readGuestsFromFile();
     
     // Find guest by slug
-    const guest = guestsData.guests.find(g => g.slug === slug);
+    const guest = guestsData.guests.find(g => g.slug === slug && g.isActive);
     
-    if (guest) {
-      res.json({ 
-        success: true, 
-        guest: guest 
-      });
-    } else {
-      res.status(404).json({ 
+    if (!guest) {
+      return res.status(404).json({ 
         error: 'Guest not found',
-        message: `No guest found with slug: ${slug}`
+        message: 'This guest invitation link is not valid or has expired.'
       });
     }
+
+    // Return guest information
+    res.status(200).json({
+      success: true,
+      guest: {
+        id: guest.id,
+        name: guest.name,
+        fullName: guest.fullName,
+        slug: guest.slug,
+        relationship: guest.relationship,
+        invitationMessage: guest.invitationMessage
+      }
+    });
   } catch (error) {
-    console.error('Error fetching guest:', error);
-    res.status(500).json({ error: 'Failed to fetch guest information' });
+    console.error('GET guest error:', error);
+    res.status(500).json({ error: 'Failed to retrieve guest information' });
   }
 });
 

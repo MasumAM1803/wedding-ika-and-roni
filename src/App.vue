@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+  <div id="app">
+    <router-view />
+  </div>
 </template>
 
 <script>
@@ -9,5 +11,13 @@ export default {
 </script>
 
 <style>
-/* Global styles can go here */
+#app {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+}
 </style>
