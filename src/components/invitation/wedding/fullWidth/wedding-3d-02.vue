@@ -2170,6 +2170,8 @@ export default {
 }
 
 .event-card {
+  width: 90%;
+  max-width: 90%;
   background: rgba(255, 255, 255, 0.95);
   padding: 2.5rem;
   border-radius: 25px;
