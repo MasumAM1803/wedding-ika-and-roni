@@ -126,13 +126,13 @@
 
           <!-- Invitation Content Overlay (Shown after video ends) -->
           <div v-if="isInvitationOpen" class="content-overlay">
-              <div class="content-scroll">
-                          <!-- Hero Section -->
-                              <div class="hero-section-right">
-                <video class="hero-video-bg" autoplay muted playsinline @ended="onVideoEnded">
+            <div class="content-scroll">
+              <!-- Hero Section -->
+              <div class="hero-section-right">
+                <video class="hero-video-bg" autoplay muted playsinline @ended="onVideoEnded" @timeupdate="onVideoTimeUpdate">
                   <source src="../../../../assets/videos/background/background-1.mp4" type="video/mp4">
                 </video>
-                <div class="hero-content">
+                <div v-if="showHeroContent" class="hero-content">
                   <h1 class="hero-title">The Wedding Of</h1>
                   <div class="hero-couple-names">
                     <h2 class="hero-bride">{{ wedding.couple.bride.shortName }}</h2>
@@ -475,6 +475,7 @@ export default {
     return {
       currentSection: 'hero',
       isInvitationOpen: false,
+      showHeroContent: false, // Track when to show hero content (5 seconds before video ends)
       giftType: 'cashless', // 'cashless' or 'physical' or null - default to cashless
       countdown: {
         days: 0,
@@ -640,6 +641,19 @@ export default {
     
     openInvitation() {
       this.isInvitationOpen = true
+      this.showHeroContent = false // Reset hero content state for new invitation
+    },
+    
+    onVideoTimeUpdate(event) {
+      const video = event.target;
+      const currentTime = video.currentTime;
+      const duration = video.duration;
+      
+      // Show hero content 5 seconds before video ends
+      if (duration > 0 && (duration - currentTime) <= 12 && !this.showHeroContent) {
+        this.showHeroContent = true;
+        console.log('Showing hero content 5 seconds before video ends');
+      }
     },
     
     onVideoEnded() {
@@ -1071,7 +1085,7 @@ export default {
 .line {
   width: 60px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #DAA520, #FFD700, #DAA520, transparent);
+  background: linear-gradient(90deg, transparent, #ce9dcb, #d4a5d2, #ce9dcb, transparent);
   margin: 8px 0;
   border-radius: 1px;
   opacity: 0.6;
@@ -1099,7 +1113,7 @@ export default {
   position: absolute;
   width: 4px;
   height: 4px;
-  background: radial-gradient(circle, #FFD700, #DAA520);
+  background: radial-gradient(circle, #d4a5d2, #ce9dcb);
   border-radius: 50%;
   opacity: 0.7;
   animation: sparkle 4s ease-in-out infinite;
@@ -1185,7 +1199,7 @@ export default {
   font-family: 'Playfair Display', 'Georgia', serif;
   margin: 0.5rem 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  color: #DAA520;
+  color: #ce9dcb;
   letter-spacing: 0.02em;
 }
 
@@ -1195,7 +1209,7 @@ export default {
   font-family: 'Playfair Display', 'Georgia', serif;
   margin: 0 1rem;
   opacity: 0.8;
-  color: #DAA520;
+  color: #ce9dcb;
   letter-spacing: 0.05em;
 }
 
@@ -1354,7 +1368,7 @@ export default {
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: #DAA520; /* Rich warm gold/bronze */
+  color: #ce9dcb; /* Rich warm purple/lavender */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -1373,7 +1387,7 @@ export default {
 .overlay-guest {
   font-size: 1.4rem;
   margin-bottom: 1rem;
-  color: #DAA520; /* Rich warm gold/bronze */
+  color: #ce9dcb; /* Rich warm purple/lavender */
   font-weight: 600;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -1392,7 +1406,7 @@ export default {
 .guest-relationship {
   font-size: 1rem;
   margin-bottom: 0.5rem;
-  color: #DAA520; /* Gold color for relationship */
+  color: #ce9dcb; /* Purple color for relationship */
   font-weight: 500;
   font-style: italic;
 }
@@ -1490,14 +1504,14 @@ export default {
   font-weight: 700;
   margin: 0.25rem 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  color: #DAA520;
+  color: #ce9dcb;
 }
 
 .hero-and {
   font-size: 2.3rem;
   margin: 0 0.5rem;
   opacity: 0.8;
-  color: #DAA520;
+  color: #ce9dcb;
 }
 
 .hero-date {
@@ -1869,7 +1883,7 @@ export default {
 .instagram-btn {
   background: linear-gradient(135deg, #F5DEB3, #DEB887);
   color: #8B0000;
-  border: 2px solid #DAA520;
+  border: 2px solid #ce9dcb;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
@@ -1881,7 +1895,7 @@ export default {
   justify-content: center;
   gap: 0.5rem;
   margin: 0 auto;
-  box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+  box-shadow: 0 4px 15px rgba(206, 157, 203, 0.3);
   font-family: 'Playfair Display', 'Georgia', serif;
   min-width: 160px;
 }
@@ -1904,7 +1918,7 @@ export default {
 .instagram-btn-profile {
   background: linear-gradient(135deg, #F5DEB3, #DEB887);
   color: #8B0000;
-  border: 2px solid #DAA520;
+  border: 2px solid #ce9dcb;
   padding: 0.6rem 1.25rem;
   font-size: 0.9rem;
   font-weight: 600;
@@ -1916,7 +1930,7 @@ export default {
   justify-content: center;
   gap: 0.4rem;
   margin: 1rem auto 0 auto;
-  box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+  box-shadow: 0 4px 15px rgba(206, 157, 203, 0.3);
   font-family: 'Playfair Display', 'Georgia', serif;
   min-width: 140px;
 }
@@ -2614,9 +2628,9 @@ export default {
 }
 
 .physical-btn {
-  background: linear-gradient(135deg, #DAA520, #B8860B);
+  background: linear-gradient(135deg, #ce9dcb, #c893c6);
   color: white;
-  box-shadow: 0 4px 15px rgba(218, 165, 32, 0.4);
+  box-shadow: 0 4px 15px rgba(206, 157, 203, 0.4);
 }
 
 .physical-btn:hover {
@@ -2752,27 +2766,27 @@ export default {
  }
 
  .copy-address-btn {
-   background: linear-gradient(135deg, #DAA520, #B8860B);
-   color: white;
-   border: none;
-   padding: 0.75rem 1.5rem;
-   font-size: 0.9rem;
-   border-radius: 20px;
-   cursor: pointer;
-   transition: all 0.3s ease;
-   font-weight: 600;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   gap: 0.5rem;
-   margin: 0 auto;
-   box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
- }
+  background: linear-gradient(135deg, #ce9dcb, #c893c6);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0 auto;
+  box-shadow: 0 4px 15px rgba(206, 157, 203, 0.3);
+}
 
  .copy-address-btn:hover {
-   transform: translateY(-2px);
-   box-shadow: 0 6px 20px rgba(218, 165, 32, 0.4);
- }
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(206, 157, 203, 0.4);
+}
 
  .copy-address-btn i {
    font-size: 1rem;
