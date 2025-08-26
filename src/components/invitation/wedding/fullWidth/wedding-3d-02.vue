@@ -554,7 +554,7 @@ export default {
       if (guestSlug) {
         try {
           // Try to fetch guest information from API
-          const apiUrl = `/api/guest?slug=${guestSlug}`;
+          const apiUrl = import.meta.env.DEV ? `http://localhost:3001/api/guest/${guestSlug}` : `/api/guest/${guestSlug}`;
           const response = await fetch(apiUrl);
           
           if (response.ok && response.headers.get('content-type')?.includes('application/json')) {
