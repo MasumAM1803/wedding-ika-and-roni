@@ -226,6 +226,10 @@
                 <span class="countdown-label">Detik</span>
               </div>
             </div>
+            <button class="save-date-btn" @click="saveDate">
+              <i class="fas fa-calendar-check"></i>
+              <span>Simpan Tanggal</span>
+            </button>
           </div>
 
           <!-- Events Section -->
@@ -659,6 +663,10 @@ export default {
     onVideoEnded() {
       // Video has ended, it will stop playing naturally
       console.log('Hero video ended')
+    },
+    
+    saveDate() {
+      this.showNotification('📅 Tanggal berhasil disimpan!', 'success')
     },
     
     openRSVP() {
@@ -2072,48 +2080,79 @@ export default {
   display: flex;
   justify-content: center;
   gap: 1.5rem;
-  margin-bottom: 2rem;
   flex-wrap: wrap;
   animation: fadeInScale 1s ease-out 0.3s both;
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 1;
 }
 
 .countdown-item {
   text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 182, 193, 0.3);
+  border-radius: 20px;
+  padding: 1.5rem 1rem;
   min-width: 80px;
+  box-shadow: 0 8px 25px rgba(255, 182, 193, 0.2);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.countdown-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(255, 182, 193, 0.4);
+  border-color: rgba(255, 182, 193, 0.6);
 }
 
 .countdown-number {
   display: block;
-  font-size: 2.25rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  color: #FF69B4;
-  line-height: 1.6;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: #ce9dcb;
+  line-height: 1.2;
+  text-shadow: 2px 2px 4px rgba(206, 157, 203, 0.2);
+  margin-bottom: 0.5rem;
 }
 
 .countdown-label {
   font-size: 1rem;
-  color: #8B4513;
+  color: #ce9dcb;
   font-weight: 500;
+  font-family: 'Playfair Display', 'Georgia', serif;
 }
 
 .save-date-btn {
-  background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-  color: white;
-  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  color: #ce9dcb;
+  border: 2px solid rgba(206, 157, 203, 0.3);
   padding: 1rem 2rem;
   font-size: 1rem;
   font-weight: 600;
   border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
-  animation: fadeInScale 1s ease-out 0.6s both;
+  box-shadow: 0 8px 25px rgba(206, 157, 203, 0.2);
+  font-family: 'Playfair Display', 'Georgia', serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(10px);
 }
 
 .save-date-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(206, 157, 203, 0.4);
+  border-color: rgba(206, 157, 203, 0.6);
+  background: rgba(255, 255, 255, 1);
+}
+
+.save-date-btn i {
+  font-size: 1.1rem;
+  color: #ce9dcb;
 }
 
 /* Events Section */
@@ -3519,8 +3558,8 @@ export default {
   .countdown-number {
     font-size: 1.8rem;
   }
-
-     .event-card {
+  
+  .event-card {
      padding: 1.5rem;
      border-radius: 20px;
    }
@@ -4069,7 +4108,6 @@ export default {
 }
 
 
-
 .signature {
   margin-bottom: 2rem;
   text-align: center;
@@ -4209,5 +4247,43 @@ export default {
   color: #FF69B4;
 }
 
+/* Elegant Countdown Section Styling */
+.countdown-section-right {
+    background: linear-gradient(135deg, #FFE5F1 0%, #FFF0F5 100%);
+    border-radius: 30px;
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(255, 182, 193, 0.3);
+    border: 2px solid rgba(255, 182, 193, 0.2);
+    position: relative;
+    overflow: hidden;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.countdown-section-right::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  right: -50px;
+  bottom: -50px;
+  background: url('../../../../assets/images/background/bunga2-1.png') no-repeat center center;
+  background-size: contain;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+.countdown-section-right .section-title {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #8B4513;
+  margin-bottom: 2.5rem;
+  position: relative;
+  z-index: 1;
+  text-shadow: 2px 2px 4px rgba(139, 69, 19, 0.1);
+}
 /* Additional styles for new elements */
 </style>
