@@ -10,39 +10,33 @@
             <!-- Floral Corner Elements -->
             <div class="floral-corner top-left">
               <div class="rose-cluster">
-                <div class="rose rose-1"></div>
-                <div class="rose rose-2"></div>
-                <div class="rose rose-3"></div>
-                <div class="leaf leaf-1"></div>
-                <div class="leaf leaf-2"></div>
-                <div class="leaf leaf-3"></div>
+                <div class="floral-item">
+                  <div class="rose rose-1"></div>
+                </div>
               </div>
             </div>
             
             <div class="floral-corner top-right">
               <div class="rose-cluster">
-                <div class="rose rose-4"></div>
-                <div class="rose rose-5"></div>
-                <div class="leaf leaf-4"></div>
-                <div class="leaf leaf-5"></div>
+                <div class="floral-item">
+                  <div class="rose rose-4"></div>
+                </div>
               </div>
             </div>
             
             <div class="floral-corner bottom-left">
               <div class="rose-cluster">
-                <div class="rose rose-6"></div>
-                <div class="rose rose-7"></div>
-                <div class="leaf leaf-6"></div>
-                <div class="leaf leaf-7"></div>
+                <div class="floral-item">
+                  <div class="rose rose-6"></div>
+                </div>
               </div>
             </div>
             
             <div class="floral-corner bottom-right">
               <div class="rose-cluster">
-                <div class="rose rose-8"></div>
-                <div class="rose rose-9"></div>
-                <div class="leaf leaf-8"></div>
-                <div class="leaf leaf-9"></div>
+                <div class="floral-item">
+                  <div class="rose rose-8"></div>
+                </div>
               </div>
             </div>
             
@@ -1044,32 +1038,31 @@ export default {
 /* Floral Corner Elements */
 .floral-corner {
   position: absolute;
+  width: 200px;   /* consistent across all 4 corners */
+  height: 200px;
   z-index: 2;
 }
 
-.floral-corner.top-left {
-  top: 5%;
-  left: 5%;
-  transform: rotate(-15deg);
+.floral-corner.top-left  { top: -10px; left: -10px; transform: rotate(-10deg); }
+.floral-corner.top-right { top: -10px; right: -10px; transform: rotate(10deg) scaleX(-1); }
+.floral-corner.bottom-left { bottom: -10px; left: -10px; transform: rotate(10deg); }
+.floral-corner.bottom-right { bottom: -10px; right: -7%; transform: rotate(-10deg, 10deg) scale(-1, -1); }
+
+/* === Corner rose graphics === */
+.rose {
+  position: absolute;
+  inset: 0;           /* fill the floral-corner box */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.95;
 }
 
-.floral-corner.top-right {
-  top: 8%;
-  right: 5%;
-  transform: rotate(15deg);
-}
-
-.floral-corner.bottom-left {
-  bottom: 8%;
-  left: 5%;
-  transform: rotate(-25deg);
-}
-
-.floral-corner.bottom-right {
-  bottom: 5%;
-  right: 5%;
-  transform: rotate(25deg);
-}
+/* Use different bouquets to avoid repetition */
+.floral-corner.top-left  .rose { background-image: url('../../../../assets/images/background/bunga2-1.png'); }
+.floral-corner.top-right .rose { background-image: url('../../../../assets/images/background/bunga2-2.png'); }
+.floral-corner.bottom-left  .rose { background-image: url('../../../../assets/images/background/bunga2-3.png'); }
+.floral-corner.bottom-right .rose { background-image: url('../../../../assets/images/background/bunga2-4.png'); }
 
 .rose-cluster {
   position: relative;
@@ -1077,45 +1070,41 @@ export default {
   height: 120px;
 }
 
-.rose {
+.floral-item {
   position: absolute;
-  width: 25px;
-  height: 25px;
-  background: radial-gradient(circle at 30% 30%, #FFB6C1, #FF69B4, #FF1493);
-  border-radius: 50%;
-  opacity: 0.8;
-  animation: float 6s ease-in-out infinite;
+  width: 100%;
+  height: 100%;
 }
 
 .rose-1 { top: 0; left: 0; animation-delay: 0s; }
-.rose-2 { top: 15px; left: 35px; animation-delay: 1s; }
-.rose-3 { top: 45px; left: 20px; animation-delay: 2s; }
-.rose-4 { top: 10px; left: 10px; animation-delay: 0.5s; }
-.rose-5 { top: 40px; left: 40px; animation-delay: 1.5s; }
-.rose-6 { top: 5px; left: 25px; animation-delay: 1.2s; }
-.rose-7 { top: 35px; left: 5px; animation-delay: 2.5s; }
-.rose-8 { top: 20px; left: 15px; animation-delay: 0.8s; }
-.rose-9 { top: 50px; left: 30px; animation-delay: 1.8s; }
+.rose-2 { top: 15px; left: 35px; animation-delay: 0.2s; }
+.rose-3 { top: 45px; left: 20px; animation-delay: 0.4s; }
+.rose-4 { top: 10px; left: 10px; animation-delay: 0.1s; }
+.rose-5 { top: 40px; left: 40px; animation-delay: 0.3s; }
+.rose-6 { top: 5px; left: 25px; animation-delay: 0.25s; }
+.rose-7 { top: 35px; left: 5px; animation-delay: 0.5s; }
+.rose-8 { top: 20px; left: 15px; animation-delay: 0.15s; }
+.rose-9 { top: 50px; left: 30px; animation-delay: 0.35s; }
 
 .leaf {
   position: absolute;
-  width: 20px;
-  height: 12px;
-  background: linear-gradient(45deg, #90EE90, #32CD32, #228B22);
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  opacity: 0.7;
-  animation: sway 4s ease-in-out infinite;
+  width: 28px;
+  height: 18px;
+  background: url('../../../../assets/images/background/bunga2-4.png') no-repeat center/contain;
+  border-radius: 0;
+  opacity: 0.85;
+  /* animation: float 6s ease-in-out infinite; */
 }
 
-.leaf-1 { top: 25px; left: 50px; transform: rotate(45deg); animation-delay: 0s; }
-.leaf-2 { top: 55px; left: 10px; transform: rotate(-30deg); animation-delay: 1s; }
-.leaf-3 { top: 70px; left: 45px; transform: rotate(60deg); animation-delay: 2s; }
-.leaf-4 { top: 30px; left: 60px; transform: rotate(-45deg); animation-delay: 0.5s; }
-.leaf-5 { top: 60px; left: 25px; transform: rotate(75deg); animation-delay: 1.5s; }
-.leaf-6 { top: 15px; left: 70px; transform: rotate(-15deg); animation-delay: 1.2s; }
-.leaf-7 { top: 45px; left: 80px; transform: rotate(30deg); animation-delay: 2.5s; }
-.leaf-8 { top: 25px; left: 85px; transform: rotate(-60deg); animation-delay: 0.8s; }
-.leaf-9 { top: 65px; left: 65px; transform: rotate(90deg); animation-delay: 1.8s; }
+.leaf-1 { top: 25px; left: 50px; animation-delay: 0.05s; }
+.leaf-2 { top: 55px; left: 10px; animation-delay: 0.25s; }
+.leaf-3 { top: 70px; left: 45px; animation-delay: 0.45s; }
+.leaf-4 { top: 30px; left: 60px; animation-delay: 0.12s; }
+.leaf-5 { top: 60px; left: 25px; animation-delay: 0.32s; }
+.leaf-6 { top: 15px; left: 70px; animation-delay: 0.18s; }
+.leaf-7 { top: 45px; left: 80px; animation-delay: 0.52s; }
+.leaf-8 { top: 25px; left: 85px; animation-delay: 0.22s; }
+.leaf-9 { top: 65px; left: 65px; animation-delay: 0.38s; }
 
 /* Gold Line Art Elements */
 .gold-line-art {
