@@ -260,6 +260,117 @@
             </div>
           </div>
 
+          <!-- Gallery Section -->
+          <div class="section-right gallery-section-right">
+            <h2 class="section-title">Gallery</h2>
+            <p class="gallery-desc">Our precious moments together</p>
+            
+            <div class="gallery-grid">
+              <div class="gallery-item">
+                <div class="gallery-placeholder">Photo 1</div>
+              </div>
+              <div class="gallery-item">
+                <div class="gallery-placeholder">Photo 2</div>
+              </div>
+              <div class="gallery-item">
+                <div class="gallery-placeholder">Photo 3</div>
+              </div>
+              <div class="gallery-item">
+                <div class="gallery-placeholder">Photo 4</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Love Story Section -->
+          <div class="section-right love-story-section-right">
+            <h2 class="section-title">Our Love Story</h2>
+            <p class="love-story-desc">Every love story is beautiful, but ours is my favorite.</p>
+            
+            <div class="love-story-timeline">
+              <div class="timeline-item">
+                <div class="timeline-date">2020</div>
+                <div class="timeline-content">
+                  <h3>First Meeting</h3>
+                  <p>We met for the first time and felt an instant connection.</p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-date">2021</div>
+                <div class="timeline-content">
+                  <h3>Dating</h3>
+                  <p>Our relationship grew stronger with each passing day.</p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-date">2023</div>
+                <div class="timeline-content">
+                  <h3>Engagement</h3>
+                  <p>We decided to spend our lives together forever.</p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-date">2024</div>
+                <div class="timeline-content">
+                  <h3>Wedding Day</h3>
+                  <p>The day we become one family.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gift Section -->
+          <div class="section-right gift-section-right">
+            <div class="gift-container">
+              <h2 class="gift-title">Tanda Kasih</h2>
+              <p class="gift-message">
+                Terima kasih telah menambah semangat kegembiraan pernikahan kami dengan kehadiran dan hadiah indah Anda.
+              </p>
+              
+              <div class="gift-options">
+                <button class="gift-option-btn cashless-btn" @click="selectGiftType('cashless')">Cashless</button>
+                <button class="gift-option-btn physical-btn" @click="selectGiftType('physical')">Kirim Kado</button>
+              </div>
+              
+              <!-- Cashless Section -->
+              <div v-if="giftType === 'cashless'" class="cashless-section">
+                <h3 class="cashless-title">Transfer Bank</h3>
+                <p class="cashless-message">
+                  Anda dapat melakukan transfer ke rekening berikut:
+                </p>
+                
+                <div class="bank-accounts">
+                  <div v-for="account in bankAccounts" :key="account.bank" class="bank-account">
+                    <div class="bank-row">
+                      <div class="flex">
+                        <div class="bank-logo" :class="`${account.logo}`">{{ account.bank }}</div>
+                      </div>
+                      <div class="account-details">
+                        <div class="account-number">{{ account.accountNumber }}</div>
+                        <button class="copy-btn" @click="copyAccountNumber(account.accountNumber, account.bank)">
+                          Salin Rekening
+                        </button>
+                        <div class="account-holder">{{ account.bank }} : {{ account.accountHolder }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Physical Gift Section -->
+              <div v-if="giftType === 'physical'" class="physical-gift-section">
+                <h3 class="physical-gift-title">Kirim Kado</h3>
+                <p class="physical-gift-address">
+                  Anda dapat mengirim kado ke:<br>
+                  <strong>{{ giftAddress.address }}<br>{{ giftAddress.city }} {{ giftAddress.postalCode }}</strong>
+                </p>
+                <button class="copy-address-btn" @click="copyAddress(`${giftAddress.address}, ${giftAddress.city} ${giftAddress.postalCode}`)">
+                  <i class="fas fa-copy"></i>
+                  Salin Alamat
+                </button>
+              </div>
+            </div>
+          </div>
+
           <!-- Wishes Section -->
           <div class="section-right wishes-section-right">
             <h2 class="section-title">Wishes</h2>
@@ -368,80 +479,6 @@
               </div>
             </div>
           </div>
-
-          <!-- Gift Section -->
-          <div class="section-right gift-section-right">
-            <div class="gift-container">
-              <h2 class="gift-title">Tanda Kasih</h2>
-              <p class="gift-message">
-                Terima kasih telah menambah semangat kegembiraan pernikahan kami dengan kehadiran dan hadiah indah Anda.
-              </p>
-              
-              <div class="gift-options">
-                <button class="gift-option-btn cashless-btn" @click="selectGiftType('cashless')">Cashless</button>
-                <button class="gift-option-btn physical-btn" @click="selectGiftType('physical')">Kirim Kado</button>
-              </div>
-              
-              <!-- Cashless Section -->
-              <div v-if="giftType === 'cashless'" class="cashless-section">
-                <h3 class="cashless-title">Transfer Bank</h3>
-                <p class="cashless-message">
-                  Anda dapat melakukan transfer ke rekening berikut:
-                </p>
-                
-                <div class="bank-accounts">
-                  <div v-for="account in bankAccounts" :key="account.bank" class="bank-account">
-                    <div class="bank-row">
-                      <div class="flex">
-                        <div class="bank-logo" :class="`${account.logo}`">{{ account.bank }}</div>
-                      </div>
-                      <div class="account-details">
-                        <div class="account-number">{{ account.accountNumber }}</div>
-                        <button class="copy-btn" @click="copyAccountNumber(account.accountNumber, account.bank)">
-                          Salin Rekening
-                        </button>
-                        <div class="account-holder">{{ account.bank }} : {{ account.accountHolder }}</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Physical Gift Section -->
-              <div v-if="giftType === 'physical'" class="physical-gift-section">
-                <h3 class="physical-gift-title">Kirim Kado</h3>
-                <p class="physical-gift-address">
-                  Anda dapat mengirim kado ke:<br>
-                  <strong>{{ giftAddress.address }}<br>{{ giftAddress.city }} {{ giftAddress.postalCode }}</strong>
-                </p>
-                <button class="copy-address-btn" @click="copyAddress(`${giftAddress.address}, ${giftAddress.city} ${giftAddress.postalCode}`)">
-                  <i class="fas fa-copy"></i>
-                  Salin Alamat
-                </button>
-              </div>
-            </div>
-          </div>
-
-            <!-- Gallery Section -->
-            <div class="section-right gallery-section-right">
-              <h2 class="section-title">Gallery</h2>
-              <p class="gallery-desc">Our precious moments together</p>
-              
-              <div class="gallery-grid">
-                <div class="gallery-item">
-                  <div class="gallery-placeholder">Photo 1</div>
-                </div>
-                <div class="gallery-item">
-                  <div class="gallery-placeholder">Photo 2</div>
-                </div>
-                <div class="gallery-item">
-                  <div class="gallery-placeholder">Photo 3</div>
-                </div>
-                <div class="gallery-item">
-                  <div class="gallery-placeholder">Photo 4</div>
-                </div>
-              </div>
-            </div>
 
           <!-- Thanks Section -->
             <div class="section-right thanks-section-right">
@@ -4287,5 +4324,156 @@ export default {
   z-index: 1;
   text-shadow: 2px 2px 4px rgba(139, 69, 19, 0.1);
 }
+/* Love Story Section Styling */
+.love-story-section-right {
+  background: linear-gradient(135deg, #FFF0F5 0%, #FFE5F1 100%);
+  border-radius: 30px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(255, 182, 193, 0.3);
+  border: 2px solid rgba(255, 182, 193, 0.2);
+  position: relative;
+  overflow: hidden;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.love-story-section-right .section-title {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #8B4513;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+  text-shadow: 2px 2px 4px rgba(139, 69, 19, 0.1);
+}
+
+.love-story-desc {
+  font-size: 1.1rem;
+  color: #8B4513;
+  margin-bottom: 2.5rem;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.love-story-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.timeline-item {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(206, 157, 203, 0.3);
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 25px rgba(206, 157, 203, 0.2);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.timeline-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(206, 157, 203, 0.4);
+  border-color: rgba(206, 157, 203, 0.6);
+}
+
+.timeline-date {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ce9dcb;
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', 'Georgia', serif;
+}
+
+.timeline-content h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #8B4513;
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', 'Georgia', serif;
+}
+
+.timeline-content p {
+  font-size: 1rem;
+  color: #8B4513;
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+/* Gallery Section Styling */
+.gallery-section-right {
+  background: linear-gradient(135deg, #FFF0F5 0%, #FFE5F1 100%);
+  border-radius: 30px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(255, 182, 193, 0.3);
+  border: 2px solid rgba(255, 182, 193, 0.2);
+  position: relative;
+  overflow: hidden;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gallery-section-right .section-title {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #8B4513;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+  text-shadow: 2px 2px 4px rgba(139, 69, 19, 0.1);
+}
+
+.gallery-desc {
+  font-size: 1.1rem;
+  color: #8B4513;
+  margin-bottom: 2.5rem;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.gallery-item {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(206, 157, 203, 0.3);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 25px rgba(206, 157, 203, 0.2);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(206, 157, 203, 0.4);
+  border-color: rgba(206, 157, 203, 0.6);
+}
+
+.gallery-placeholder {
+  font-size: 1.2rem;
+  color: #ce9dcb;
+  font-weight: 500;
+  font-family: 'Playfair Display', 'Georgia', serif;
+}
+
 /* Additional styles for new elements */
 </style>
