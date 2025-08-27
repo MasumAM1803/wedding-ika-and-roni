@@ -98,7 +98,7 @@
       <!-- Right Section - Photo and Formal Invitation (25-30% width) -->
       <div class="right-section">
           <!-- Initial State - Photo and Button -->
-          <div v-if="!isInvitationOpen" class="photo-section">
+          <div v-if="!isInvitationOpen" class="photo-section" :class="{ 'fade-out-up': isAnimatingOut }">
             <!-- Text Overlay -->
             <div class="text-overlay">
               <h3 class="overlay-title">The Wedding Of</h3>
@@ -517,6 +517,7 @@ export default {
       currentSection: 'hero',
       isInvitationOpen: false,
       showHeroContent: false, // Track when to show hero content (5 seconds before video ends)
+      isAnimatingOut: false, // Track fade-out animation
       giftType: 'cashless', // 'cashless' or 'physical' or null - default to cashless
       countdown: {
         days: 0,
@@ -681,8 +682,15 @@ export default {
     },
     
     openInvitation() {
-      this.isInvitationOpen = true
-      this.showHeroContent = false // Reset hero content state for new invitation
+      // Start the fade-out animation
+      this.isAnimatingOut = true
+      
+      // After animation completes, show the invitation content
+      setTimeout(() => {
+        this.isInvitationOpen = true
+        this.showHeroContent = false // Reset hero content state for new invitation
+        this.isAnimatingOut = false // Reset animation state
+      }, 800) // Animation duration matches CSS
     },
     
     onVideoTimeUpdate(event) {
@@ -1328,6 +1336,14 @@ export default {
   background-size: cover;
   text-align: center;
   padding: 2rem;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Fade out animation when opening invitation */
+.photo-section.fade-out-up {
+  opacity: 0;
+  transform: translateY(-100px);
+  filter: blur(5px);
 }
 
 .couple-photo {
@@ -4197,7 +4213,7 @@ export default {
 /* Alternative background image solutions for Vue.js */
 .right-section {
   /* Try these alternative paths if the relative path doesn't work */
-  background: url('../../../../assets/images/background/background-2.jpg') no-repeat center center;
+  background: url('../../../../assets/images/background/background.jpg') no-repeat center center;
   background-size: cover;
 }
 
@@ -4210,14 +4226,21 @@ export default {
   height: 100%;
   z-index: 1000;
   background: transparent;
+  animation: fadeInFromBelow 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-
-
-/* Content appears immediately without animation */
-.content-overlay {
-  opacity: 1;
-  transform: none;
+/* Fade in animation for content overlay */
+@keyframes fadeInFromBelow {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
 }
 
 /* Button positioning and styling */
