@@ -1436,7 +1436,8 @@ export default {
   margin-bottom: 1rem;
   color: #ce9dcb; /* Rich warm purple/lavender */
   font-weight: 600;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: .2rem;
 }
 
 .overlay-disclaimer {
