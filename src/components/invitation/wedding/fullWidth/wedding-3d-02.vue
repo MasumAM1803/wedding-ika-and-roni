@@ -1135,12 +1135,12 @@ export default {
   animation: shimmer 3s ease-in-out infinite;
 }
 
-.line-1 { transform: rotate(-15deg); animation-delay: 0s; }
+.line-1 { transform: rotate(-20deg); animation-delay: 0.3s; }
 .line-2 { transform: rotate(0deg); animation-delay: 0.5s; }
-.line-3 { transform: rotate(15deg); animation-delay: 1s; }
-.line-4 { transform: rotate(-20deg); animation-delay: 0.3s; }
-.line-5 { transform: rotate(0deg); animation-delay: 0.8s; }
-.line-6 { transform: rotate(20deg); animation-delay: 1.3s; }
+.line-3 { transform: rotate(15deg); animation-delay: 0.7s; }
+.line-4 { transform: rotate(-20deg); animation-delay: 1s; }
+.line-5 { transform: rotate(0deg); animation-delay: 1.2s; }
+.line-6 { transform: rotate(20deg); animation-delay: 1.5s; }
 
 /* Scattered Gold Glitter */
 .gold-glitter {
