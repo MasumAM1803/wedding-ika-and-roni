@@ -113,7 +113,8 @@
             </div>
             <!-- Open Invitation Button -->
             <button class="open-invitation-btn" :class="showInitialAnim ? 'zoom-in-step zoom-delay-3' : ''" @click="openInvitation">
-              <i class="fas fa-envelope"></i>
+              <i class="fas fa-envelope icon-closed"></i>
+              <i class="fas fa-envelope-open icon-open"></i>
               <span>Buka Undangan</span>
             </button>
          </div>
@@ -1490,12 +1491,18 @@ export default {
   min-width: 200px;
   text-align: center;
   margin: 2rem auto 0;
+  position: relative;
+  overflow: hidden;
 }
 
 .open-invitation-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 35px rgba(255, 107, 107, 0.6);
 }
+
+.open-invitation-btn .icon-open { display: none; }
+.open-invitation-btn:hover .icon-closed { display: none; }
+.open-invitation-btn:hover .icon-open { display: inline-block; }
 
 .full-invitation {
   position: fixed;
