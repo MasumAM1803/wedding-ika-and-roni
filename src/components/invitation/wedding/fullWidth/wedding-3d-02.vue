@@ -68,13 +68,13 @@
           
             <!-- Main Content -->
            <div class="invitation-content">
-             <h1 class="wedding-title">The Wedding Of</h1>
-             <div class="couple-names">
+             <h1 class="wedding-title" :class="[ showInitialAnim ? 'zoom-in-step zoom-delay-1' : '' ]">The Wedding Of</h1>
+             <div class="couple-names" :class="[ showInitialAnim ? 'zoom-in-step zoom-delay-2' : '' ]">
                <h2 class="bride-name">{{ wedding.couple.bride.shortName }}</h2>
                <span class="and-symbol">&</span>
                <h2 class="groom-name">{{ wedding.couple.groom.shortName }}</h2>
              </div>
-              <div class="wedding-date">
+              <div class="wedding-date" :class="[ showInitialAnim ? 'zoom-in-step zoom-delay-3' : '' ]">
                 <div class="date-year">{{ wedding.date.year }}</div>
                 <div class="date-main">
                   <span class="date-day">{{ wedding.date.day }}</span>
@@ -94,12 +94,12 @@
           <!-- Initial State - Photo and Button -->
           <div v-if="!isInvitationOpen" class="photo-section" :class="{ 'fade-out-up': isAnimatingOut }">
             <!-- Text Overlay -->
-            <div class="text-overlay">
-              <h3 class="overlay-title">The Wedding Of</h3>
-              <h2 class="overlay-couple">{{ wedding.couple.bride.shortName }} & {{ wedding.couple.groom.shortName }}</h2>
+            <div class="text-overlay" :class="{ 'zoom-in-init': showInitialAnim }">
+              <h3 class="overlay-title" :class="showInitialAnim ? 'zoom-in-step zoom-delay-1' : ''">The Wedding Of</h3>
+              <h2 class="overlay-couple" :class="showInitialAnim ? 'zoom-in-step zoom-delay-2' : ''">{{ wedding.couple.bride.shortName }} & {{ wedding.couple.groom.shortName }}</h2>
               
               <!-- Guest Welcome Section -->
-              <div v-if="currentGuest" class="guest-welcome">
+              <div v-if="currentGuest" class="guest-welcome" :class="showInitialAnim ? 'zoom-in-step zoom-delay-3' : ''">
                 <p class="overlay-greeting">Kepada Yth.</p>
                 <p class="overlay-recipient">Bapak/Ibu/Saudara/i</p>
                 <p class="overlay-guest">{{ currentGuest.fullName }}</p>
@@ -112,7 +112,7 @@
               </div>
             </div>
             <!-- Open Invitation Button -->
-            <button class="open-invitation-btn" @click="openInvitation">
+            <button class="open-invitation-btn" :class="showInitialAnim ? 'zoom-in-step zoom-delay-3' : ''" @click="openInvitation">
               <i class="fas fa-envelope"></i>
               <span>Buka Undangan</span>
             </button>
@@ -539,6 +539,7 @@ export default {
       quotes: weddingConfig.quotes,
       settings: weddingConfig.settings,
              guest: guestsData.guests,
+      showInitialAnim: true,
     }
   },
   computed: {
@@ -579,6 +580,8 @@ export default {
     this.initializeData()
     this.startCountdown()
     this.scrollToActiveButton()
+    // automatically clear flag after 1.2s to avoid re-triggering on rerender
+    setTimeout(()=>{ this.showInitialAnim = false }, 1500)
   },
   updated() {
     this.scrollToActiveButton()
@@ -676,15 +679,13 @@ export default {
     },
     
     openInvitation() {
-      // Start the fade-out animation
       this.isAnimatingOut = true
-      
-      // After animation completes, show the invitation content
+      this.showInitialAnim = false // stop initial zoom anim once button clicked
       setTimeout(() => {
         this.isInvitationOpen = true
-        this.showHeroContent = false // Reset hero content state for new invitation
-        this.isAnimatingOut = false // Reset animation state
-      }, 800) // Animation duration matches CSS
+        this.showHeroContent = false
+        this.isAnimatingOut = false
+      }, 800)
     },
     
     onVideoTimeUpdate(event) {
@@ -1209,8 +1210,7 @@ export default {
   font-size: 1rem;
   font-weight: 400;
   margin-bottom: 0.5rem;
-  opacity: 0;
-  animation: fadeInUp 1s ease-out 0.5s forwards;
+  opacity: 1;
   color: #8B0000;
 }
 
@@ -1219,16 +1219,14 @@ export default {
   font-weight: 400;
   font-family: 'Paper Tiger', 'Cormorant Garamond', 'Crimson Text', 'Playfair Display', serif;
   margin-bottom: 2rem;
-  opacity: 0;
-  animation: fadeInUp 1s ease-out 0.7s forwards;
+  opacity: 1;
   color: #8B0000;
   letter-spacing: 0.05em;
 }
 
 .couple-names {
   margin-bottom: 3rem;
-  opacity: 0;
-  animation: fadeInUp 1s ease-out 1s forwards;
+  opacity: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1256,7 +1254,6 @@ export default {
 }
 
 .wedding-date {
-  animation: slideInUp 1s ease-out 0.6s both;
   text-align: center;
   margin-top: 1rem;
 }
@@ -1643,10 +1640,6 @@ export default {
   font-size: 2.5rem;
   margin: 0 1rem;
   opacity: 0.8;
-}
-
-.wedding-date {
-  animation: slideInUp 1s ease-out 0.6s both;
 }
 
 .date-text {
@@ -4488,4 +4481,15 @@ export default {
 }
 
 /* Additional styles for new elements */
+
+/* ==== Initial Zoom-In Animation (before invite opened) ==== */
+@keyframes zoomInFade {
+  0%{opacity:0;transform:scale(0.8)}
+  60%{opacity:1;transform:scale(1.05)}
+ 100%{opacity:1;transform:scale(1)}
+}
+.zoom-in-step{animation:zoomInFade .8s ease-out both}
+.zoom-delay-1{animation-delay:0s}
+.zoom-delay-2{animation-delay:.35s}
+.zoom-delay-3{animation-delay:.7s}
 </style>
