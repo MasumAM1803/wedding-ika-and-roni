@@ -492,6 +492,17 @@
         </div>
       </div>
     </div>
+    <!-- Background music element and floating toggle button -->
+    <audio ref="bgMusic" src="@/assets/music/background.mp3" loop></audio>
+    <button
+      v-if="isInvitationOpen"
+      class="music-toggle-btn"
+      :class="{ playing: isMusicPlaying }"
+      @click="toggleMusic"
+    >
+      <i class="fas fa-music icon-music"></i>
+      <i class="fas fa-pause icon-pause"></i>
+    </button>
   </div>
  </template>
 
@@ -541,6 +552,7 @@ export default {
       settings: weddingConfig.settings,
              guest: guestsData.guests,
       showInitialAnim: true,
+      isMusicPlaying: false,
     }
   },
   computed: {
@@ -687,6 +699,14 @@ export default {
         this.showHeroContent = false
         this.isAnimatingOut = false
       }, 800)
+      // Ensure music starts when invitation opens
+      this.$nextTick(() => {
+        const audio = this.$refs.bgMusic;
+        if (audio && !this.isMusicPlaying) {
+          audio.play();
+          this.isMusicPlaying = true;
+        }
+      });
     },
     
     onVideoTimeUpdate(event) {
@@ -967,7 +987,17 @@ export default {
           }
         }, 300)
       }, 3000)
-    }
+    },
+    toggleMusic() {
+      const audio = this.$refs.bgMusic;
+      if (!audio) return;
+      if (this.isMusicPlaying) {
+        audio.pause();
+      } else {
+        audio.play();
+      }
+      this.isMusicPlaying = !this.isMusicPlaying;
+    },
   }
 }
 </script>
@@ -4500,4 +4530,37 @@ export default {
 .zoom-delay-1{animation-delay:0s}
 .zoom-delay-2{animation-delay:.35s}
 .zoom-delay-3{animation-delay:.7s}
+
+/* ================= Music Toggle Button ================= */
+.music-toggle-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(206, 157, 203, 0.9); /* lavender semi-transparent */
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease;
+}
+.music-toggle-btn:hover {
+  transform: scale(1.1);
+}
+.music-toggle-btn .icon-pause {
+  display: none;
+}
+.music-toggle-btn.playing .icon-music {
+  display: none;
+}
+.music-toggle-btn.playing .icon-pause {
+  display: inline-block;
+}
 </style>
