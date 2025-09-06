@@ -54,6 +54,10 @@
       "destination": "/api/guest.js"
     },
     {
+      "source": "/api/guest/:slug",
+      "destination": "/api/guest/[slug].js"
+    },
+    {
       "source": "/api/wishes",
       "destination": "/api/wishes.js"
     },
