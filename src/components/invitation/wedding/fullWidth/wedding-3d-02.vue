@@ -1974,7 +1974,7 @@ export default {
 .instagram-btn {
   background: linear-gradient(135deg, #F5DEB3, #DEB887);
   color: #8B0000;
-  border: 2px solid #ce9dcb;
+  border: 2px solid rgba(235, 202, 118, 0.4);
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
@@ -2009,7 +2009,7 @@ export default {
 .instagram-btn-profile {
   background: linear-gradient(135deg, #F5DEB3, #DEB887);
   color: #8B0000;
-  border: 2px solid #ce9dcb;
+  border: 2px solid rgba(235, 202, 118, 0.4);
   padding: 0.6rem 1.25rem;
   font-size: 0.9rem;
   font-weight: 600;
