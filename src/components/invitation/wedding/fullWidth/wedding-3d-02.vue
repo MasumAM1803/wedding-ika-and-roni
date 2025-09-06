@@ -256,7 +256,7 @@
           </div>
 
           <!-- Gallery Section -->
-          <div class="section-right gallery-section-right">
+          <!-- <div class="section-right gallery-section-right">
             <h2 class="section-title">Gallery</h2>
             <p class="gallery-desc">Our precious moments together</p>
             
@@ -274,7 +274,7 @@
                 <div class="gallery-placeholder">Photo 4</div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- Love Story Section -->
           <div class="section-right love-story-section-right">
@@ -297,14 +297,14 @@
                 </div>
               </div>
               <div class="timeline-item">
-                <div class="timeline-date">2023</div>
+                <div class="timeline-date">2024</div>
                 <div class="timeline-content">
                   <h3>Engagement</h3>
                   <p>We decided to spend our lives together forever.</p>
                 </div>
               </div>
               <div class="timeline-item">
-                <div class="timeline-date">2024</div>
+                <div class="timeline-date">2025</div>
                 <div class="timeline-content">
                   <h3>Wedding Day</h3>
                   <p>The day we become one family.</p>
@@ -337,7 +337,10 @@
                   <div v-for="account in bankAccounts" :key="account.bank" class="bank-account">
                     <div class="bank-row">
                       <div class="flex">
-                        <div class="bank-logo" :class="`${account.logo}`">{{ account.bank }}</div>
+                        <!-- Display bank logo image for consistent branding -->
+                        <div class="bank-logo">
+                          <img :src="getLogoUrl(account.img)" :alt="account.bank + ' logo'" />
+                        </div>
                       </div>
                       <div class="account-details">
                         <div class="account-number">{{ account.accountNumber }}</div>
@@ -600,6 +603,11 @@ export default {
     this.scrollToActiveButton()
   },
   methods: {
+    getLogoUrl(filename) {
+      // Dynamically resolve the logo path so Vite can include it in the bundle
+      // The path is relative to this component file
+      return new URL(`../../../../assets/images/logo/${filename}`, import.meta.url).href;
+    },
     async checkGuestFromRoute() {
       // Get the guest slug from route parameters
       const guestSlug = this.$route.params.slug || this.slug
@@ -2788,26 +2796,26 @@ export default {
 }
 
 .bank-logo {
-  padding: 1.25rem 1.5rem;
-  border-radius: 4px;
-  font-weight: 700;
-  font-size: 1rem;
-  color: white;
-  min-width: 80px;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.bca-logo {
-  background: linear-gradient(135deg, #1E40AF, #3B82F6);
+/* Ensure logo images have consistent width and remain responsive */
+.bank-logo img {
+  width: 80px; /* fixed width for consistency */
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
-.btn-logo {
-  background: linear-gradient(135deg, #059669, #10B981);
+/* Legacy gradient classes kept for backward compatibility but no longer used */
+.bca-logo, .btn-logo, .mandiri-logo {
+  display: none;
 }
 
    /* Cashless Section */

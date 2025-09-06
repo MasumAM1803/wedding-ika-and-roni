@@ -34,16 +34,18 @@
   },
   "bankAccounts": [
     {
-      "bank": "BCA",
+      "bank": "Mandiri",
       "accountNumber": "12345678",
       "accountHolder": "Ika Riyanti Erwina",
-      "logo": "bca-logo"
+      "logo": "mandiri-logo",
+      "img": "mandiri.png"
     },
     {
-      "bank": "BTN",
+      "bank": "BCA",
       "accountNumber": "87654321",
       "accountHolder": "Roni Septiyan",
-      "logo": "btn-logo"
+      "logo": "bca-logo",
+      "img": "bca.png"
     }
   ],
   "giftAddress": {
