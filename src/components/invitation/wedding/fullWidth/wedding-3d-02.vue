@@ -3710,7 +3710,7 @@ export default {
    }
 
    .account-number {
-     font-size: 2rem;
+     font-size: 1.5rem;
      text-align: center;
    }
 
@@ -4307,6 +4307,9 @@ export default {
   border-width: 2px;
   position: relative;
   overflow: hidden;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .thanks-desc {
@@ -4325,6 +4328,7 @@ export default {
 }
 
 .signature {
+  margin-top: 1rem;
   margin-bottom: 3rem;
   animation: fadeInScale 1s ease-out 0.3s both;
 }
@@ -4337,6 +4341,7 @@ export default {
 }
 
 .signature h3 {
+  margin-top: 1rem;
   font-size: 2rem;
   font-weight: 700;
   color: #FF69B4;
