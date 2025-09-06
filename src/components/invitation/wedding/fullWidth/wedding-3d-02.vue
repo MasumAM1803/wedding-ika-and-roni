@@ -2662,8 +2662,9 @@ export default {
 
 /* New Gift Section Styles */
 .gift-section-right {
-  max-width: 90%;
-  margin: 0 auto 2rem auto;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -2676,6 +2677,7 @@ export default {
   padding: 4rem 3rem;
   text-align: center;
   max-width: 600px;
+  max-width: 100%;
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -4297,12 +4299,12 @@ export default {
 
 .thanks-section-right {
   background: linear-gradient(20deg, rgba(255, 240, 245, 0.95) 0%, rgba(255, 228, 225, 0.95) 100%);
-  border-radius: 0 0 30px 30px;
+  border-radius: 30px;
   padding: 2.5rem 2rem;
   box-shadow: 0 20px 40px rgba(139, 69, 19, 0.15);
   border-style: solid;
   border-color: rgba(255, 182, 193, 0.3);
-  border-width: 0 2px 2px 2px;
+  border-width: 2px;
   position: relative;
   overflow: hidden;
 }
