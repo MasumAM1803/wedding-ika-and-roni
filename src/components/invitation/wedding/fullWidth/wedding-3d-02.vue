@@ -1598,7 +1598,7 @@ export default {
   font-size: 3rem;
   font-weight: 700;
   margin: 0.25rem 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); */
   color: #ce9dcb;
 }
 
