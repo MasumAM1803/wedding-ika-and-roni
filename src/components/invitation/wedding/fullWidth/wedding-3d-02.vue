@@ -2813,6 +2813,7 @@ export default {
   max-width: 100%;
   height: auto;
   object-fit: contain;
+  border-radius: 6px; /* rounded edges for logo images */
 }
 
 /* Legacy gradient classes kept for backward compatibility but no longer used */
