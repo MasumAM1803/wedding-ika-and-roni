@@ -5,8 +5,9 @@ export default defineConfig({
   plugins: [vue()],
   server: {
     port: 3000,
-    open: true
   },
+  // Ensure Vite treats mp3 files as static assets
+  assetsInclude: ['**/*.mp3'],
   build: {
     outDir: 'dist',
     assetsDir: 'assets',

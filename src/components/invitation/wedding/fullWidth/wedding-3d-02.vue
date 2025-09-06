@@ -496,7 +496,7 @@
       </div>
     </div>
     <!-- Background music element and floating toggle button -->
-    <audio ref="bgMusic" src="@/assets/music/background.mp3" loop></audio>
+    <audio ref="bgMusic" :src="audioSrc" loop></audio>
     <button
       v-if="isInvitationOpen"
       class="music-toggle-btn"
@@ -513,6 +513,7 @@
 import wishesData from '../../../../assets/data/wishes.json'
 import weddingConfig from '../../../../assets/data/wedding-config.json'
 import guestsData from '../../../../assets/data/guests.json'
+import adatSundaAudio from '../../../../assets/audio/adat-sunda.mp3'
 export default {
   name: 'Wedding3D02FullWidth',
   props: {
@@ -556,6 +557,7 @@ export default {
              guest: guestsData.guests,
       showInitialAnim: true,
       isMusicPlaying: false,
+      audioSrc: adatSundaAudio,
     }
   },
   computed: {
