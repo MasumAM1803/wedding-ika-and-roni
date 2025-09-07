@@ -322,8 +322,16 @@
               </p>
               
               <div class="gift-options">
-                <button class="gift-option-btn cashless-btn" @click="selectGiftType('cashless')">Cashless</button>
-                <button class="gift-option-btn physical-btn" @click="selectGiftType('physical')">Kirim Kado</button>
+                <button
+                  class="gift-option-btn cashless-btn"
+                  :class="{ inactive: giftType !== 'cashless' }"
+                  @click="selectGiftType('cashless')"
+                >Cashless</button>
+                <button
+                  class="gift-option-btn physical-btn"
+                  :class="{ inactive: giftType !== 'physical' }"
+                  @click="selectGiftType('physical')"
+                >Kirim Kado</button>
               </div>
               
               <!-- Cashless Section -->
@@ -4580,5 +4588,20 @@ export default {
 }
 .music-toggle-btn.playing .icon-pause {
   display: inline-block;
+}
+
+/* Inactive (not selected) state */
+.cashless-btn.inactive {
+  background: #ffffff;
+  color: #FF69B4;
+  border: 2px solid rgba(255, 105, 180, 0.3);
+  box-shadow: 0 2px 6px rgba(255, 105, 180, 0.15);
+}
+
+.physical-btn.inactive {
+  background: #ffffff;
+  color: #ce9dcb;
+  border: 2px solid rgba(206, 157, 203, 0.3);
+  box-shadow: 0 2px 6px rgba(206, 157, 203, 0.15);
 }
 </style>
