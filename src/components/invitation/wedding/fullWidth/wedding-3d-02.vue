@@ -105,7 +105,7 @@
                 <p class="overlay-guest">{{ currentGuest.fullName }}</p>
               </div>
               <!-- Default Greeting (when no specific guest) -->
-              <div v-else>
+              <div v-else class="guest-welcome zoom-in-step zoom-delay-3">
                 <p class="overlay-greeting">Kepada Yth.</p>
                 <p class="overlay-recipient">Bapak/Ibu/Saudara/i</p>
                 <p class="overlay-disclaimer">*Mohon maaf jika ada kesalahan dalam penulisan nama / gelar.</p>
@@ -232,6 +232,31 @@
             <h2 class="section-title">Events</h2>
             <div class="event-card">
               <h3 class="event-title">AKAD NIKAH</h3>
+              <div class="event-date">
+                <div class="date-main">{{ wedding.akad.date.split(', ')[0] }}</div>
+                <div class="date-number">{{ wedding.akad.date.split(', ')[1].split(' ')[1] }}</div>
+                <div class="date-month-year">
+                  <span class="month">{{ wedding.akad.date.split(', ')[1].split(' ')[2].toUpperCase() }}</span>
+                  <span class="year">{{ wedding.akad.date.split(', ')[1].split(' ')[3] }}</span>
+                </div>
+                <div class="event-time">
+                  <i class="fas fa-clock"></i>
+                  {{ wedding.akad.time }}
+                </div>
+              </div>
+              <div class="event-location">
+                <h4>Lokasi Acara</h4>
+                <p><strong>{{ wedding.akad.location }}</strong><br>{{ wedding.akad.address }}</p>
+                <button class="maps-btn" @click="openMaps(`${wedding.akad.location}, ${wedding.akad.address}`)">
+                  <i class="fas fa-map-marker-alt"></i>
+                  Google Maps
+                </button>
+              </div>
+            </div>
+
+            <!-- Resepsi Section -->
+            <div class="event-card mt-8">
+              <h3 class="event-title">RESEPSI</h3>
               <div class="event-date">
                 <div class="date-main">{{ wedding.akad.date.split(', ')[0] }}</div>
                 <div class="date-number">{{ wedding.akad.date.split(', ')[1].split(' ')[1] }}</div>

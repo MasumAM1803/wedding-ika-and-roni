@@ -4,7 +4,7 @@
       "bride": {
         "name": "Ika Riyanti Erwina",
         "shortName": "IKA",
-        "parents": "Bapak Erwin dan Ibu Ai",
+        "parents": "Bapak Erwin dan Ibu Ucu Damilah",
         "instagram": "@ikariyanti"
       },
       "groom": {
@@ -26,7 +26,13 @@
       "date": "Jum'at, 03 Oktober 2025",
       "time": "08:00 WIB",
       "location": "Gedung Serba Guna",
-      "address": "Jl. Sumedang"
+      "address": "Jl. Citali - Rancakalong KM. 11 Dsn. Ciherang, RT.02/RW.03, Pasir Biru, Kec. Rancakalong, Kabupaten Sumedang, Jawa Barat 45361"
+    },
+    "resepsi": {
+      "date": "Jum'at, 03 Oktober 2025",
+      "time": "10:00 WIB",
+      "location": "Gedung Serba Guna",
+      "address": "Jl. Citali - Rancakalong KM. 11 Dsn. Ciherang, RT.02/RW.03, Pasir Biru, Kec. Rancakalong, Kabupaten Sumedang, Jawa Barat 45361"
     },
     "countdown": {
       "targetDate": "2025-10-03T07:00:00"
@@ -35,23 +41,23 @@
   "bankAccounts": [
     {
       "bank": "Mandiri",
-      "accountNumber": "12345678",
-      "accountHolder": "Ika Riyanti Erwina",
+      "accountNumber": "1300023743472",
+      "accountHolder": "IKARIYANTI ERWINA",
       "logo": "mandiri-logo",
       "img": "mandiri.png"
     },
     {
       "bank": "BCA",
-      "accountNumber": "87654321",
-      "accountHolder": "Roni Septiyan",
+      "accountNumber": "3370392446",
+      "accountHolder": "RONI SEPTIYAN",
       "logo": "bca-logo",
       "img": "bca.png"
     }
   ],
   "giftAddress": {
-    "address": "Jl. Ciganitri",
-    "city": "Kabupaten Bandung",
-    "postalCode": "40200"
+    "address": "Jl. Ciganitri, Cipagalo",
+    "city": "Kec. Bojongsoang, Kabupaten Bandung",
+    "postalCode": "40287"
   },
   "quotes": {
     "main": "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang.",
