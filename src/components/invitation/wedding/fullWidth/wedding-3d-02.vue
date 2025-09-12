@@ -1364,7 +1364,7 @@ export default {
 }
 
 .date-number {
-  font-size: 3.6rem;
+  font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
   font-family: 'Playfair Display', 'Georgia', serif;
