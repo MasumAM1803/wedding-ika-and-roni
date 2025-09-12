@@ -258,21 +258,21 @@
             <div class="event-card mt-8">
               <h3 class="event-title">RESEPSI</h3>
               <div class="event-date">
-                <div class="date-main">{{ wedding.akad.date.split(', ')[0] }}</div>
-                <div class="date-number">{{ wedding.akad.date.split(', ')[1].split(' ')[1] }}</div>
+                <div class="date-main">{{ wedding.resepsi.date.split(', ')[0] }}</div>
+                <div class="date-number">{{ wedding.resepsi.date.split(', ')[1].split(' ')[1] }}</div>
                 <div class="date-month-year">
-                  <span class="month">{{ wedding.akad.date.split(', ')[1].split(' ')[2].toUpperCase() }}</span>
-                  <span class="year">{{ wedding.akad.date.split(', ')[1].split(' ')[3] }}</span>
+                  <span class="month">{{ wedding.resepsi.date.split(', ')[1].split(' ')[2].toUpperCase() }}</span>
+                  <span class="year">{{ wedding.resepsi.date.split(', ')[1].split(' ')[3] }}</span>
                 </div>
                 <div class="event-time">
                   <i class="fas fa-clock"></i>
-                  {{ wedding.akad.time }}
+                  {{ wedding.resepsi.time }}
                 </div>
               </div>
               <div class="event-location">
                 <h4>Lokasi Acara</h4>
-                <p><strong>{{ wedding.akad.location }}</strong><br>{{ wedding.akad.address }}</p>
-                <button class="maps-btn" @click="openMaps(`${wedding.akad.location}, ${wedding.akad.address}`)">
+                <p><strong>{{ wedding.resepsi.location }}</strong><br>{{ wedding.resepsi.address }}</p>
+                <button class="maps-btn" @click="openMaps(`${wedding.resepsi.location}, ${wedding.resepsi.address}`)">
                   <i class="fas fa-map-marker-alt"></i>
                   Google Maps
                 </button>
