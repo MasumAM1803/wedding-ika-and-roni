@@ -2731,7 +2731,7 @@ export default {
 }
 
 .gift-title {
-  font-size: 3rem;
+  font-size: 1.75rem;
   font-weight: 700;
   color: #8B0000;
   margin-bottom: 2rem;
@@ -3620,7 +3620,7 @@ export default {
     }
 
   .section-title {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
   }
 
      .quote-text {
@@ -3690,7 +3690,7 @@ export default {
    }
 
    .date-number {
-     font-size: 3rem;
+     font-size: 1.75rem;
    }
 
    .date-main {
@@ -3698,7 +3698,7 @@ export default {
    }
 
    .month, .year {
-     font-size: 1rem;
+     font-size: 1.25rem;
    }
 
    .event-time {
@@ -3719,7 +3719,7 @@ export default {
    }
 
    .gift-title {
-     font-size: 2.5rem;
+     font-size: 1.75rem;
    }
 
    .gift-message {
@@ -3743,7 +3743,7 @@ export default {
    }
 
    .account-number {
-     font-size: 1.5rem;
+     font-size: 1.2rem;
      text-align: center;
    }
 
@@ -4410,7 +4410,7 @@ export default {
 
 .countdown-section-right .section-title {
   font-family: 'Playfair Display', 'Georgia', serif;
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   font-weight: 300;
   color: #8B4513;
   margin-bottom: 2.5rem;
@@ -4435,7 +4435,7 @@ export default {
 
 .love-story-section-right .section-title {
   font-family: 'Playfair Display', 'Georgia', serif;
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   font-weight: 300;
   color: #8B4513;
   margin-bottom: 1.5rem;
@@ -4517,7 +4517,7 @@ export default {
 
 .gallery-section-right .section-title {
   font-family: 'Playfair Display', 'Georgia', serif;
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   font-weight: 300;
   color: #8B4513;
   margin-bottom: 1.5rem;
@@ -4628,5 +4628,9 @@ export default {
   color: #ce9dcb;
   border: 2px solid rgba(206, 157, 203, 0.3);
   box-shadow: 0 2px 6px rgba(206, 157, 203, 0.15);
+}
+
+p {
+  font-size: .875rem !important;
 }
 </style>
