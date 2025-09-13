@@ -125,7 +125,7 @@
               <!-- Hero Section -->
               <div class="hero-section-right">
                 <video class="hero-video-bg" autoplay muted playsinline @ended="onVideoEnded" @timeupdate="onVideoTimeUpdate">
-                  <source src="../../../../assets/videos/background/background-1.mp4" type="video/mp4">
+                  <source src="../../../../assets/videos/background/background-2.mp4" type="video/mp4">
                 </video>
                 <div v-if="showHeroContent" class="hero-content">
                   <h1 class="hero-title">The Wedding Of</h1>
@@ -758,11 +758,9 @@ export default {
     openInvitation() {
       this.isAnimatingOut = true
       this.showInitialAnim = false // stop initial zoom anim once button clicked
-      setTimeout(() => {
-        this.isInvitationOpen = true
-        this.showHeroContent = false
-        this.isAnimatingOut = false
-      }, 800)
+      this.isInvitationOpen = true
+      this.showHeroContent = false
+      this.isAnimatingOut = false
       // Ensure music starts when invitation opens
       this.$nextTick(() => {
         const audio = this.$refs.bgMusic;
@@ -779,7 +777,7 @@ export default {
       const duration = video.duration;
       
       // Show hero content 5 seconds before video ends
-      if (duration > 0 && (duration - currentTime) <= 12 && !this.showHeroContent) {
+      if (duration > 0 && (duration - currentTime) <= 18 && !this.showHeroContent) {
         this.showHeroContent = true;
         console.log('Showing hero content 5 seconds before video ends');
       }
@@ -1105,7 +1103,7 @@ p {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  background: url('../../../../assets/images/background/background-2.jpg') no-repeat center center;
+  background: url('../../../../assets/images/background/background-4.png') no-repeat center center;
   background-size: cover;
 }
 
@@ -1143,10 +1141,10 @@ p {
   z-index: 2;
 }
 
-.floral-corner.top-left  { top: -10px; left: -10px; transform: rotate(-10deg); }
-.floral-corner.top-right { top: -10px; right: -10px; transform: rotate(10deg) scaleX(-1); }
-.floral-corner.bottom-left { bottom: -10px; left: -10px; transform: rotate(10deg); }
-.floral-corner.bottom-right { bottom: -10px; right: -7%; transform: rotate(-10deg, 10deg) scale(-1, -1); }
+.floral-corner.top-left  { top: -10px; left: 20px; }
+.floral-corner.top-right { top: -10px; right: -70px; transform: scale(1.2); }
+.floral-corner.bottom-left { bottom: -10px; left: 0px;}
+.floral-corner.bottom-right { bottom: -10px; right: -70px; }
 
 /* === Corner rose graphics === */
 .rose {
@@ -1417,7 +1415,7 @@ p {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(255, 240, 245, 0.8) 0%, rgba(255, 228, 225, 0.8) 100%), url('../../../../assets/images/background/background-1.jpg') no-repeat center center;
+  background: linear-gradient(135deg, rgba(255, 240, 245, 0.8) 0%, rgba(255, 228, 225, 0.8) 100%), url('../../../../assets/images/background/background-4.png') no-repeat center center;
   background-size: cover;
   text-align: center;
   padding: 2rem;
