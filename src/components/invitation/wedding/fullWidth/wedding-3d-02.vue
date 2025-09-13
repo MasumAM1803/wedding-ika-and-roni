@@ -280,6 +280,18 @@
             </div>
           </div>
 
+          <!-- Dresscode Section -->
+          <div class="section-right dresscode-section-right">
+            <div class="dresscode-card">
+              <h2 class="section-title">Dresscode</h2>
+              <p class="dresscode-desc">Kami dengan hormat menganjurkan tamu kami untuk mengenakan warna-warna ini untuk hari istimewa kami.</p>
+              <div class="dresscode-colors">
+                <div class="color-circle color-primary"></div>
+                <div class="color-circle color-secondary"></div>
+              </div>
+            </div>
+          </div>
+
           <!-- Gallery Section -->
           <!-- <div class="section-right gallery-section-right">
             <h2 class="section-title">Gallery</h2>
@@ -1046,6 +1058,10 @@ export default {
 </script>
 
 <style scoped>
+p {
+  font-size: .875rem !important;
+}
+
 .wedding-invitation-02 {
   min-height: 100vh;
   width: 100%;
@@ -1506,7 +1522,7 @@ export default {
 }
 
 .overlay-guest {
-  font-size: 1.4rem;
+  font-size: 1.4rem !important;
   margin-bottom: 1rem;
   color: #ce9dcb; /* Rich warm purple/lavender */
   font-weight: 600;
@@ -2154,12 +2170,12 @@ export default {
   
   .profile-desc-arch,
   .profile-parents-arch {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
   
   .instagram-btn {
     padding: 0.6rem 1.25rem;
-    font-size: 0.9rem;
+    font-size: 1.25rem;
     min-width: 140px;
   }
   
@@ -2312,7 +2328,7 @@ export default {
 }
 
 .event-title {
-  font-size: 1.8rem;
+  font-size: 1.75rem;
   font-weight: 700;
   margin-bottom: 2rem;
   color: #8B0000;
@@ -3533,7 +3549,7 @@ export default {
    }
    
    .overlay-guest {
-     font-size: 1.2rem;
+     font-size: 1.15rem !important;
      margin-bottom: 0.75rem;
    }
 
@@ -3542,12 +3558,12 @@ export default {
      margin-bottom: 1.5rem;
    }
 
-                       .open-invitation-btn {
-       padding: 1rem 2.5rem;
-       font-size: 1.1rem;
+    .open-invitation-btn {
+       padding: .75rem 1.25rem;
+       font-size: 1rem;
        position: relative;
        width: 100%;
-       max-width: 250px;
+       max-width: 220px;
        min-width: 200px;
        display: flex;
        align-items: center;
@@ -3622,10 +3638,6 @@ export default {
   .section-title {
     font-size: 1.75rem;
   }
-
-     .quote-text {
-     font-size: 1rem;
-   }
    
    /* Mobile Quote Card Styles */
    .quote-card {
@@ -3677,7 +3689,7 @@ export default {
   }
 
   .countdown-number {
-    font-size: 1.8rem;
+    font-size: 1.75rem;
   }
   
   .event-card {
@@ -3686,11 +3698,11 @@ export default {
    }
 
    .event-title {
-     font-size: 1.5rem;
+     font-size: 1.25rem;
    }
 
    .date-number {
-     font-size: 1.75rem;
+     font-size: 1.45rem;
    }
 
    .date-main {
@@ -4375,7 +4387,7 @@ export default {
 
 .signature h3 {
   margin-top: 1rem;
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 700;
   color: #FF69B4;
 }
@@ -4630,7 +4642,49 @@ export default {
   box-shadow: 0 2px 6px rgba(206, 157, 203, 0.15);
 }
 
-p {
-  font-size: .875rem !important;
+/* Dresscode Section Styles */
+.dresscode-section-right {
+  text-align: center;
 }
+
+.dresscode-desc {
+  margin-bottom: 1.5rem;
+}
+
+.dresscode-colors {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.color-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.color-primary {
+  background: #e08a90; /* soft pink */
+}
+
+.color-secondary {
+  background: #ffffff;
+  border: 1px solid #ddd;
+}
+
+.dresscode-card {
+  max-width: 90%;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 25px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border: 2px solid rgba(255, 182, 193, 0.4);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
+  animation: fadeInScale 0.5s ease-out;
+  position: relative;
+  z-index: 2;
+}
+
 </style>
