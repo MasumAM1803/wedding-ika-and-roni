@@ -379,20 +379,25 @@
                 </p>
                 
                 <div class="bank-accounts">
-                  <div v-for="account in bankAccounts" :key="account.bank" class="bank-account">
-                    <div class="bank-row">
-                      <div class="flex">
-                        <!-- Display bank logo image for consistent branding -->
-                        <div class="bank-logo">
-                          <img :src="getLogoUrl(account.img)" :alt="account.bank + ' logo'" />
+                  <div v-for="account in bankAccounts" :key="account.bank" class="bank-card">
+                    <!-- Header -->
+                    <div class="bank-card-header">
+                      <img class="bank-logo-img" :src="getLogoUrl(account.img)" :alt="account.bank + ' logo'" />
+                      <img class="chip-img" :src="chipImg" alt="chip" />
+                    </div>
+
+                    <!-- Body -->
+                    <div class="bank-card-body">
+                      <p class="label">No Rekening</p>
+                      <p class="account-number">{{ account.accountNumber }}</p>
+                      <div class="holder-row">
+                        <div class="holder-text">
+                          <p class="label">Atas Nama</p>
+                          <p class="account-holder">{{ account.accountHolder }}</p>
                         </div>
-                      </div>
-                      <div class="account-details">
-                        <div class="account-number">{{ account.accountNumber }}</div>
-                        <button class="copy-btn" @click="copyAccountNumber(account.accountNumber, account.bank)">
-                          Salin Rekening
+                        <button class="copy-btn card-copy-btn" @click="copyAccountNumber(account.accountNumber, account.bank)">
+                          <i class="fas fa-copy"></i> Salin
                         </button>
-                        <div class="account-holder">{{ account.bank }} : {{ account.accountHolder }}</div>
                       </div>
                     </div>
                   </div>
@@ -559,6 +564,8 @@ import wishesData from '../../../../assets/data/wishes.json'
 import weddingConfig from '../../../../assets/data/wedding-config.json'
 import guestsData from '../../../../assets/data/guests.json'
 import adatSundaAudio from '../../../../assets/audio/adat-sunda.mp3'
+import chipImg from '../../../../assets/images/icon/chip.png'
+import cardBg from '../../../../assets/images/background/card-bg.jpg'
 export default {
   name: 'Wedding3D02FullWidth',
   props: {
@@ -603,6 +610,8 @@ export default {
       showInitialAnim: true,
       isMusicPlaying: false,
       audioSrc: adatSundaAudio,
+      chipImg: chipImg,
+      cardBg,
     }
   },
   computed: {
@@ -2624,19 +2633,75 @@ p {
 }
 
 .bank-accounts {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1.5rem;
-  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+  width: 100%;
 }
 
 .bank-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 1.5rem;
+  background-image: url('../../../../assets/images/background/card-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  text-align: center;
+  padding: 1.5rem 1rem;
+  color: #fff;
+  position: relative;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.bank-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.bank-logo-img {
+  height: 50px;
+  object-fit: contain;
+}
+
+.chip-img {
+  height: 42px;
+  width: auto;
+}
+
+.bank-card-body {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.bank-card-body .label {
+  font-size: 0.75rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.bank-card-body .account-number {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: #ffffff;
+}
+
+.bank-card-body .account-holder {
+  font-style: italic;
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.card-copy-btn {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  font-size: 0.85rem;
+  padding: 0.4rem 1rem;
 }
 
 .bank-card h4 {
@@ -2666,8 +2731,8 @@ p {
 }
 
 .copy-btn {
-  background: linear-gradient(135deg, #FF69B4, #FF1493);
-  color: white;
+  background: white;
+  color: #8B0000;
   border: none;
   padding: 0.5rem 1rem;
   font-size: 0.9rem;
@@ -2814,13 +2879,12 @@ p {
 }
 
 .bank-accounts {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
   position: relative;
   z-index: 2;
-  max-width: 500px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .bank-account {
@@ -3726,7 +3790,7 @@ p {
 
    /* Mobile Gift Section Styles */
    .gift-container {
-     padding: 2.5rem 1.5rem;
+     padding: 1rem;
      max-width: 90%;
    }
 
@@ -3756,7 +3820,7 @@ p {
 
    .account-number {
      font-size: 1.2rem;
-     text-align: center;
+     text-align: left;
    }
 
    .bank-row {
@@ -3776,7 +3840,7 @@ p {
 
        /* Mobile Cashless Section */
     .cashless-section {
-      padding: 1.5rem;
+      padding: 1rem;
       margin-bottom: 1.5rem;
     }
 
@@ -4685,6 +4749,56 @@ p {
   animation: fadeInScale 0.5s ease-out;
   position: relative;
   z-index: 2;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .bank-accounts {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .bank-card {
+    padding: 1rem 0.75rem;
+  }
+  .bank-logo-img {
+    height: 38px;
+  }
+  .chip-img {
+    height: 32px;
+  }
+  .bank-card-body .account-number {
+    font-size: 1.1rem;
+  }
+  .bank-card-body .account-holder {
+    font-size: 0.9rem;
+  }
+  .card-copy-btn {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.8rem;
+  }
+}
+
+.holder-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.holder-row .card-copy-btn {
+  position: static;
+  margin-left: auto;
+  padding: 0.3rem 0.9rem;
+}
+
+.holder-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.holder-text {
+  display: flex;
+  flex-direction: column;
 }
 
 </style>
