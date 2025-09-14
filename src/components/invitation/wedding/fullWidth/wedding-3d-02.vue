@@ -542,6 +542,28 @@
               </div>
             </div>
           </div>
+
+          <!-- Created By Section -->
+          <div class="section-right created-by-section">
+            <div class="created-by-container">
+              <div class="created-by-brand">
+                <img class="created-by-logo" :src="grothoIcon" alt="grotho logo" />
+                <p class="created-by-text">grotho.id</p>
+              </div>
+              <div class="created-by-socials">
+                <a :href="socialLinks.instagram" target="_blank" rel="noopener" aria-label="Instagram" class="social-link">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a :href="socialLinks.whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp" class="social-link">
+                  <i class="fab fa-whatsapp"></i>
+                </a>
+                <a :href="socialLinks.tiktok" target="_blank" rel="noopener" aria-label="TikTok" class="social-link">
+                  <i class="fab fa-tiktok"></i>
+                </a>
+              </div>
+              <p class="created-by-slogan">HUBUNGI KAMI</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -566,6 +588,7 @@ import guestsData from '../../../../assets/data/guests.json'
 import adatSundaAudio from '../../../../assets/audio/background.mp3'
 import chipImg from '../../../../assets/images/icon/chip.png'
 import cardBg from '../../../../assets/images/background/card-bg.jpg'
+import grothoIcon from '../../../../assets/images/icon/grotho-icon-white.png'
 export default {
   name: 'Wedding3D02FullWidth',
   props: {
@@ -612,6 +635,12 @@ export default {
       audioSrc: adatSundaAudio,
       chipImg: chipImg,
       cardBg,
+      grothoIcon,
+      socialLinks: {
+        instagram: 'https://www.instagram.com/grothoofficial/',
+        whatsapp: 'https://wa.me/6282118093732',
+        tiktok: 'https://www.tiktok.com/@grothoofficial'
+      },
     }
   },
   computed: {
@@ -4852,6 +4881,48 @@ p {
   flex-direction: column;
 }
 
+.section-right.created-by-section {
+  margin-bottom: 0 !important;
+}
+
+.created-by-section {
+  background: linear-gradient(135deg, #16298a 0%, #091449 50%, #020720 100%); /* Denim Blue */
+  padding: 2rem 0;
+  width: 100%;
+  text-align: center;
+}
+
+.created-by-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  margin-bottom: 0.75rem;
+}
+
+.created-by-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.created-by-socials .social-link {
+  font-size: 1.5rem;
+  color: #FFFFFF;
+  margin: 0 0.75rem;
+  transition: opacity 0.3s;
+}
+
+.created-by-socials .social-link:hover {
+  opacity: 0.8;
+}
+
+.created-by-slogan {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.1rem;
+  color: #FFFFFF;
+}
+
 /* ===== Typography palette overrides ===== */
 .invitation-card {
   /* Base text color */
@@ -4926,6 +4997,19 @@ p {
 .right-section .copy-btn.card-copy-btn,
 .right-section .content-overlay .submit-wish-btn {
   color: #FFFFFF !important;
+}
+
+/* Add style */
+.created-by-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.created-by-logo {
+  margin-bottom: 0; /* remove since inline */
 }
 
 </style>
