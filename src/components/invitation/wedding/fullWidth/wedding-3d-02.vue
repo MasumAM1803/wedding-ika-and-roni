@@ -1546,7 +1546,7 @@ p {
   font-weight: 300;
   font-family: 'Paper Tiger', 'Cormorant Garamond', 'Crimson Text', 'Playfair Display', serif;
   margin-bottom: 0.5rem;
-  color: #043B7E;
+  color: #bb6d0e;
 }
 
 .overlay-couple {
@@ -1560,13 +1560,13 @@ p {
 .overlay-greeting {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #043B7E;
+  color: #bb6d0e;
 }
 
 .overlay-recipient {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #043B7E;
+  color: #bb6d0e;
 }
 
 .overlay-guest {
