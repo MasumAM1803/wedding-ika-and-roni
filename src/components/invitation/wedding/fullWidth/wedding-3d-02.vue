@@ -1647,7 +1647,7 @@ p {
   font-weight: 300;
   font-family: 'Paper Tiger', 'Cormorant Garamond', 'Crimson Text', 'Playfair Display', serif;
   margin-bottom: 1rem;
-  color: #8B4513;
+  color: #043B7E;
   opacity: 0;
   animation: fadeInUp 1s ease-out 0.5s forwards;
 }
@@ -1662,23 +1662,21 @@ p {
   font-size: 3rem;
   font-weight: 700;
   margin: 0.25rem 0;
-  /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); */
-  color: #ce9dcb;
+  color: #FFFFFF;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero-and {
   font-size: 2.3rem;
   margin: 0 0.5rem;
   opacity: 0.8;
-  color: #ce9dcb;
+  color: #89BFFF;
 }
 
 .hero-date {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #8B4513;
-  opacity: 0;
-  animation: fadeInUp 1s ease-out 1.5s forwards;
+  color: #FFFFFF;
 }
 
 .hero-greeting {
@@ -2782,7 +2780,7 @@ p {
 
 /* New Gift Section Styles */
 .gift-section-right {
-  max-width: 100%;
+  max-width: 90%;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -3793,6 +3791,10 @@ p {
      margin: 0 auto;
      width: fit-content;
    }
+
+   .gift-section-right {
+    max-width: 100%;
+  }
 
    /* Mobile Gift Section Styles */
    .gift-container {
