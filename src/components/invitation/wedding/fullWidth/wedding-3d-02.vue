@@ -541,27 +541,27 @@
                 <h3>{{ wedding.couple.bride.shortName }} & {{ wedding.couple.groom.shortName }}</h3>
               </div>
             </div>
-          </div>
 
-          <!-- Created By Section -->
-          <div class="section-right created-by-section">
-            <div class="created-by-container">
-              <div class="created-by-brand">
-                <img class="created-by-logo" :src="grothoIcon" alt="grotho logo" />
-                <p class="created-by-text">grotho.id</p>
+            <!-- Created By Section -->
+            <div class="section-right created-by-section">
+              <div class="created-by-container">
+                <div class="created-by-brand">
+                  <img class="created-by-logo" :src="grothoIcon" alt="grotho logo" />
+                  <p class="created-by-text">grotho.id</p>
+                </div>
+                <div class="created-by-socials">
+                  <a :href="socialLinks.instagram" target="_blank" rel="noopener" aria-label="Instagram" class="social-link">
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                  <a :href="socialLinks.whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp" class="social-link">
+                    <i class="fab fa-whatsapp"></i>
+                  </a>
+                  <a :href="socialLinks.tiktok" target="_blank" rel="noopener" aria-label="TikTok" class="social-link">
+                    <i class="fab fa-tiktok"></i>
+                  </a>
+                </div>
+                <p class="created-by-slogan">HUBUNGI KAMI</p>
               </div>
-              <div class="created-by-socials">
-                <a :href="socialLinks.instagram" target="_blank" rel="noopener" aria-label="Instagram" class="social-link">
-                  <i class="fab fa-instagram"></i>
-                </a>
-                <a :href="socialLinks.whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp" class="social-link">
-                  <i class="fab fa-whatsapp"></i>
-                </a>
-                <a :href="socialLinks.tiktok" target="_blank" rel="noopener" aria-label="TikTok" class="social-link">
-                  <i class="fab fa-tiktok"></i>
-                </a>
-              </div>
-              <p class="created-by-slogan">HUBUNGI KAMI</p>
             </div>
           </div>
         </div>
