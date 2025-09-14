@@ -1072,7 +1072,9 @@ p {
 .wedding-invitation-02 {
   min-height: 100vh;
   width: 100%;
-  background: linear-gradient(135deg, #FFF0F5 0%, #FFE4E1 100%);
+  /* Sky-blue themed background image */
+  background: url('../../../../assets/images/background/background.png') no-repeat center center fixed;
+  background-size: cover;
   font-family: 'Playfair Display', 'Georgia', serif;
   position: relative;
   overflow-x: hidden;
@@ -1095,7 +1097,7 @@ p {
   position: relative;
   overflow: hidden;
   /* Denim blue background with silver text */
-  background-color: #1560BD; /* Denim Blue */
+  background-color: #16298a; /* Denim Blue */
   color: #C0C0C0; /* Silver */
 }
 
@@ -1116,7 +1118,6 @@ p {
   height: 100%;
   position: relative;
   overflow: hidden;
-  border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
@@ -1135,7 +1136,7 @@ p {
   height: 100%;
   z-index: 1;
   /* Sky blue gradient */
-  background: linear-gradient(135deg, #B0E0FF 0%, #87CEFA 50%, #1E90FF 100%);
+  background: linear-gradient(135deg, #16298a 0%, #091449 50%, #020720 100%);
   overflow: hidden;
 }
 
@@ -1147,10 +1148,10 @@ p {
   z-index: 2;
 }
 
-.floral-corner.top-left  { top: -10px; left: 20px; }
-.floral-corner.top-right { top: -10px; right: -70px; transform: scale(1.2); }
-.floral-corner.bottom-left { bottom: -10px; left: 0px;}
-.floral-corner.bottom-right { bottom: -10px; right: -70px; }
+.floral-corner.top-left  { top: 25px; left: 10px; transform: scale(1.5); }
+.floral-corner.top-right { top: 25px; right: 10px; transform: scale(1.7) scaleX(-1); }
+.floral-corner.bottom-left { bottom: 30px; left: -10px; transform: scale(1.7) scaleY(-1); }
+.floral-corner.bottom-right { bottom: 15px; right: -5px; transform: scale(1.7) scaleY(-1) scaleX(-1);}
 
 /* === Corner rose graphics === */
 .rose {
@@ -1163,10 +1164,10 @@ p {
 }
 
 /* Use different bouquets to avoid repetition */
-.floral-corner.top-left  .rose { background-image: url('../../../../assets/images/background/bunga2-1.png'); }
-.floral-corner.top-right .rose { background-image: url('../../../../assets/images/background/bunga2-2.png'); }
-.floral-corner.bottom-left  .rose { background-image: url('../../../../assets/images/background/bunga2-3.png'); }
-.floral-corner.bottom-right .rose { background-image: url('../../../../assets/images/background/bunga2-4.png'); }
+.floral-corner.top-left  .rose { background-image: url('../../../../assets/images/background/corner-flower.png'); }
+.floral-corner.top-right .rose { background-image: url('../../../../assets/images/background/corner-flower.png'); }
+.floral-corner.bottom-left  .rose { background-image: url('../../../../assets/images/background/corner-flower.png'); }
+.floral-corner.bottom-right .rose { background-image: url('../../../../assets/images/background/corner-flower.png'); }
 
 .rose-cluster {
   position: relative;
@@ -1647,7 +1648,7 @@ p {
   font-weight: 300;
   font-family: 'Paper Tiger', 'Cormorant Garamond', 'Crimson Text', 'Playfair Display', serif;
   margin-bottom: 1rem;
-  color: #043B7E;
+  color: #FFFFFF;
   opacity: 0;
   animation: fadeInUp 1s ease-out 0.5s forwards;
 }
@@ -2114,33 +2115,33 @@ p {
   opacity: 0.8;
 }
 
-                 .arch-corner.top-left-arch {
-           top: -15px;
-           left: -15px;
-           transform: rotate(-15deg);
-           background-image: url('../../../../assets/images/background/bunga2-3.png');
-         }
+.arch-corner.top-left-arch {
+  top: 30px;
+  left: -15px;
+  transform: rotate(-15deg);
+  background-image: url('../../../../assets/images/background/bunga2-3.png');
+}
 
-         .arch-corner.top-right-arch {
-           top: -15px;
-           right: -15px;
-           transform: rotate(15deg);
-           background-image: url('../../../../assets/images/background/bunga2-4.png');
-         }
+.arch-corner.top-right-arch {
+  top: -15px;
+  right: -15px;
+  transform: rotate(15deg);
+  background-image: url('../../../../assets/images/background/bunga2-4.png');
+}
 
-         .arch-corner.bottom-left-arch {
-           bottom: -15px;
-           left: -15px;
-           transform: rotate(-25deg);
-           background-image: url('../../../../assets/images/background/bunga2-1.png');
-         }
+.arch-corner.bottom-left-arch {
+  bottom: -15px;
+  left: -15px;
+  transform: rotate(-25deg);
+  background-image: url('../../../../assets/images/background/bunga2-1.png');
+}
 
-         .arch-corner.bottom-right-arch {
-           bottom: -15px;
-           right: -15px;
-           transform: rotate(25deg);
-           background-image: url('../../../../assets/images/background/bunga2-2.png');
-         }
+.arch-corner.bottom-right-arch {
+  bottom: -15px;
+  right: -15px;
+  transform: rotate(25deg);
+  background-image: url('../../../../assets/images/background/bunga2-2.png');
+}
 
 /* Mobile responsive adjustments */
 @media (max-width: 500px) {
@@ -4807,11 +4808,6 @@ p {
 .holder-text {
   display: flex;
   flex-direction: column;
-}
-
-.decorative-background {
-  /* Sky blue gradient */
-  background: linear-gradient(135deg, #B0E0FF 0%, #87CEFA 50%, #1E90FF 100%);
 }
 
 /* ===== Typography palette overrides ===== */
