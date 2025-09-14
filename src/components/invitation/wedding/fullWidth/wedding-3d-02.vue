@@ -1682,6 +1682,8 @@ p {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
   color: #FFFFFF;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out 1.5s forwards;
 }
 
 .hero-greeting {
