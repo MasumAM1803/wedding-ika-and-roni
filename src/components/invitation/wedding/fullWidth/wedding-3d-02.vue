@@ -1100,16 +1100,16 @@ p {
 }
 
 .right-section {
-  flex: 0 0 30%; /* 30% of the container */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  /* Denim blue solid background */
-  background-color: #1560BD; /* Denim Blue */
-  color: #C0C0C0; /* Silver */
-}
+   flex: 0 0 30%; /* 30% of the container */
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: relative;
+   overflow: hidden;
+  /* Sky-blue gradient background for intro side */
+  background: linear-gradient(135deg, #B0E0FF 0%, #87CEFA 50%, #1E90FF 100%);
+  color: #FFFFFF; /* bright text */
+ }
 
 .invitation-card {
   width: 100%;
@@ -1512,33 +1512,33 @@ p {
   font-weight: 300;
   font-family: 'Paper Tiger', 'Cormorant Garamond', 'Crimson Text', 'Playfair Display', serif;
   margin-bottom: 0.5rem;
-  color: #8B4513; /* Muted dark reddish-brown/maroon */
+  color: #043B7E;
 }
 
 .overlay-couple {
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: #ce9dcb; /* Rich warm purple/lavender */
+  color: #043B7E; /* deep denim */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .overlay-greeting {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #8B4513; /* Muted dark reddish-brown/maroon */
+  color: #043B7E;
 }
 
 .overlay-recipient {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #8B4513; /* Muted dark reddish-brown/maroon */
+  color: #043B7E;
 }
 
 .overlay-guest {
   font-size: 1.4rem !important;
   margin-bottom: 1rem;
-  color: #ce9dcb; /* Rich warm purple/lavender */
+  color: #043B7E;
   font-weight: 600;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   letter-spacing: .2rem;
@@ -1547,7 +1547,7 @@ p {
 .overlay-disclaimer {
   font-size: 1rem;
   opacity: 0.8;
-  color: #8B4513; /* Muted dark reddish-brown/maroon */
+  color: #043B7E;
 }
 
 /* Guest Welcome Styles */
@@ -1576,8 +1576,9 @@ p {
 
 .open-invitation-btn {
   position: relative;
-  background: linear-gradient(45deg, #FF69B4, #FF1493);
-  color: white;
+  /* Denim-blue gradient */
+  background: linear-gradient(45deg, #89BFFF 0%, #1560BD 100%);
+  color: #FFFFFF;
   border: none;
   padding: .6rem 1.75rem;
   font-size: 1.1rem;
@@ -1585,7 +1586,7 @@ p {
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+  box-shadow: 0 8px 25px rgba(21, 96, 189, 0.35);
   z-index: 10;
   display: flex;
   align-items: center;
@@ -1600,7 +1601,7 @@ p {
 
 .open-invitation-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(255, 107, 107, 0.6);
+  box-shadow: 0 12px 35px rgba(21, 96, 189, 0.55);
 }
 
 .open-invitation-btn .icon-open { display: none; }
