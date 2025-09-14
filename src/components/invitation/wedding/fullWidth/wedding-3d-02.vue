@@ -1101,6 +1101,11 @@ p {
   color: #C0C0C0; /* Silver */
 }
 
+.left-section .date-number {
+    font-size: 2.5rem !important;
+    color: #a4c5e7 !important;
+  }
+
 .right-section {
    flex: 0 0 30%; /* 30% of the container */
    display: flex;
@@ -1316,7 +1321,7 @@ p {
   font-weight: 400;
   margin-bottom: 0.5rem;
   opacity: 1;
-  color: #8B0000;
+  color: #bb6d0e;
 }
 
 .wedding-title {
@@ -1325,7 +1330,7 @@ p {
   font-family: 'Paper Tiger', 'Cormorant Garamond', 'Crimson Text', 'Playfair Display', serif;
   margin-bottom: 2rem;
   opacity: 1;
-  color: #8B0000;
+  color: #bb6d0e;
   letter-spacing: 0.05em;
 }
 
@@ -1367,7 +1372,7 @@ p {
   font-size: 1.6rem;
   font-weight: 500;
   font-family: 'Playfair Display', 'Georgia', serif;
-  color: #8B0000;
+  color: #bb6d0e;
   margin-bottom: 0.5rem;
   letter-spacing: 0.03em;
 }
@@ -1384,13 +1389,13 @@ p {
   font-size: 1.8rem;
   font-weight: 500;
   font-family: 'Playfair Display', 'Georgia', serif;
-  color: #8B0000;
+  color: #bb6d0e;
   letter-spacing: 0.02em;
 }
 
 .date-separator {
   font-size: 1.3rem;
-  color: #8B0000;
+  color: #bb6d0e;
   font-weight: 400;
 }
 
@@ -1399,7 +1404,6 @@ p {
   font-weight: 700;
   margin-bottom: 0.5rem;
   font-family: 'Playfair Display', 'Georgia', serif;
-  color: #043B7E;
   line-height: 1;
   letter-spacing: 0.01em;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
@@ -1409,7 +1413,7 @@ p {
   font-size: 1.6rem;
   font-weight: 600;
   font-family: 'Playfair Display', 'Georgia', serif;
-  color: #8B0000;
+  color: #bb6d0e;
   margin-top: 0.5rem;
   letter-spacing: 0.02em;
 }
@@ -1567,7 +1571,7 @@ p {
 .guest-message {
   font-size: 0.9rem;
   margin-bottom: 1rem;
-  color: #8B4513;
+  color: #bb6d0e;
   line-height: 1.4;
   font-style: italic;
   max-width: 280px;
@@ -1845,7 +1849,7 @@ p {
   line-height: 1.8;
   margin-bottom: 1.5rem;
   font-style: italic;
-  color: #8B4513;
+  color: #bb6d0e;
   font-family: 'Playfair Display', 'Georgia', serif;
   font-weight: 400;
 }
@@ -1853,35 +1857,35 @@ p {
 .quote-card .quote-source {
   font-size: 1rem;
   font-weight: 600;
-  color: #8B4513;
+  color: #bb6d0e;
   font-family: 'Playfair Display', 'Georgia', serif;
   opacity: 0.9;
 }
 
-        /* Decorative corner elements */
-        .quote-corner {
-          position: absolute;
-          z-index: 2;
-          width: 80px;
-          height: 80px;
-          background-size: contain;
-          background-repeat: no-repeat;
-          background-position: center;
-        }
-        
-        .quote-corner.top-left {
-          top: -10px;
-          left: -15px;
-          transform: rotate(-15deg);
-          background-image: url('../../../../assets/images/background/bunga2-1.png');
-        }
-        
-        .quote-corner.top-right {
-          top: -10px;
-          right: -15px;
-          transform: rotate(15deg);
-          background-image: url('../../../../assets/images/background/bunga2-2.png');
-        }
+/* Decorative corner elements */
+.quote-corner {
+  position: absolute;
+  z-index: 2;
+  width: 80px;
+  height: 80px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.quote-corner.top-left {
+  top: -10px;
+  left: -15px;
+  transform: rotate(-15deg);
+  background-image: url('../../../../assets/images/background/bunga2-1.png');
+}
+
+.quote-corner.top-right {
+  top: -10px;
+  right: -15px;
+  transform: rotate(15deg);
+  background-image: url('../../../../assets/images/background/bunga2-2.png');
+}
 
 @keyframes fadeInScale {
   from {
@@ -1936,13 +1940,11 @@ p {
   z-index: 1;
 }
 
-
-
 .arch-title {
   font-size: 2.5rem;
   font-weight: 400;
   font-family: 'Playfair Display', 'Georgia', serif;
-  color: #8B4513;
+  color: #bb6d0e;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   letter-spacing: 0.1em;
   margin-bottom: 1rem;
@@ -1952,7 +1954,7 @@ p {
   font-size: 1.8rem;
   font-weight: 600;
   font-family: 'Playfair Display', 'Georgia', serif;
-  color: #8B4513;
+  color: #043B7E;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   letter-spacing: 0.05em;
   margin-bottom: 1rem;
@@ -2010,7 +2012,7 @@ p {
   font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: #8B4513;
+  color: #bb6d0e;
   font-family: 'Playfair Display', 'Georgia', serif;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
@@ -2018,14 +2020,14 @@ p {
 .profile-desc-arch {
   font-size: 1rem;
   margin-bottom: 0.25rem;
-  color: #8B4513;
+  color: #bb6d0e;
   font-family: 'Playfair Display', 'Georgia', serif;
   opacity: 0.9;
 }
 
 .profile-parents-arch {
   font-size: 1rem;
-  color: #8B4513;
+  color: #bb6d0e;
   font-weight: 500;
   font-family: 'Playfair Display', 'Georgia', serif;
   line-height: 1.4;
@@ -2040,7 +2042,7 @@ p {
 
 .instagram-btn {
   background: linear-gradient(135deg, #F5DEB3, #DEB887);
-  color: #8B0000;
+  color: #bb6d0e;
   border: 2px solid rgba(235, 202, 118, 0.4);
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
@@ -2075,7 +2077,7 @@ p {
 /* Instagram button for individual profile cards */
 .instagram-btn-profile {
   background: linear-gradient(135deg, #F5DEB3, #DEB887);
-  color: #8B0000;
+  color: #bb6d0e;
   border: 2px solid rgba(235, 202, 118, 0.4);
   padding: 0.6rem 1.25rem;
   font-size: 0.9rem;
@@ -2100,11 +2102,17 @@ p {
 }
 
 .instagram-btn-profile i {
-  font-size: 1rem;
-  background: linear-gradient(45deg, #E1306C, #833AB4, #405DE6, #5851DB, #833AB4);
+  font-size: 1.25rem;
+  /* background: linear-gradient(45deg, #E1306C, #833AB4, #405DE6, #5851DB, #833AB4); */
+  background: #FFFFFF;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.instagram-btn-profile span {
+  color: #FFFFFF;
 }
 
 /* Decorative corner elements */
@@ -2229,7 +2237,7 @@ p {
 .countdown-timer {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 0.5rem;
   flex-wrap: wrap;
   animation: fadeInScale 1s ease-out 0.3s both;
   margin-bottom: 3rem;
@@ -2306,6 +2314,10 @@ p {
   color: #FFFFFF;
 }
 
+.save-date-btn span {
+  color: #FFFFFF;
+}
+
 /* Events Section */
 .events-section {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -2350,7 +2362,7 @@ p {
   font-size: 1.75rem;
   font-weight: 700;
   margin-bottom: 2rem;
-  color: #8B0000;
+  color: #043B7E;
   position: relative;
   z-index: 2;
   font-family: 'Playfair Display', 'Georgia', serif;
@@ -2364,7 +2376,7 @@ p {
   transform: translateX(-50%);
   width: 60px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #8B0000, transparent);
+  background: linear-gradient(90deg, transparent, #bb6d0e, transparent);
   border-radius: 1px;
 }
 
@@ -2376,7 +2388,7 @@ p {
 
 .date-main {
   font-size: 1.4rem;
-  color: #8B0000;
+  color: #bb6d0e;
   margin-bottom: 0.5rem;
   font-family: 'Paper Tiger', 'Cormorant Garamond', 'Crimson Text', 'Playfair Display', serif;
   font-weight: 400;
@@ -2389,7 +2401,7 @@ p {
 .month, .year {
   display: block;
   font-size: 1.2rem;
-  color: #8B4513;
+  color: #bb6d0e;
   margin: 0.25rem 0;
   font-family: 'Playfair Display', 'Georgia', serif;
   font-weight: 500;
@@ -2400,7 +2412,7 @@ p {
 .event-time {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #8B0000;
+  color: #bb6d0e;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2409,7 +2421,7 @@ p {
 }
 
 .event-time i {
-  color: #8B4513;
+  color: #bb6d0e;
   font-size: 1.1rem;
 }
 
@@ -2421,7 +2433,7 @@ p {
 .event-location h4 {
   font-size: 1.3rem;
   margin-bottom: 1rem;
-  color: #8B0000;
+  color: #043B7E;
   font-family: 'Playfair Display', 'Georgia', serif;
   font-weight: 600;
 }
@@ -2430,12 +2442,12 @@ p {
   font-size: 1.1rem;
   margin-bottom: 2rem;
   line-height: 1.6;
-  color: #8B0000;
+  color: #bb6d0e;
   font-family: 'Playfair Display', 'Georgia', serif;
 }
 
 .maps-btn {
-  background: linear-gradient(135deg, #8B4513, #A0522D);
+  background: linear-gradient(135deg, #bb6d0e, #A0522D);
   color: white;
   border: 2px solid rgba(255, 255, 255, 0.3);
   padding: 1rem 2rem;
@@ -2457,7 +2469,7 @@ p {
 .maps-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 35px rgba(139, 69, 19, 0.4);
-  background: linear-gradient(135deg, #A0522D, #8B4513);
+  background: linear-gradient(135deg, #A0522D, #bb6d0e);
 }
 
 .maps-btn i {
@@ -2672,7 +2684,7 @@ p {
 }
 
 .bank-logo-img {
-  height: 50px;
+  height: 25px;
   object-fit: contain;
 }
 
@@ -2734,7 +2746,7 @@ p {
 
 .account-holder {
   font-size: 1rem;
-  color: #8B4513;
+  color: #bb6d0e;
   text-align: left;
   font-weight: 500;
   margin-bottom: 1rem;
@@ -2743,7 +2755,7 @@ p {
 
 .copy-btn {
   background: white;
-  color: #8B0000;
+  color: #bb6d0e;
   border: none;
   padding: 0.5rem 1rem;
   font-size: 0.9rem;
@@ -2799,7 +2811,7 @@ p {
 .gift-container {
   /* background: linear-gradient(135deg, rgba(255, 240, 245, 0.95) 0%, rgba(255, 228, 225, 0.95) 100%); */
   background: rgba(255, 255, 255, 0.9);
-  border-radius: 50px;
+  border-radius: 30px;
   padding: 4rem 3rem;
   text-align: center;
   max-width: 600px;
@@ -2827,7 +2839,7 @@ p {
 .gift-title {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #8B0000;
+  color: #043B7E;
   margin-bottom: 2rem;
   position: relative;
   z-index: 2;
@@ -2838,7 +2850,7 @@ p {
 .gift-message {
   font-size: 1.2rem;
   line-height: 1.8;
-  color: #8B4513;
+  color: #bb6d0e;
   margin-bottom: 3rem;
   position: relative;
   z-index: 2;
@@ -2967,7 +2979,7 @@ p {
   .cashless-title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #8B0000;
+    color: #bb6d0e;
     margin-bottom: 1.5rem;
     text-align: center;
     font-family: 'Playfair Display', 'Georgia', serif;
@@ -2976,7 +2988,7 @@ p {
   .cashless-message {
     font-size: 1.1rem;
     line-height: 1.6;
-    color: #8B4513;
+    color: #bb6d0e;
     margin-bottom: 2rem;
     text-align: center;
     font-family: 'Playfair Display', 'Georgia', serif;
@@ -2999,7 +3011,7 @@ p {
  .physical-gift-title {
    font-size: 1.5rem;
    font-weight: 700;
-   color: #8B0000;
+   color: #bb6d0e;
    margin-bottom: 1.5rem;
    text-align: center;
    font-family: 'Playfair Display', 'Georgia', serif;
@@ -3008,14 +3020,14 @@ p {
  .physical-gift-address {
    font-size: 1.1rem;
    line-height: 1.6;
-   color: #8B4513;
+   color: #bb6d0e;
    margin-bottom: 2rem;
    text-align: center;
    font-family: 'Playfair Display', 'Georgia', serif;
  }
 
  .physical-gift-address strong {
-   color: #8B0000;
+   color: #bb6d0e;
    font-weight: 600;
  }
 
@@ -3079,7 +3091,7 @@ p {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: #8B4513;
+  color: #bb6d0e;
   font-size: 1rem;
 }
 
@@ -3127,14 +3139,14 @@ p {
   left: 0;
   right: 0;
   height: 1px;
-  background: rgba(139, 69, 19, 0.3);
+  background: rgba(250, 250, 250, 0.3);
   z-index: 1;
 }
 
 .attendance-header span {
   background: white;
   padding: 0 1rem;
-  color: #8B4513;
+  color: #043B7E;
   font-size: 1rem;
   font-weight: 500;
   position: relative;
@@ -3154,7 +3166,7 @@ p {
   border: 1px solid rgba(255, 182, 193, 0.6);
   border-radius: 10px;
   background: white;
-  color: #8B4513;
+  color: #bb6d0e;
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
@@ -3261,7 +3273,7 @@ p {
 
 .wish-name {
   font-weight: 600;
-  color: #8B4513;
+  color: #bb6d0e;
   font-size: 0.95rem;
 }
 
@@ -3290,7 +3302,7 @@ p {
 }
 
 .wish-message {
-  color: #8B4513;
+  color: #bb6d0e;
   font-size: 0.9rem;
   line-height: 1.4;
   margin-bottom: 0.75rem;
@@ -3299,7 +3311,7 @@ p {
 
 .wish-timestamp {
   font-size: 0.75rem;
-  color: #8B4513;
+  color: #bb6d0e;
   opacity: 0.6;
   text-align: right;
 }
@@ -3316,7 +3328,7 @@ p {
 
 .pagination-btn {
   background: white;
-  color: #8B4513;
+  color: #bb6d0e;
   border: 1px solid rgba(139, 69, 19, 0.3);
   padding: 0.5rem 0.75rem;
   font-size: 0.85rem;
@@ -3399,8 +3411,6 @@ p {
 }
 
 .submit-wish-btn {
-  background: linear-gradient(135deg, #043B7E, #FF1493);
-  color: white;
   border: none;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
@@ -3546,7 +3556,8 @@ p {
     display: none; /* Hide left section on mobile */
   }
 
-     .right-section {
+
+    .right-section {
      flex: none;
      width: 100%;
      height: 100vh; /* Full height on mobile */
@@ -3643,14 +3654,14 @@ p {
        align-items: center;
        justify-content: center;
        gap: 0.5rem;
-       box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+      box-shadow: 0 8px 25px rgba(21, 96, 189, 0.35);
        margin: 2rem auto 0;
      }
 
-                                           .open-invitation-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 35px rgba(255, 105, 180, 0.6);
-      }
+    .open-invitation-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(21, 96, 189, 0.55);
+    }
     
     /* Ensure button is centered on mobile */
     .photo-section {
@@ -3735,10 +3746,10 @@ p {
      font-size: 0.9rem;
    }
    
-           .quote-corner {
-          width: 60px;
-          height: 60px;
-        }
+  .quote-corner {
+    width: 60px;
+    height: 60px;
+  }
 
   .profile-card {
     padding: 1.5rem;
@@ -4153,7 +4164,7 @@ p {
 
 .hero-greeting {
   font-size: 0.9rem;
-  color: #8B4513;
+  color: #bb6d0e;
 }
 
 .section-title {
@@ -4244,13 +4255,13 @@ p {
 
 .profile-desc {
   font-size: 1rem;
-  color: #8B4513;
+  color: #bb6d0e;
   margin-bottom: 0.25rem;
 }
 
 .profile-parents {
   font-size: 1rem;
-  color: #8B4513;
+  color: #bb6d0e;
   font-weight: 500;
 }
 
@@ -4291,7 +4302,7 @@ p {
   border: 1px solid rgba(139, 69, 19, 0.3);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.6);
-  color: #8B4513;
+  color: #bb6d0e;
   font-size: 0.8rem;
   backdrop-filter: none;
 }
@@ -4346,7 +4357,7 @@ p {
 .gallery-desc {
   font-size: 1rem;
   margin-bottom: 1rem;
-  color: #8B4513;
+  color: #bb6d0e;
   text-align: center;
   opacity: 0.8;
 }
@@ -4449,14 +4460,14 @@ p {
   font-size: 1rem;
   line-height: 1.4;
   margin-bottom: 1rem;
-  color: #8B4513;
+  color: #bb6d0e;
   text-align: center;
 }
 
 .thanks-closing {
   font-size: 1rem;
   margin-bottom: 1.5rem;
-  color: #8B4513;
+  color: #bb6d0e;
   text-align: center;
 }
 
@@ -4469,7 +4480,7 @@ p {
 .signature p {
   font-size: 1rem;
   margin-bottom: 0.25rem;
-  color: #8B4513;
+  color: #bb6d0e;
   opacity: 0.8;
 }
 
@@ -4514,7 +4525,7 @@ p {
   font-family: 'Playfair Display', 'Georgia', serif;
   font-size: 1.75rem;
   font-weight: 300;
-  color: #8B4513;
+  color: #043B7E;
   margin-bottom: 2.5rem;
   position: relative;
   z-index: 1;
@@ -4541,7 +4552,7 @@ p {
   font-family: 'Playfair Display', 'Georgia', serif;
   font-size: 1.75rem;
   font-weight: 300;
-  color: #8B4513;
+  color: #043B7E;
   margin-bottom: 1.5rem;
   position: relative;
   z-index: 1;
@@ -4550,7 +4561,7 @@ p {
 
 .love-story-desc {
   font-size: 1.1rem;
-  color: #8B4513;
+  color: #bb6d0e;
   margin-bottom: 2.5rem;
   font-style: italic;
   opacity: 0.8;
@@ -4593,14 +4604,14 @@ p {
 .timeline-content h3 {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #8B4513;
+  color: #bb6d0e;
   margin-bottom: 0.5rem;
   font-family: 'Playfair Display', 'Georgia', serif;
 }
 
 .timeline-content p {
   font-size: 1rem;
-  color: #8B4513;
+  color: #bb6d0e;
   line-height: 1.4;
   opacity: 0.8;
 }
@@ -4624,7 +4635,7 @@ p {
   font-family: 'Playfair Display', 'Georgia', serif;
   font-size: 1.75rem;
   font-weight: 300;
-  color: #8B4513;
+  color: #bb6d0e;
   margin-bottom: 1.5rem;
   position: relative;
   z-index: 1;
@@ -4633,7 +4644,7 @@ p {
 
 .gallery-desc {
   font-size: 1.1rem;
-  color: #8B4513;
+  color: #bb6d0e;
   margin-bottom: 2.5rem;
   font-style: italic;
   opacity: 0.8;
@@ -4762,7 +4773,7 @@ p {
 }
 
 .color-secondary {
-  background: #ffffff;
+  background: #eeeeee;
   border: 1px solid #ddd;
 }
 
@@ -4794,7 +4805,7 @@ p {
     padding: 1rem 0.75rem;
   }
   .bank-logo-img {
-    height: 38px;
+    height: 20px;
   }
   .chip-img {
     height: 32px;
@@ -4808,6 +4819,11 @@ p {
   .card-copy-btn {
     font-size: 0.75rem;
     padding: 0.3rem 0.8rem;
+  }
+
+  .countdown-item {
+    padding: 1rem .4rem;
+    font-size: 0.5rem;
   }
 }
 
@@ -4898,6 +4914,16 @@ p {
 .right-section .content-overlay .submit-wish-btn {
   color: #043B7E !important;
   border-color: #1560BD !important;
+}
+
+.events-section-right .date-number {
+  color: #bb6d0e !important;
+}
+
+.right-section .content-overlay .maps-btn,
+.right-section .copy-btn.card-copy-btn,
+.right-section .content-overlay .submit-wish-btn {
+  color: #FFFFFF !important;
 }
 
 </style>
