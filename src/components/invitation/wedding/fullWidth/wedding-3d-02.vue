@@ -563,7 +563,7 @@
 import wishesData from '../../../../assets/data/wishes.json'
 import weddingConfig from '../../../../assets/data/wedding-config.json'
 import guestsData from '../../../../assets/data/guests.json'
-import adatSundaAudio from '../../../../assets/audio/adat-sunda.mp3'
+import adatSundaAudio from '../../../../assets/audio/background.mp3'
 import chipImg from '../../../../assets/images/icon/chip.png'
 import cardBg from '../../../../assets/images/background/card-bg.jpg'
 export default {
@@ -1399,7 +1399,7 @@ p {
   font-weight: 700;
   margin-bottom: 0.5rem;
   font-family: 'Playfair Display', 'Georgia', serif;
-  color: #FF69B4;
+  color: #043B7E;
   line-height: 1;
   letter-spacing: 0.01em;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
@@ -1457,7 +1457,7 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(45deg, #FF69B4, #FF1493);
+  background: linear-gradient(45deg, #043B7E, #FF1493);
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -1811,7 +1811,8 @@ p {
 
 /* New Quote Card Design */
 .quote-card {
-  background: linear-gradient(135deg, rgba(255, 240, 245, 0.95) 0%, rgba(255, 228, 225, 0.95) 100%);
+  /* background: linear-gradient(135deg, rgba(255, 240, 245, 0.95) 0%, rgba(255, 228, 225, 0.95) 100%); */
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 30px;
   padding: 3rem 2.5rem;
   text-align: center;
@@ -1820,7 +1821,7 @@ p {
   position: relative;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(139, 69, 19, 0.15);
-  border: 2px solid rgba(255, 182, 193, 0.3);
+  border: 2px solid rgba(182, 226, 255, 0.3);
   animation: fadeInScale 1s ease-out;
 }
 
@@ -1912,12 +1913,14 @@ p {
 }
 
 .couple-arch-background {
-  background: linear-gradient(135deg, rgba(255, 240, 245, 0.95) 0%, rgba(255, 228, 225, 0.95) 100%);
+  /* background: linear-gradient(135deg, rgba(255, 240, 245, 0.95) 0%, rgba(255, 228, 225, 0.95) 100%); */
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 50px 50px 30px 30px;
   padding: 3rem 2rem 2rem 2rem;
   position: relative;
   box-shadow: 0 20px 40px rgba(139, 69, 19, 0.15);
-  border: 2px solid rgba(255, 182, 193, 0.3);
+  /* border: 2px solid rgba(255, 182, 193, 0.3); */
+  border: 2px solid rgba(182, 226, 255, 0.3);
   overflow: hidden;
 }
 
@@ -1972,7 +1975,8 @@ p {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 25px;
   padding: 1.5rem;
-  border: 2px solid rgba(255, 182, 193, 0.3);
+  /* border: 2px solid rgba(255, 182, 193, 0.3); */
+  border: 2px solid rgba(182, 226, 255, 0.3);
   backdrop-filter: blur(10px);
 }
 
@@ -1989,7 +1993,7 @@ p {
   margin: 0 auto;
   overflow: hidden;
   box-shadow: 0 8px 25px rgba(218, 165, 32, 0.4);
-  background: linear-gradient(45deg, #FFB6C1, #FF69B4);
+  background: linear-gradient(45deg, #b6d0ff, #043B7E);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2236,7 +2240,8 @@ p {
 .countdown-item {
   text-align: center;
   background: rgba(255, 255, 255, 0.9);
-  border: 2px solid rgba(255, 182, 193, 0.3);
+  /* border: 2px solid rgba(255, 182, 193, 0.3); */
+  border: 2px solid rgba(182, 226, 255, 0.3);
   border-radius: 20px;
   padding: 1.5rem 1rem;
   min-width: 80px;
@@ -2255,7 +2260,7 @@ p {
   display: block;
   font-size: 2.5rem;
   font-weight: 700;
-  color: #ce9dcb;
+  color: #043B7E;
   line-height: 1.2;
   text-shadow: 2px 2px 4px rgba(206, 157, 203, 0.2);
   margin-bottom: 0.5rem;
@@ -2263,14 +2268,14 @@ p {
 
 .countdown-label {
   font-size: 1rem;
-  color: #ce9dcb;
+  color: #043B7E;
   font-weight: 500;
   font-family: 'Playfair Display', 'Georgia', serif;
 }
 
 .save-date-btn {
   background: rgba(255, 255, 255, 0.95);
-  color: #ce9dcb;
+  color: #FFFFFF !important;
   border: 2px solid rgba(206, 157, 203, 0.3);
   padding: 1rem 2rem;
   font-size: 1rem;
@@ -2298,7 +2303,7 @@ p {
 
 .save-date-btn i {
   font-size: 1.1rem;
-  color: #ce9dcb;
+  color: #FFFFFF;
 }
 
 /* Events Section */
@@ -2470,6 +2475,7 @@ p {
   line-height: 1.6;
   margin-bottom: 2rem;
   opacity: 0.9;
+  color: #043B7E;
 }
 
 .color-palette {
@@ -2596,7 +2602,7 @@ p {
   height: 100%;
   max-width: 200px;
   font-size: 1rem;
-  background: linear-gradient(45deg, #FFB6C1, #FF69B4);
+  background: linear-gradient(45deg, #FFB6C1, #043B7E);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2791,7 +2797,8 @@ p {
 }
 
 .gift-container {
-  background: linear-gradient(135deg, rgba(255, 240, 245, 0.95) 0%, rgba(255, 228, 225, 0.95) 100%);
+  /* background: linear-gradient(135deg, rgba(255, 240, 245, 0.95) 0%, rgba(255, 228, 225, 0.95) 100%); */
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 50px;
   padding: 4rem 3rem;
   text-align: center;
@@ -2801,7 +2808,8 @@ p {
   position: relative;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(139, 69, 19, 0.2);
-  border: 2px solid rgba(255, 182, 193, 0.3);
+  /* border: 2px solid rgba(255, 182, 193, 0.3); */
+  border: 2px solid rgba(182, 226, 255, 0.3);
 }
 
 .gift-container::before {
@@ -2862,7 +2870,7 @@ p {
 }
 
 .cashless-btn {
-  background: linear-gradient(135deg, #FF69B4, #FF1493);
+  background: linear-gradient(135deg, #043B7E, #FF1493);
   color: white;
   box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
 }
@@ -2947,7 +2955,8 @@ p {
     border-radius: 25px;
     padding: 2rem;
     margin-bottom: 2rem;
-    border: 2px solid rgba(255, 182, 193, 0.4);
+    /* border: 2px solid rgba(255, 182, 193, 0.4); */
+    border: 2px solid rgba(182, 226, 255, 0.3);
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
     animation: fadeInScale 0.5s ease-out;
@@ -3089,14 +3098,14 @@ p {
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: #FF69B4;
+  color: #043B7E;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #FF69B4;
+  border-color: #043B7E;
   box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.1);
 }
 
@@ -3186,7 +3195,7 @@ p {
 .wishes-display-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #8B4513;
+  color: #FFFFFF;
   text-align: center;
   margin-bottom: 1rem;
   font-family: 'Playfair Display', 'Georgia', serif;
@@ -3206,7 +3215,7 @@ p {
 .no-wishes {
   text-align: center;
   padding: 2rem 1rem;
-  color: #8B4513;
+  color: #FFFFFF;
   opacity: 0.7;
 }
 
@@ -3335,9 +3344,9 @@ p {
 }
 
 .pagination-btn.active {
-  background: linear-gradient(135deg, #FF69B4, #FF1493);
+  background: linear-gradient(135deg, #043B7E, #FF1493);
   color: white;
-  border-color: #FF69B4;
+  border-color: #043B7E;
   box-shadow: 0 2px 8px rgba(255, 105, 180, 0.3);
 }
 
@@ -3390,7 +3399,7 @@ p {
 }
 
 .submit-wish-btn {
-  background: linear-gradient(135deg, #FF69B4, #FF1493);
+  background: linear-gradient(135deg, #043B7E, #FF1493);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -3414,11 +3423,7 @@ p {
 .counter-number {
   font-size: 2rem;
   font-weight: 700;
-  color: #ff6b6b;
 }
-
-
-
 
 .footer {
   text-align: center;
@@ -3428,7 +3433,7 @@ p {
 .footer p {
   font-size: 1.2rem;
   margin-bottom: 1rem;
-  color: #FF69B4;
+  color: #043B7E;
 }
 
 .contact-info h4 {
@@ -4155,8 +4160,12 @@ p {
   font-size: 1.75rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: #FF69B4;
+  color: #FFFFFF;
   text-align: center;
+}
+
+.wishes-section-right .section-title {
+  color: #FFFFFF;
 }
 
 .quote-container {
@@ -4289,13 +4298,13 @@ p {
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: #FF69B4;
+  color: #043B7E;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #FF69B4;
+  border-color: #043B7E;
   box-shadow: 0 0 0 2px rgba(255, 105, 180, 0.1);
 }
 
@@ -4310,7 +4319,7 @@ p {
 .counter-number {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #FF69B4;
+  color: #FFFFFF;
 }
 
 
@@ -4416,18 +4425,24 @@ p {
 }
 
 .thanks-section-right {
-  background: linear-gradient(20deg, rgba(255, 240, 245, 0.95) 0%, rgba(255, 228, 225, 0.95) 100%);
+  /* background: linear-gradient(20deg, rgba(255, 240, 245, 0.95) 0%, rgba(255, 228, 225, 0.95) 100%); */
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 30px;
   padding: 2.5rem 2rem;
   box-shadow: 0 20px 40px rgba(139, 69, 19, 0.15);
   border-style: solid;
-  border-color: rgba(255, 182, 193, 0.3);
+  /* border-color: rgba(255, 182, 193, 0.3); */
+  border: 2px solid rgba(182, 226, 255, 0.3);
   border-width: 2px;
   position: relative;
   overflow: hidden;
   max-width: 90%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.thanks-section-right .section-title {
+  color: #043B7E;
 }
 
 .thanks-desc {
@@ -4462,17 +4477,19 @@ p {
   margin-top: 1rem;
   font-size: 1.75rem;
   font-weight: 700;
-  color: #FF69B4;
+  color: #043B7E;
 }
 
 /* Elegant Countdown Section Styling */
 .countdown-section-right {
-    background: linear-gradient(135deg, #FFE5F1 0%, #FFF0F5 100%);
+    /* background: linear-gradient(135deg, #FFE5F1 0%, #FFF0F5 100%); */
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 30px;
     padding: 3rem 2rem;
     text-align: center;
     box-shadow: 0 20px 40px rgba(255, 182, 193, 0.3);
-    border: 2px solid rgba(255, 182, 193, 0.2);
+    /* border: 2px solid rgba(255, 182, 193, 0.2); */
+    border: 2px solid rgba(182, 226, 255, 0.3);
     position: relative;
     overflow: hidden;
     max-width: 90%;
@@ -4505,12 +4522,14 @@ p {
 }
 /* Love Story Section Styling */
 .love-story-section-right {
-  background: linear-gradient(135deg, #FFF0F5 0%, #FFE5F1 100%);
+  /* background: linear-gradient(135deg, #FFF0F5 0%, #FFE5F1 100%); */
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 30px;
   padding: 3rem 2rem;
   text-align: center;
   box-shadow: 0 20px 40px rgba(255, 182, 193, 0.3);
-  border: 2px solid rgba(255, 182, 193, 0.2);
+  /* border: 2px solid rgba(255, 182, 193, 0.2); */
+  border: 2px solid rgba(182, 226, 255, 0.3);
   position: relative;
   overflow: hidden;
   max-width: 90%;
@@ -4547,7 +4566,8 @@ p {
 
 .timeline-item {
   background: rgba(255, 255, 255, 0.9);
-  border: 2px solid rgba(206, 157, 203, 0.3);
+  /* border: 2px solid rgba(206, 157, 203, 0.3); */
+  border: 2px solid rgba(182, 226, 255, 0.3);
   border-radius: 20px;
   padding: 1.5rem;
   box-shadow: 0 8px 25px rgba(206, 157, 203, 0.2);
@@ -4565,7 +4585,7 @@ p {
 .timeline-date {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #ce9dcb;
+  color: #043B7E;
   margin-bottom: 0.5rem;
   font-family: 'Playfair Display', 'Georgia', serif;
 }
@@ -4675,7 +4695,7 @@ p {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: rgba(206, 157, 203, 0.9); /* lavender semi-transparent */
+  background: rgba(92, 152, 241, 0.9); /* lavender semi-transparent */
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -4703,7 +4723,7 @@ p {
 /* Inactive (not selected) state */
 .cashless-btn.inactive {
   background: #ffffff;
-  color: #FF69B4;
+  color: #043B7E;
   border: 2px solid rgba(255, 105, 180, 0.3);
   box-shadow: 0 2px 6px rgba(255, 105, 180, 0.15);
 }
@@ -4738,7 +4758,7 @@ p {
 }
 
 .color-primary {
-  background: #e08a90; /* soft pink */
+  background: #043B7E; /* soft pink */
 }
 
 .color-secondary {
@@ -4758,6 +4778,10 @@ p {
   animation: fadeInScale 0.5s ease-out;
   position: relative;
   z-index: 2;
+}
+
+.dresscode-card .section-title {
+  color: #043B7E;
 }
 
 /* Mobile adjustments */
@@ -4837,6 +4861,43 @@ p {
 /* Ensure any remaining hard-coded colors are overridden */
 .invitation-card * {
   color: inherit !important;
+}
+
+/* === Denim button overrides in right-section === */
+.right-section .content-overlay button,
+.right-section .content-overlay .btn,
+.right-section .content-overlay .instagram-btn-profile,
+.right-section .content-overlay .maps-btn,
+.right-section .content-overlay .save-date-btn,
+.right-section .content-overlay .copy-btn,
+.right-section .content-overlay .submit-wish-btn {
+  background: linear-gradient(45deg, #89BFFF 0%, #1560BD 100%) !important;
+  color: #FFFFFF !important;
+  border-color: #1560BD !important;
+  box-shadow: 0 6px 20px rgba(21, 96, 189, 0.35) !important;
+}
+
+.right-section .content-overlay button:hover,
+.right-section .content-overlay .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(21, 96, 189, 0.55) !important;
+}
+
+/* === Pink-to-Denim text & border overrides === */
+.date-number,
+.quote-initials,
+.quote-initials .ampersand,
+.right-section .content-overlay [style*="#043B7E"],
+.right-section .content-overlay [style*="#FFB6C1"],
+.right-section .content-overlay [style*="#ff6b6b"],
+.right-section .content-overlay [style*="#FF1493"],
+.right-section .content-overlay .maps-btn,
+.right-section .content-overlay .instagram-btn-profile,
+.right-section .content-overlay .save-date-btn,
+.right-section .content-overlay .copy-btn,
+.right-section .content-overlay .submit-wish-btn {
+  color: #043B7E !important;
+  border-color: #1560BD !important;
 }
 
 </style>
