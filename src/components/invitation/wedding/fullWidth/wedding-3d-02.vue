@@ -1094,6 +1094,9 @@ p {
   justify-content: center;
   position: relative;
   overflow: hidden;
+  /* Denim blue background with silver text */
+  background-color: #1560BD; /* Denim Blue */
+  color: #C0C0C0; /* Silver */
 }
 
 .right-section {
@@ -1103,8 +1106,9 @@ p {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  background: url('../../../../assets/images/background/background-4.png') no-repeat center center;
-  background-size: cover;
+  /* Denim blue solid background */
+  background-color: #1560BD; /* Denim Blue */
+  color: #C0C0C0; /* Silver */
 }
 
 .invitation-card {
@@ -1118,8 +1122,9 @@ p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #FFF0F5 0%, #FFE4E1 100%);
-  color: #8B0000;
+  /* Denim blue gradient background */
+  background: linear-gradient(135deg, #3B82F6 0%, #1560BD 100%);
+  color: #FFFFFF; /* Base text color – bright for contrast */
 }
 
 .decorative-background {
@@ -1129,7 +1134,8 @@ p {
   width: 100%;
   height: 100%;
   z-index: 1;
-  background: linear-gradient(135deg, #FFF0F5 0%, #FFE4E1 100%);
+  /* Sky blue gradient */
+  background: linear-gradient(135deg, #B0E0FF 0%, #87CEFA 50%, #1E90FF 100%);
   overflow: hidden;
 }
 
@@ -1225,10 +1231,11 @@ p {
 .line {
   width: 60px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #ce9dcb, #d4a5d2, #ce9dcb, transparent);
+  /* Sky-blue shimmer line */
+  background: linear-gradient(90deg, transparent, #FFFFFF 30%, #89BFFF 50%, #FFFFFF 70%, transparent);
   margin: 8px 0;
   border-radius: 1px;
-  opacity: 0.6;
+  opacity: 0.8;
   animation: shimmer 3s ease-in-out infinite;
 }
 
@@ -1253,9 +1260,9 @@ p {
   position: absolute;
   width: 4px;
   height: 4px;
-  background: radial-gradient(circle, #d4a5d2, #ce9dcb);
+  background: radial-gradient(circle, #FFFFFF 40%, #89BFFF 100%);
   border-radius: 50%;
-  opacity: 0.7;
+  opacity: 0.9;
   animation: sparkle 4s ease-in-out infinite;
 }
 
@@ -4797,6 +4804,40 @@ p {
 .holder-text {
   display: flex;
   flex-direction: column;
+}
+
+.decorative-background {
+  /* Sky blue gradient */
+  background: linear-gradient(135deg, #B0E0FF 0%, #87CEFA 50%, #1E90FF 100%);
+}
+
+/* ===== Typography palette overrides ===== */
+.invitation-card {
+  /* Base text color */
+  color: #FFFFFF;
+}
+
+/* Override specific text elements for denim-blue emphasis */
+.invitation-card h1,
+.invitation-card h2,
+.invitation-card h3,
+.invitation-card h4,
+.invitation-card h5,
+.invitation-card h6,
+.invitation-card .title,
+.invitation-card .names,
+.invitation-card .section-heading {
+  color: #043B7E; /* deep denim for stronger contrast */
+}
+
+/* Links / accents */
+.invitation-card a {
+  color: #89BFFF; /* lighter sky-blue for links */
+}
+
+/* Ensure any remaining hard-coded colors are overridden */
+.invitation-card * {
+  color: inherit !important;
 }
 
 </style>
