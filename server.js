@@ -3,12 +3,22 @@ import fs from 'fs';
 import path from 'path';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 3001; // Different port from Vite
+
+// WhatsApp Cloud API Config from .env
+const {
+  WHATSAPP_TOKEN,
+  WHATSAPP_PHONE_ID,
+  WHATSAPP_TEMPLATE_NAME = 'wedding_invite'
+} = process.env;
 
 // Middleware
 app.use(cors());
@@ -82,6 +92,64 @@ function deleteWishById(wishId) {
   if (!writeWishesToFile(wishesData)) return { error: 'Failed to delete wish' }
   return { success: true }
 }
+
+// ===================== WhatsApp Cloud API =====================
+async function sendWhatsAppTemplate(toPhone) {
+  if (!WHATSAPP_TOKEN || !WHATSAPP_PHONE_ID) {
+    throw new Error('WhatsApp API credentials not configured');
+  }
+
+  const url = `https://graph.facebook.com/v18.0/${WHATSAPP_PHONE_ID}/messages`;
+
+  const payload = {
+    messaging_product: 'whatsapp',
+    to: toPhone,
+    type: 'template',
+    template: {
+      name: WHATSAPP_TEMPLATE_NAME,
+      language: { code: 'id' }
+    }
+  };
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${WHATSAPP_TOKEN}`
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`WhatsApp API error: ${err}`);
+  }
+
+  return await res.json();
+}
+
+function normalizePhone(p) {
+  let phone = p.replace(/[^\d]/g, '');
+  if (phone.startsWith('0')) phone = '62' + phone.slice(1);
+  return phone;
+}
+
+// Send single WhatsApp message
+app.post('/api/sendMessage', async (req, res) => {
+  try {
+    const { phone } = req.body;
+    if (!phone) return res.status(400).json({ error: 'phone required' });
+
+    const norm = normalizePhone(phone);
+    const result = await sendWhatsAppTemplate(norm);
+    res.status(200).json({ success: true, result });
+  } catch (e) {
+    console.error('sendMessage error', e);
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// ===================== Wishes CRUD ===========================
 
 // API Routes
 app.get('/api/wishes', (req, res) => {

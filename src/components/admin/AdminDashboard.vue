@@ -8,6 +8,10 @@
       <div class="flex gap-4">
         <button @click="downloadJson" class="btn-secondary">Download JSON</button>
         <button @click="downloadCsv" class="btn-primary">Download CSV</button>
+        <button @click="sendAll" :disabled="sendingAll || guestsWithNumber.length===0" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 px-6 rounded-lg disabled:opacity-50">
+          <span v-if="!sendingAll">Send All ({{ guestsWithNumber.length }})</span>
+          <span v-else>Sending {{ sendProgress }}%</span>
+        </button>
       </div>
     </section>
 
@@ -86,6 +90,8 @@ const API_BASE = import.meta.env.VITE_API_BASE || (window.location.port === '300
 const wishesEndpoint = `${API_BASE}/api/wishes`
 const search = ref('')
 const guests = ref([])
+const sendingAll = ref(false)
+const sendProgress = ref(0)
 const wishes = ref([])
 
 onMounted(async () => {
@@ -106,11 +112,16 @@ const filteredGuests = computed(() => {
   )
 })
 
+const guestsWithNumber = computed(() => guests.value.filter(g=>g.whatsapp))
+
 function waLink (guest) {
   const baseUrl = window.location.origin
   const inviteLink = `${baseUrl}/guest/${guest.slug}`
   const message = encodeURIComponent(`Assalamu'alaikum wr wb.%0ASalam sejahtera untuk kita semua.%0A%0ABerikut link undangan pernikahan kami:%0A${inviteLink}%0A%0ATerima kasih.`)
-  const phone = guest.whatsapp.replace(/[^\d]/g, '')
+  let phone = guest.whatsapp.replace(/[^\d]/g, '')
+  if (phone.startsWith('0')) {
+    phone = '62' + phone.slice(1)
+  }
   return `https://wa.me/${phone}?text=${message}`
 }
 
@@ -173,6 +184,27 @@ async function downloadCsv () {
   } catch (e) {
     alert(e.message)
   }
+}
+
+async function sendAll () {
+  if (sendingAll.value) return
+  sendingAll.value = true
+  const list = guestsWithNumber.value
+  for (let i = 0; i < list.length; i++) {
+    const g = list[i]
+    try {
+      await fetch(`${API_BASE}/api/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: g.whatsapp })
+      })
+    } catch (e) {
+      console.error('send failed', g.whatsapp, e)
+    }
+    sendProgress.value = Math.round(((i+1)/list.length)*100)
+    await new Promise(r=>setTimeout(r, 500)) // light throttle
+  }
+  sendingAll.value = false
 }
 
 function triggerDownload (blob, filename) {
