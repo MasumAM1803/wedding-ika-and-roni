@@ -73,8 +73,59 @@ export default function handler(req, res) {
       res.status(500).json({ error: 'Failed to add wish' });
     }
   } else {
-    // Method not allowed
-    res.setHeader('Allow', ['GET', 'POST']);
-    res.status(405).json({ error: `Method ${req.method} Not Allowed` });
+    if (req.method === 'PUT') {
+      try {
+        const { id, name, message, attendance, guestCount } = req.body;
+        if (!id) {
+          return res.status(400).json({ error: 'Wish id is required' });
+        }
+
+        const idx = wishesData.wishes.findIndex(w => w.id === id);
+        if (idx === -1) {
+          return res.status(404).json({ error: 'Wish not found' });
+        }
+
+        if (name !== undefined) wishesData.wishes[idx].name = name.trim();
+        if (message !== undefined) wishesData.wishes[idx].message = message.trim();
+        if (attendance !== undefined) wishesData.wishes[idx].attendance = attendance;
+        if (guestCount !== undefined) wishesData.wishes[idx].guestCount = guestCount;
+
+        wishesData.lastUpdated = new Date().toISOString();
+
+        res.status(200).json({ success: true, wish: wishesData.wishes[idx] });
+      } catch (error) {
+        console.error('PUT error:', error);
+        res.status(500).json({ error: 'Failed to update wish' });
+      }
+    } else if (req.method === 'DELETE') {
+      try {
+        const { id } = req.body;
+        if (!id) {
+          return res.status(400).json({ error: 'Wish id is required' });
+        }
+
+        const newWishes = wishesData.wishes.filter(w => w.id !== id);
+        if (newWishes.length === wishesData.wishes.length) {
+          return res.status(404).json({ error: 'Wish not found' });
+        }
+
+        wishesData.wishes = newWishes;
+        wishesData.totalWishes = newWishes.length;
+        wishesData.attendanceStats = {
+          present: newWishes.filter(w => w.attendance === 'present').length,
+          absent: newWishes.filter(w => w.attendance === 'absent').length
+        };
+        wishesData.lastUpdated = new Date().toISOString();
+
+        res.status(200).json({ success: true });
+      } catch (error) {
+        console.error('DELETE error:', error);
+        res.status(500).json({ error: 'Failed to delete wish' });
+      }
+    } else {
+      // Method not allowed
+      res.setHeader('Allow', ['GET', 'POST']);
+      res.status(405).json({ error: `Method ${req.method} Not Allowed` });
+    }
   }
 }

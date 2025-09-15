@@ -51,6 +51,38 @@ function writeWishesToFile(wishesData) {
   }
 }
 
+// Helper to update wish by id
+function updateWishById(wishId, payload) {
+  const wishesData = readWishesFromFile()
+  const idx = wishesData.wishes.findIndex(w => w.id === wishId)
+  if (idx === -1) return { error: 'Wish not found' }
+
+  const { name, message, attendance, guestCount } = payload
+  if (name !== undefined) wishesData.wishes[idx].name = name.trim()
+  if (message !== undefined) wishesData.wishes[idx].message = message.trim()
+  if (attendance !== undefined) wishesData.wishes[idx].attendance = attendance
+  if (guestCount !== undefined) wishesData.wishes[idx].guestCount = guestCount
+  wishesData.lastUpdated = new Date().toISOString()
+  if (!writeWishesToFile(wishesData)) return { error: 'Failed to update wish' }
+  return { wish: wishesData.wishes[idx] }
+}
+
+// Helper to delete wish by id
+function deleteWishById(wishId) {
+  const wishesData = readWishesFromFile()
+  const newWishes = wishesData.wishes.filter(w => w.id !== wishId)
+  if (newWishes.length === wishesData.wishes.length) return { error: 'Wish not found' }
+  wishesData.wishes = newWishes
+  wishesData.totalWishes = newWishes.length
+  wishesData.attendanceStats = {
+    present: newWishes.filter(w => w.attendance === 'present').length,
+    absent: newWishes.filter(w => w.attendance === 'absent').length
+  }
+  wishesData.lastUpdated = new Date().toISOString()
+  if (!writeWishesToFile(wishesData)) return { error: 'Failed to delete wish' }
+  return { success: true }
+}
+
 // API Routes
 app.get('/api/wishes', (req, res) => {
   try {
@@ -112,6 +144,50 @@ app.post('/api/wishes', (req, res) => {
   }
 });
 
+// Update existing wish by ID param
+app.put('/api/wishes/:id', (req, res) => {
+  try {
+    const wishId = parseInt(req.params.id, 10)
+    const result = updateWishById(wishId, req.body)
+    if (result.error) return res.status(400).json({ error: result.error })
+    res.status(200).json({ success: true, wish: result.wish })
+  } catch (error) {
+    console.error('Error updating wish:', error)
+    res.status(500).json({ error: 'Failed to update wish' })
+  }
+})
+
+// Update wish (id in body) – convenience for dashboard
+app.put('/api/wishes', (req, res) => {
+  const { id } = req.body
+  if (!id) return res.status(400).json({ error: 'Wish id required' })
+  const result = updateWishById(parseInt(id, 10), req.body)
+  if (result.error) return res.status(400).json({ error: result.error })
+  res.status(200).json({ success: true, wish: result.wish })
+})
+
+// Delete wish by ID param
+app.delete('/api/wishes/:id', (req, res) => {
+  try {
+    const wishId = parseInt(req.params.id, 10)
+    const result = deleteWishById(wishId)
+    if (result.error) return res.status(400).json({ error: result.error })
+    res.status(200).json({ success: true })
+  } catch (error) {
+    console.error('Error deleting wish:', error)
+    res.status(500).json({ error: 'Failed to delete wish' })
+  }
+})
+
+// Delete wish (id in body)
+app.delete('/api/wishes', (req, res) => {
+  const { id } = req.body
+  if (!id) return res.status(400).json({ error: 'Wish id required' })
+  const result = deleteWishById(parseInt(id, 10))
+  if (result.error) return res.status(400).json({ error: result.error })
+  res.status(200).json({ success: true })
+})
+
 // Guest API endpoint
 app.get('/api/guest/:slug', (req, res) => {
   try {
@@ -154,8 +230,10 @@ app.listen(PORT, () => {
   console.log(`🚀 Local API server running on http://localhost:${PORT}`);
   console.log(`📝 API endpoints:`);
   console.log(`   GET  http://localhost:${PORT}/api/wishes`);
-  console.log(`   POST http://localhost:${PORT}/api/wishes`);
-  console.log(`   GET  http://localhost:${PORT}/api/guest/:slug`);
+  console.log(`   POST   http://localhost:${PORT}/api/wishes`);
+  console.log(`   PUT    http://localhost:${PORT}/api/wishes/:id`);
+  console.log(`   DELETE http://localhost:${PORT}/api/wishes/:id`);
+  console.log(`   GET    http://localhost:${PORT}/api/guest/:slug`);
   console.log(`\n💡 Keep this server running while developing your Vue app`);
   console.log(`💡 Your Vue app should run on http://localhost:3000`);
 });

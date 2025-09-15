@@ -1,34 +1,9 @@
 {
-  "wishes": [
-    {
-      "id": 3,
-      "name": "s",
-      "message": "abdul",
-      "attendance": "present",
-      "timestamp": "2025-09-15T22:23:05.712Z",
-      "guestCount": 1
-    },
-    {
-      "id": 2,
-      "name": "abdul",
-      "message": "sss",
-      "attendance": "absent",
-      "timestamp": "2025-09-15T22:22:45.944Z",
-      "guestCount": 1
-    },
-    {
-      "id": 1,
-      "name": "abdul",
-      "message": "test",
-      "attendance": "present",
-      "timestamp": "2025-09-15T21:57:40.825Z",
-      "guestCount": 1
-    }
-  ],
-  "totalWishes": 3,
+  "wishes": [],
+  "totalWishes": 0,
   "attendanceStats": {
-    "present": 2,
-    "absent": 1
+    "present": 0,
+    "absent": 0
   },
-  "lastUpdated": "2025-09-15T22:23:05.712Z"
+  "lastUpdated": "2025-09-15T22:39:41.601Z"
 }

@@ -11,6 +11,43 @@
       </div>
     </section>
 
+    <!-- Wishes CRUD section -->
+    <section class="card">
+      <h2 class="text-xl font-semibold mb-4">Manage Wishes</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-sm">
+          <thead>
+            <tr class="border-b">
+              <th class="py-2 text-left">ID</th>
+              <th class="py-2 text-left">Name</th>
+              <th class="py-2 text-left">Message</th>
+              <th class="py-2 text-left">Attendance</th>
+              <th class="py-2 text-left">Guest</th>
+              <th class="py-2">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="wish in wishes" :key="wish.id" class="border-b">
+              <td class="py-1">{{ wish.id }}</td>
+              <td class="py-1"><input v-model="wish.name" class="border px-1"/></td>
+              <td class="py-1"><input v-model="wish.message" class="border px-1 w-60"/></td>
+              <td class="py-1">
+                <select v-model="wish.attendance" class="border px-1">
+                  <option value="present">present</option>
+                  <option value="absent">absent</option>
+                </select>
+              </td>
+              <td class="py-1"><input type="number" v-model.number="wish.guestCount" class="border w-16 px-1"/></td>
+              <td class="py-1 flex gap-2 justify-center">
+                <button @click="updateWish(wish)" class="btn-secondary text-xs">Save</button>
+                <button @click="deleteWish(wish.id)" class="bg-red-600 hover:bg-red-700 text-white text-xs py-2 px-3 rounded-lg">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <!-- Send invitation section -->
     <section class="card">
       <h2 class="text-xl font-semibold mb-4">Send Invitation via WhatsApp</h2>
@@ -49,9 +86,18 @@ const API_BASE = import.meta.env.VITE_API_BASE || (window.location.port === '300
 const wishesEndpoint = `${API_BASE}/api/wishes`
 const search = ref('')
 const guests = ref([])
+const wishes = ref([])
 
-onMounted(() => {
+onMounted(async () => {
   guests.value = guestsData.guests
+
+  // fetch wishes list
+  try {
+    const data = await fetchWishes()
+    wishes.value = data.wishes
+  } catch (e) {
+    console.error(e)
+  }
 })
 
 const filteredGuests = computed(() => {
@@ -73,6 +119,35 @@ async function fetchWishes () {
   const res = await fetch(wishesEndpoint)
   if (!res.ok) throw new Error('Failed to fetch wishes')
   return await res.json()
+}
+
+async function updateWish (wish) {
+  try {
+    const res = await fetch(`${wishesEndpoint}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(wish)
+    })
+    if (!res.ok) throw new Error('Failed to update wish')
+    alert('Updated')
+  } catch (e) {
+    alert(e.message)
+  }
+}
+
+async function deleteWish (id) {
+  if (!confirm('Delete this wish?')) return
+  try {
+    const res = await fetch(`${wishesEndpoint}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id })
+    })
+    if (!res.ok) throw new Error('Failed to delete wish')
+    wishes.value = wishes.value.filter(w => w.id !== id)
+  } catch (e) {
+    alert(e.message)
+  }
 }
 
 async function downloadJson () {
