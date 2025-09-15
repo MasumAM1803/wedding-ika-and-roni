@@ -24,4 +24,8 @@
   .card {
     @apply bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-200;
   }
+
+  .btn-small {
+    @apply py-1 px-3 text-sm;
+  }
 }

@@ -3,9 +3,14 @@ import fs from 'fs';
 import path from 'path';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
-import dotenv from 'dotenv';
 
-dotenv.config();
+// Optional dotenv loading (skips if package not installed)
+try {
+  const dotenv = await import('dotenv');
+  dotenv.config();
+} catch (e) {
+  console.warn('dotenv package not found – skipping .env loading');
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -47,6 +52,16 @@ function readGuestsFromFile() {
   } catch (error) {
     console.error('Error reading guests file:', error);
     return { guests: [] };
+  }
+}
+
+function writeGuestsToFile(data){
+  try{
+    fs.writeFileSync(GUESTS_FILE_PATH, JSON.stringify(data, null, 2), 'utf8');
+    return true;
+  }catch(e){
+    console.error('Write guests error',e);
+    return false;
   }
 }
 
@@ -291,6 +306,20 @@ app.get('/api/guest/:slug', (req, res) => {
     console.error('GET guest error:', error);
     res.status(500).json({ error: 'Failed to retrieve guest information' });
   }
+});
+
+// Increment send count for guest
+app.post('/api/guest/increment', (req,res)=>{
+  const { id } = req.body;
+  if(!id) return res.status(400).json({error:'id required'});
+  const data = readGuestsFromFile();
+  const idx = data.guests.findIndex(g=>g.id===id);
+  if(idx===-1) return res.status(404).json({error:'guest not found'});
+  data.guests[idx].sent = (data.guests[idx].sent||0)+1;
+  if(writeGuestsToFile(data)){
+    return res.status(200).json({success:true, count:data.guests[idx].sent});
+  }
+  res.status(500).json({error:'failed save'});
 });
 
 // Start server

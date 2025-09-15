@@ -5,7 +5,7 @@
     <!-- Download wishes section -->
     <section class="card">
       <h2 class="text-xl font-semibold mb-4">Download Wishes</h2>
-      <div class="flex gap-4">
+      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <button @click="downloadJson" class="btn-secondary">Download JSON</button>
         <button @click="downloadCsv" class="btn-primary">Download CSV</button>
         <button @click="sendAll" :disabled="sendingAll || guestsWithNumber.length===0" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 px-6 rounded-lg disabled:opacity-50">
@@ -18,7 +18,7 @@
     <!-- Wishes CRUD section -->
     <section class="card">
       <h2 class="text-xl font-semibold mb-4">Manage Wishes</h2>
-      <div class="overflow-x-auto">
+      <div class="overflow-x-auto max-w-full">
         <table class="min-w-full text-sm">
           <thead>
             <tr class="border-b">
@@ -62,6 +62,7 @@
             <tr class="border-b">
               <th class="py-2 text-left">Name</th>
               <th class="py-2 text-left">Phone</th>
+              <th class="py-2 text-left hidden sm:table-cell">Sent</th>
               <th class="py-2">Action</th>
             </tr>
           </thead>
@@ -69,8 +70,9 @@
             <tr v-for="guest in filteredGuests" :key="guest.id" class="border-b hover:bg-gray-50">
               <td class="py-2">{{ guest.fullName }}</td>
               <td class="py-2">{{ guest.whatsapp || '-' }}</td>
-              <td class="py-2 text-center">
-                <a v-if="guest.whatsapp" :href="waLink(guest)" target="_blank" class="btn-primary text-xs">Send</a>
+              <td class="py-2 text-center hidden sm:table-cell">{{ sendCounts[guest.id] || 0 }}</td>
+              <td class="py-2 text-center whitespace-nowrap">
+                <a v-if="guest.whatsapp" :href="waLink(guest)" target="_blank" class="btn-primary btn-small" @click="incCount(guest.id)">Send</a>
                 <span v-else class="text-gray-400 text-xs">No number</span>
               </td>
             </tr>
@@ -82,7 +84,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, reactive } from 'vue'
 import guestsData from '../../assets/data/guests.json'
 
 // Determine API base URL: in dev we run Express at 3001, in prod same origin
@@ -93,9 +95,11 @@ const guests = ref([])
 const sendingAll = ref(false)
 const sendProgress = ref(0)
 const wishes = ref([])
+const sendCounts = reactive({})
 
 onMounted(async () => {
   guests.value = guestsData.guests
+  guests.value.forEach(g=>{ if(g.sent) sendCounts[g.id]=g.sent })
 
   // fetch wishes list
   try {
@@ -113,6 +117,12 @@ const filteredGuests = computed(() => {
 })
 
 const guestsWithNumber = computed(() => guests.value.filter(g=>g.whatsapp))
+
+function normalizePhone(raw) {
+  let p = raw.replace(/[^\d]/g,'')
+  if (p.startsWith('0')) p = '62' + p.slice(1)
+  return p
+}
 
 function waLink (guest) {
   const baseUrl = window.location.origin
@@ -196,8 +206,9 @@ async function sendAll () {
       await fetch(`${API_BASE}/api/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: g.whatsapp })
+        body: JSON.stringify({ phone: normalizePhone(g.whatsapp) })
       })
+      incCount(g.id)
     } catch (e) {
       console.error('send failed', g.whatsapp, e)
     }
@@ -205,6 +216,15 @@ async function sendAll () {
     await new Promise(r=>setTimeout(r, 500)) // light throttle
   }
   sendingAll.value = false
+}
+
+function incCount(id){
+  sendCounts[id] = (sendCounts[id] || 0) + 1
+  fetch(`${API_BASE}/api/guest/increment`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({id})
+  }).catch(()=>{})
 }
 
 function triggerDownload (blob, filename) {

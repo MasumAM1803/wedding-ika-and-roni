@@ -25,7 +25,7 @@ const router = useRouter()
 
 function login () {
   // Simple hardcoded credentials
-  if (username.value === 'admin' && password.value === 'admin123') {
+  if (username.value === 'admin' && password.value === 'weddingInvitationNumber1') {
     localStorage.setItem('isAdmin', 'true')
     router.push({ name: 'AdminDashboard' })
   } else {
