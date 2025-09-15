@@ -3230,6 +3230,7 @@ p {
 
 /* Wishes Display Section Styles */
 .wishes-display-section {
+  width: 90%;
   margin-top: 2rem;
   border-top: 1px solid rgba(139, 69, 19, 0.1);
   padding-top: 1.5rem;
@@ -3245,8 +3246,8 @@ p {
 }
 
 .wishes-container {
+  width: 100%;
   max-width: 100%;
-  max-height: 300px;
   overflow-y: auto;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
@@ -3305,7 +3306,7 @@ p {
 
 .wish-name {
   font-weight: 600;
-  color: #bb6d0e;
+  color: #043B7E;
   font-size: 0.95rem;
 }
 
@@ -4334,7 +4335,7 @@ p {
   border: 1px solid rgba(139, 69, 19, 0.3);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.6);
-  color: #FFFFFF;
+  color: #043B7E;
   font-size: 0.8rem;
   backdrop-filter: none;
 }
