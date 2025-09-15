@@ -62,7 +62,7 @@
             <tr class="border-b">
               <th class="py-2 text-left">Name</th>
               <th class="py-2 text-left">Phone</th>
-              <th class="py-2 text-left hidden sm:table-cell">Sent</th>
+              <th class="py-2 text-left">Sent</th>
               <th class="py-2">Action</th>
             </tr>
           </thead>
@@ -70,7 +70,7 @@
             <tr v-for="guest in filteredGuests" :key="guest.id" class="border-b hover:bg-gray-50">
               <td class="py-2">{{ guest.fullName }}</td>
               <td class="py-2">{{ guest.whatsapp || '-' }}</td>
-              <td class="py-2 text-center hidden sm:table-cell">{{ sendCounts[guest.id] || 0 }}</td>
+              <td class="py-2 text-center">{{ sendCounts[guest.id] || 0 }}</td>
               <td class="py-2 text-center whitespace-nowrap">
                 <a v-if="guest.whatsapp" :href="waLink(guest)" target="_blank" class="btn-primary btn-small" @click="incCount(guest.id)">Send</a>
                 <span v-else class="text-gray-400 text-xs">No number</span>
