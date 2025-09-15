@@ -5,19 +5,13 @@ const guestsData = {
       id: 1,
       name: "masum",
       fullName: "Masum Abdul Matin",
-      slug: "masum",
-      relationship: "family",
-      invitationMessage: "Dear Abdul, you are cordially invited to our wedding celebration.",
-      isActive: true
+      slug: "masum"
     },
     {
       id: 2,
       name: "Rani",
       fullName: "Rani",
-      slug: "rani",
-      relationship: "Friend",
-      invitationMessage: "Dear Sarah, we would be honored by your presence at our special day.",
-      isActive: true
+      slug: "rani"
     }
   ],
   totalGuests: 2,
@@ -45,7 +39,7 @@ export default function handler(req, res) {
       }
 
       // Find guest by slug
-      const guest = guestsData.guests.find(g => g.slug === slug && g.isActive);
+      const guest = guestsData.guests.find(g => g.slug === slug);
       
       if (!guest) {
         return res.status(404).json({ 
@@ -61,9 +55,7 @@ export default function handler(req, res) {
           id: guest.id,
           name: guest.name,
           fullName: guest.fullName,
-          slug: guest.slug,
-          relationship: guest.relationship,
-          invitationMessage: guest.invitationMessage
+          slug: guest.slug
         }
       });
     } catch (error) {

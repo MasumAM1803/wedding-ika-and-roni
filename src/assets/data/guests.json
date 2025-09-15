@@ -4,21 +4,13 @@
       "id": 1,
       "name": "masum",
       "fullName": "Masum Abdul Matin",
-      "slug": "masum",
-      "relationship": "family",
-      "invitationMessage": "Dear Abdul, you are cordially invited to our wedding celebration.",
-      "isActive": true
+      "slug": "masum"
     },
     {
       "id": 2,
       "name": "Rani",
       "fullName": "Rani",
-      "slug": "rani",
-      "relationship": "Friend",
-      "invitationMessage": "Dear Sarah, we would be honored by your presence at our special day.",
-      "isActive": true
+      "slug": "rani"
     }
-  ],
-  "totalGuests": 2,
-  "lastUpdated": "2024-08-24T12:00:00.000Z"
+  ]
 }

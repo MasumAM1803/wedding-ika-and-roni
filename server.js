@@ -124,7 +124,7 @@ app.get('/api/guest/:slug', (req, res) => {
     const guestsData = readGuestsFromFile();
     
     // Find guest by slug
-    const guest = guestsData.guests.find(g => g.slug === slug && g.isActive);
+    const guest = guestsData.guests.find(g => g.slug === slug);
     
     if (!guest) {
       return res.status(404).json({ 
@@ -140,9 +140,7 @@ app.get('/api/guest/:slug', (req, res) => {
         id: guest.id,
         name: guest.name,
         fullName: guest.fullName,
-        slug: guest.slug,
-        relationship: guest.relationship,
-        invitationMessage: guest.invitationMessage
+        slug: guest.slug
       }
     });
   } catch (error) {
