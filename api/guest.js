@@ -1,22 +1,24 @@
 // Simple guest API endpoint for Vercel
-const guestsData = {
-  "guests": [
-    {
-      "id": 1,
-      "name": "masum",
-      "fullName": "Ma'sum Abdul Matin",
-      "slug": "masum"
-    },
-    {
-      "id": 2,
-      "name": "Rani",
-      "fullName": "Rani",
-      "slug": "rani"
-    }
-  ],
-  "totalGuests": 2,
-  "lastUpdated": new Date().toISOString()
-};
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Dynamically read guests from JSON file so the list stays in sync
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Path two levels up to reach src/assets/data/guests.json
+const GUESTS_FILE_PATH = path.join(__dirname, '../..', 'src/assets/data/guests.json');
+
+function readGuestsFromFile() {
+  try {
+    const fileContent = fs.readFileSync(GUESTS_FILE_PATH, 'utf8');
+    return JSON.parse(fileContent);
+  } catch (err) {
+    console.error('Failed to read guests.json:', err);
+    return { guests: [] };
+  }
+}
 
 export default function handler(req, res) {
   // Enable CORS
@@ -38,6 +40,8 @@ export default function handler(req, res) {
         return res.status(400).json({ error: 'Guest slug is required' });
       }
 
+      const guestsData = readGuestsFromFile();
+
       // Find guest by slug
       const guest = guestsData.guests.find(g => g.slug === slug);
       
@@ -55,7 +59,8 @@ export default function handler(req, res) {
           id: guest.id,
           name: guest.name,
           fullName: guest.fullName,
-          slug: guest.slug
+          slug: guest.slug,
+          whatsapp: guest.whatsapp || ''
         }
       });
     } catch (error) {

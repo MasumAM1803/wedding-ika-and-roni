@@ -1,22 +1,20 @@
-// Guest data embedded directly for Vercel serverless compatibility
-const guestsData = {
-  guests: [
-    {
-      id: 1,
-      name: "masum",
-      fullName: "Masum Abdul Matin",
-      slug: "masum"
-    },
-    {
-      id: 2,
-      name: "Rani",
-      fullName: "Rani",
-      slug: "rani"
-    }
-  ],
-  totalGuests: 2,
-  lastUpdated: new Date().toISOString()
-};
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const GUESTS_FILE_PATH = path.join(__dirname, '../..', 'src/assets/data/guests.json');
+
+function readGuestsFromFile() {
+  try {
+    const data = fs.readFileSync(GUESTS_FILE_PATH, 'utf8');
+    return JSON.parse(data);
+  } catch (err) {
+    console.error('Error reading guests.json:', err);
+    return { guests: [] };
+  }
+}
 
 export default function handler(req, res) {
   // Enable CORS
@@ -38,7 +36,7 @@ export default function handler(req, res) {
         return res.status(400).json({ error: 'Guest slug is required' });
       }
 
-      // Find guest by slug
+      const guestsData = readGuestsFromFile();
       const guest = guestsData.guests.find(g => g.slug === slug);
       
       if (!guest) {
@@ -55,7 +53,8 @@ export default function handler(req, res) {
           id: guest.id,
           name: guest.name,
           fullName: guest.fullName,
-          slug: guest.slug
+          slug: guest.slug,
+          whatsapp: guest.whatsapp || ''
         }
       });
     } catch (error) {
