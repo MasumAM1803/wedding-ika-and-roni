@@ -3122,7 +3122,7 @@ p {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: #bb6d0e;
+  color: #FFFFFF;
   font-size: 1rem;
 }
 
@@ -3245,6 +3245,7 @@ p {
 }
 
 .wishes-container {
+  max-width: 100%;
   max-height: 300px;
   overflow-y: auto;
   scrollbar-width: none; /* Firefox */
@@ -4333,7 +4334,7 @@ p {
   border: 1px solid rgba(139, 69, 19, 0.3);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.6);
-  color: #bb6d0e;
+  color: #FFFFFF;
   font-size: 0.8rem;
   backdrop-filter: none;
 }

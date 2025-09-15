@@ -1,9 +1,18 @@
 {
-  "wishes": [],
-  "totalWishes": 22,
+  "wishes": [
+    {
+      "id": 1,
+      "name": "abdul",
+      "message": "test",
+      "attendance": "present",
+      "timestamp": "2025-09-15T21:57:40.825Z",
+      "guestCount": 1
+    }
+  ],
+  "totalWishes": 1,
   "attendanceStats": {
-    "present": 17,
-    "absent": 5
+    "present": 1,
+    "absent": 0
   },
-  "lastUpdated": "2025-08-24T06:16:32.323Z"
+  "lastUpdated": "2025-09-15T21:57:40.825Z"
 }
