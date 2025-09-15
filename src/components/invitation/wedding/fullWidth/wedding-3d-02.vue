@@ -4793,18 +4793,18 @@ p {
 }
 
 .color-circle {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .color-primary {
-  background: #043B7E; /* soft pink */
+  background: url('../../../../assets/images/background/dresscode-blue-denim.png') center/cover no-repeat;
 }
 
 .color-secondary {
-  background: #eeeeee;
+  background: url('../../../../assets/images/background/dresscode-silver.png') center/cover no-repeat;
   border: 1px solid #ddd;
 }
 
@@ -4814,7 +4814,7 @@ p {
   border-radius: 25px;
   padding: 2rem;
   margin-bottom: 2rem;
-  border: 2px solid rgba(255, 182, 193, 0.4);
+  border: 2px solid rgba(182, 226, 255, 0.3);
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
   animation: fadeInScale 0.5s ease-out;

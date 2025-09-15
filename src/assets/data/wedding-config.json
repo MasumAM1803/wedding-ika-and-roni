@@ -2,16 +2,16 @@
   "wedding": {
     "couple": {
       "bride": {
-        "name": "Ika Riyanti Erwina",
+        "name": "Ika Riyanti Erwina S.Ak",
         "shortName": "IKA",
-        "parents": "Bapak Erwin dan Ibu Ucu Damilah",
-        "instagram": "@ikariyanti"
+        "parents": "Bapak Erwin S.ST dan Ibu Ucu Damilah",
+        "instagram": "@ikareee"
       },
       "groom": {
         "name": "Roni Septiyan",
         "shortName": "RONI",
-        "parents": "Bapak Tisma somantri & Ibu Komariah",
-        "instagram": "@roniseptiyan"
+        "parents": "Bapak Tisna somantri & Ibu Komariah",
+        "instagram": "@roniseptian_"
       }
     },
     "date": {
@@ -20,22 +20,22 @@
       "date": "03",
       "month": "Oktober",
       "year": "2025",
-      "time": "08:00 AM"
+      "time": "10:00 AM"
     },
     "akad": {
-      "date": "Jum'at, 03 Oktober 2025",
-      "time": "08:00 WIB",
-      "location": "Villa batu alam",
-      "address": "Jl. Citali - Rancakalong KM. 11 Dsn. Ciherang, RT.02/RW.03, Desa Ciherang, Rancakalong, Sumedang"
-    },
-    "resepsi": {
       "date": "Jum'at, 03 Oktober 2025",
       "time": "10:00 WIB",
       "location": "Villa batu alam",
       "address": "Jl. Citali - Rancakalong KM. 11 Dsn. Ciherang, RT.02/RW.03, Desa Ciherang, Rancakalong, Sumedang"
     },
+    "resepsi": {
+      "date": "Jum'at, 03 Oktober 2025",
+      "time": "13:00 WIB",
+      "location": "Villa batu alam",
+      "address": "Jl. Citali - Rancakalong KM. 11 Dsn. Ciherang, RT.02/RW.03, Desa Ciherang, Rancakalong, Sumedang"
+    },
     "countdown": {
-      "targetDate": "2025-10-03T07:00:00"
+      "targetDate": "2025-10-03T10:00:00"
     }
   },
   "bankAccounts": [
