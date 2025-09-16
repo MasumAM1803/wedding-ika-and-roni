@@ -168,7 +168,7 @@
                     <h3 class="profile-name-arch">{{ wedding.couple.bride.name }}</h3>
                     <p class="profile-desc-arch">Putri dari</p>
                     <p class="profile-parents-arch">{{ wedding.couple.bride.parents }}</p>
-                    <button class="instagram-btn-profile">
+                    <button class="instagram-btn-profile" @click="openInstagram(wedding.couple.bride.instagram)">
                       <i class="fab fa-instagram"></i>
                       <span>{{ wedding.couple.bride.instagram }}</span>
                     </button>
@@ -184,7 +184,7 @@
                     <h3 class="profile-name-arch">{{ wedding.couple.groom.name }}</h3>
                     <p class="profile-desc-arch">Putra dari</p>
                     <p class="profile-parents-arch">{{ wedding.couple.groom.parents }}</p>
-                    <button class="instagram-btn-profile">
+                    <button class="instagram-btn-profile" @click="openInstagram(wedding.couple.groom.instagram)">
                       <i class="fab fa-instagram"></i>
                       <span>{{ wedding.couple.groom.instagram }}</span>
                     </button>
@@ -1088,6 +1088,12 @@ export default {
         audio.play();
       }
       this.isMusicPlaying = !this.isMusicPlaying;
+    },
+    openInstagram(username) {
+      if (!username) return;
+      const sanitized = username.startsWith('@') ? username.slice(1) : username;
+      const url = `https://www.instagram.com/${sanitized}`;
+      window.open(url, '_blank');
     },
   }
 }
