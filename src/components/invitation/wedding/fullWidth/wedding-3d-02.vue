@@ -547,7 +547,7 @@
               <div class="created-by-container">
                 <div class="created-by-brand">
                   <img class="created-by-logo" :src="grothoIcon" alt="grotho logo" />
-                  <p class="created-by-text">grotho.id</p>
+                  <p class="created-by-text">grotho</p>
                 </div>
                 <div class="created-by-socials">
                   <a :href="socialLinks.instagram" target="_blank" rel="noopener" aria-label="Instagram" class="social-link">
@@ -1456,7 +1456,7 @@ p {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(255, 240, 245, 0.8) 0%, rgba(255, 228, 225, 0.8) 100%), url('../../../../assets/images/background/background-4.png') no-repeat center center;
+  background: linear-gradient(135deg, rgba(247, 248, 250, 0.8) 0%, rgba(247, 248, 250, 0.8) 100%), url('../../../../assets/images/background/background-4.png') no-repeat center center;
   background-size: cover;
   text-align: center;
   padding: 2rem;
@@ -2291,8 +2291,8 @@ p {
 
 .countdown-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(255, 182, 193, 0.4);
-  border-color: rgba(255, 182, 193, 0.6);
+  box-shadow: 0 10px 28px rgba(21, 96, 189, 0.55);
+  border-color: rgba(182, 226, 255, 0.3);
 }
 
 .countdown-number {
@@ -4622,8 +4622,8 @@ p {
 
 .timeline-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(206, 157, 203, 0.4);
-  border-color: rgba(206, 157, 203, 0.6);
+  box-shadow: 0 10px 28px rgba(21, 96, 189, 0.55);
+  border-color: rgba(182, 226, 255, 0.3);
 }
 
 .timeline-date {
