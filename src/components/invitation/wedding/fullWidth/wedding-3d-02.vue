@@ -818,7 +818,8 @@ export default {
     },
     
     saveDate() {
-      this.showNotification('📅 Tanggal berhasil disimpan!', 'success')
+      this.openAddCalendarEvent()
+      this.showNotification('📅 Kalender terbuka, silakan simpan tanggalnya!', 'success')
     },
     
     openRSVP() {
@@ -1094,6 +1095,54 @@ export default {
       const sanitized = username.startsWith('@') ? username.slice(1) : username;
       const url = `https://www.instagram.com/${sanitized}`;
       window.open(url, '_blank');
+    },
+    /**
+     * Open Google Calendar with pre-filled event and trigger ICS file download as fallback.
+     */
+    openAddCalendarEvent() {
+      try {
+        // Start & end time
+        const start = new Date(this.wedding.countdown.targetDate)
+        const end = new Date(start.getTime() + 4 * 60 * 60 * 1000) // +4h
+
+        const formatDate = (date) => {
+          return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
+        }
+
+        // Build Google Calendar URL
+        const title = `${this.wedding.couple.bride.shortName} & ${this.wedding.couple.groom.shortName} Wedding`
+        const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${formatDate(start)}/${formatDate(end)}&details=${encodeURIComponent('Wedding Ceremony')} &location=${encodeURIComponent(this.wedding.akad.location)}`
+
+        // Open Google Calendar in new tab
+        window.open(gCalUrl, '_blank')
+
+        // Prepare .ics content as fallback
+        const icsContent = [
+          'BEGIN:VCALENDAR',
+          'VERSION:2.0',
+          'PRODID:-//grotho//wedding//EN',
+          'BEGIN:VEVENT',
+          `DTSTART:${formatDate(start)}`,
+          `DTEND:${formatDate(end)}`,
+          `SUMMARY:${title}`,
+          `LOCATION:${this.wedding.akad.location}`,
+          `DESCRIPTION:Wedding of ${this.wedding.couple.bride.name} and ${this.wedding.couple.groom.name}`,
+          'END:VEVENT',
+          'END:VCALENDAR'
+        ].join('\r\n')
+
+        const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' })
+        const url = URL.createObjectURL(blob)
+        const link = document.createElement('a')
+        link.href = url
+        link.download = 'wedding-invitation.ics'
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+      } catch (e) {
+        console.error('Failed to create calendar event:', e)
+      }
     },
   }
 }
