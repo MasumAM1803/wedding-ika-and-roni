@@ -82,6 +82,7 @@
       <span v-if="selectedFile" class="block text-xs truncate mt-1 sm:hidden">{{ selectedFile.name }}</span>
 
       <!-- simple list -->
+      <input v-model="guestSearch" placeholder="Search guest" class="w-full border rounded px-3 py-2 mb-2" />
       <div class="max-h-60 overflow-y-auto border rounded">
         <table class="min-w-full text-sm">
           <thead class="sticky top-0 bg-gray-100">
@@ -92,7 +93,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="g in guests" :key="g.id" class="border-b">
+            <tr v-for="g in filteredGuestList" :key="g.id" class="border-b">
               <td class="px-2 py-1">{{ g.fullName }}</td>
               <td class="px-2 py-1">{{ g.whatsapp||'-' }}</td>
               <td class="px-2 py-1 text-center flex gap-1 justify-center">
@@ -171,6 +172,8 @@ const showAddGuest = ref(false)
 const newGuest = reactive({ fullName:'', whatsapp:'' })
 const fileInput = ref(null)
 const editingGuestId = ref(null)
+const guestSearch = ref('')
+const filteredGuestList = computed(()=> guests.value.filter(g=> g.fullName.toLowerCase().includes(guestSearch.value.toLowerCase())))
 
 const slugPreview = computed(()=>slugify(newGuest.fullName))
 
