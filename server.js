@@ -32,8 +32,8 @@ app.use(express.json());
 // Path to data files
 const WISHES_FILE_PATH = path.join(__dirname, 'src/assets/data/wishes.json');
 const GUESTS_FILE_PATH = path.join(__dirname, 'src/assets/data/guests.json');
+const CONFIG_FILE_PATH = path.join(__dirname, 'src/assets/data/wedding-config.json');
 
-// Helper function to read wishes from file
 function readWishesFromFile() {
   try {
     const data = fs.readFileSync(WISHES_FILE_PATH, 'utf8');
@@ -44,7 +44,6 @@ function readWishesFromFile() {
   }
 }
 
-// Helper function to read guests from file
 function readGuestsFromFile() {
   try {
     const data = fs.readFileSync(GUESTS_FILE_PATH, 'utf8');
@@ -65,7 +64,6 @@ function writeGuestsToFile(data){
   }
 }
 
-// Helper function to write wishes to file
 function writeWishesToFile(wishesData) {
   try {
     fs.writeFileSync(WISHES_FILE_PATH, JSON.stringify(wishesData, null, 2), 'utf8');
@@ -74,6 +72,15 @@ function writeWishesToFile(wishesData) {
     console.error('Error writing wishes file:', error);
     return false;
   }
+}
+
+function readConfig(){
+  try{ return JSON.parse(fs.readFileSync(CONFIG_FILE_PATH,'utf8')); }
+  catch(e){ console.error('read config',e); return {}; }
+}
+function writeConfig(obj){
+  try{ fs.writeFileSync(CONFIG_FILE_PATH, JSON.stringify(obj,null,2),'utf8'); return true; }
+  catch(e){ console.error('write config',e); return false; }
 }
 
 // Helper to update wish by id
@@ -443,6 +450,19 @@ app.post('/api/guests/bulk', (req, res) => {
     console.error('bulk guests error', error);
     res.status(500).json({ error: 'Server error' });
   }
+});
+
+// Config endpoints
+app.get('/api/config',(req,res)=>{
+  res.json(readConfig());
+});
+app.put('/api/config',(req,res)=>{
+  const payload = req.body;
+  if(typeof payload!== 'object') return res.status(400).json({error:'invalid payload'});
+  const cfg = readConfig();
+  const merged = { ...cfg, ...payload }; // shallow merge
+  if(writeConfig(merged)) return res.status(200).json({success:true, config:merged});
+  res.status(500).json({error:'failed save'});
 });
 
 // Start server

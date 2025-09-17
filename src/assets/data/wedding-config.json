@@ -68,5 +68,6 @@
     "maxVisiblePages": 5,
     "autoRefresh": true,
     "refreshInterval": 30000
-  }
+  },
+  "invitationMessage": "Kepada Yth. Bapak/Ibu/Saudara/i \n{{name}}\n\nAssalamualaikum wr. wb, \n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami:\n\nIka Riyanti Erwina S.Ak\n&\nRoni Septiyan\n\nBerikut link undangan kami, untuk informasi lengkapnya bisa kunjungi :\n\n{{link}}\n\nMerupakan Suatu Kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu di acara pernikahan kami. \n\nJika berkenan mohon untuk mengisi ucapan dan konfirmasi kehadiran di form RSVP untuk berkenan hadir/tidak, serta datang pada jam yang telah ditentukan.\n\nAtas perhatiannya kami ucapkan terima kasih.\n\nDari kami yang berbahagia,\nIka & Roni"
 }

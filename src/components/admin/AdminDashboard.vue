@@ -150,6 +150,15 @@
         </table>
       </div>
     </section>
+
+    <!-- Invitation Message section -->
+    <section class="card">
+      <h2 class="text-xl font-semibold mb-4">Invitation WhatsApp Message</h2>
+      <textarea v-model="invitationMessage" rows="6" class="w-full border rounded px-3 py-2 mb-2" placeholder="Type message... Use {link} to insert link"></textarea>
+      <p class="text-xs text-gray-500 mb-4"><code>&#123;&#123;name&#125;&#125;</code> will be replaced with the unique name.</p>
+      <p class="text-xs text-gray-500 mb-4"><code>&#123;&#123;link&#125;&#125;</code> will be replaced with the unique invitation link.</p>
+      <button @click="saveMessage" class="btn-primary">Save Message</button>
+    </section>
   </div>
 </template>
 
@@ -174,6 +183,7 @@ const fileInput = ref(null)
 const editingGuestId = ref(null)
 const guestSearch = ref('')
 const filteredGuestList = computed(()=> guests.value.filter(g=> g.fullName.toLowerCase().includes(guestSearch.value.toLowerCase())))
+const invitationMessage = ref('')
 
 const slugPreview = computed(()=>slugify(newGuest.fullName))
 
@@ -201,6 +211,27 @@ onMounted(async () => {
   }
 })
 
+async function fetchConfig(){
+  try{
+    const res = await fetch(`${API_BASE}/api/config`)
+    if(!res.ok) throw new Error('Failed fetch config')
+    const data = await res.json()
+    invitationMessage.value = data.invitationMessage || ''
+  }catch(e){ console.error(e) }
+}
+fetchConfig()
+
+async function saveMessage(){
+  try{
+    const res = await fetch(`${API_BASE}/api/config`,{
+      method:'PUT', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ invitationMessage: invitationMessage.value })
+    })
+    if(!res.ok) throw new Error('Failed save')
+    alert('Saved')
+  }catch(e){ alert(e.message) }
+}
+
 const filteredGuests = computed(() => {
   return guests.value.filter(g =>
     g.fullName.toLowerCase().includes(search.value.toLowerCase())
@@ -218,196 +249,20 @@ function normalizePhone(raw) {
 function waLink (guest) {
   const baseUrl = window.location.origin
   const inviteLink = `${baseUrl}/guest/${guest.slug}`
-  const message = encodeURIComponent(`Assalamu'alaikum wr wb.%0ASalam sejahtera untuk kita semua.%0A%0ABerikut link undangan pernikahan kami:%0A${inviteLink}%0A%0ATerima kasih.`)
+  let text = invitationMessage.value || ''
+  if (text.includes('{{link}}')) {
+    text = text.replace(/{{link}}/g, inviteLink)
+  } else {
+    text += `\n${inviteLink}`
+  }
+  if(text.includes('{{name}}')){
+    text = text.replace(/{{name}}/g, guest.fullName)
+  }
+  const message = encodeURIComponent(text)
   let phone = guest.whatsapp.replace(/[^\d]/g, '')
   if (phone.startsWith('0')) {
     phone = '62' + phone.slice(1)
   }
   return `https://wa.me/${phone}?text=${message}`
-}
-
-// Download helpers
-async function fetchWishes () {
-  const res = await fetch(wishesEndpoint)
-  if (!res.ok) throw new Error('Failed to fetch wishes')
-  return await res.json()
-}
-
-async function updateWish (wish) {
-  try {
-    const res = await fetch(`${wishesEndpoint}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(wish)
-    })
-    if (!res.ok) throw new Error('Failed to update wish')
-    alert('Updated')
-  } catch (e) {
-    alert(e.message)
-  }
-}
-
-async function deleteWish (id) {
-  if (!confirm('Delete this wish?')) return
-  try {
-    const res = await fetch(`${wishesEndpoint}`, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id })
-    })
-    if (!res.ok) throw new Error('Failed to delete wish')
-    wishes.value = wishes.value.filter(w => w.id !== id)
-  } catch (e) {
-    alert(e.message)
-  }
-}
-
-async function downloadJson () {
-  try {
-    const data = await fetchWishes()
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
-    triggerDownload(blob, 'wishes.json')
-  } catch (e) {
-    alert(e.message)
-  }
-}
-
-async function downloadCsv () {
-  try {
-    const data = await fetchWishes()
-    const rows = data.wishes
-    const header = ['id', 'name', 'message', 'attendance', 'guestCount', 'timestamp']
-    const csvContent = [header.join(',')].concat(
-      rows.map(w => header.map(h => `"${(w[h] || '').toString().replace(/"/g, '""')}"`).join(','))
-    ).join('\n')
-    const blob = new Blob([csvContent], { type: 'text/csv' })
-    triggerDownload(blob, 'wishes.csv')
-  } catch (e) {
-    alert(e.message)
-  }
-}
-
-async function sendAll () {
-  if (sendingAll.value) return
-  sendingAll.value = true
-  const list = guestsWithNumber.value
-  for (let i = 0; i < list.length; i++) {
-    const g = list[i]
-    try {
-      await fetch(`${API_BASE}/api/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: normalizePhone(g.whatsapp) })
-      })
-      incCount(g.id)
-    } catch (e) {
-      console.error('send failed', g.whatsapp, e)
-    }
-    sendProgress.value = Math.round(((i+1)/list.length)*100)
-    await new Promise(r=>setTimeout(r, 500)) // light throttle
-  }
-  sendingAll.value = false
-}
-
-function incCount(id){
-  sendCounts[id] = (sendCounts[id] || 0) + 1
-  fetch(`${API_BASE}/api/guest/increment`,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({id})
-  }).catch(()=>{})
-}
-
-function triggerDownload (blob, filename) {
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement('a')
-  a.href = url
-  a.download = filename
-  a.click()
-  URL.revokeObjectURL(url)
-}
-
-function onFileChange (e) {
-  selectedFile.value = e.target.files[0] || null
-}
-
-async function parseCsv (text) {
-  const lines = text.trim().split(/\r?\n/)
-  const header = lines.shift().split(',').map(h=>h.trim().toLowerCase())
-  return lines.map(line=>{
-    const cols = line.split(',')
-    const obj = {}
-    header.forEach((h,i)=>{ obj[h] = cols[i]?.trim() })
-    if(obj.nama && !obj.name) obj.name = obj.nama
-    if(!obj.fullName) obj.fullName = obj.name || obj.nama
-    return obj
-  })
-}
-
-async function uploadGuests () {
-  if (!selectedFile.value) return
-  try {
-    let parsed
-    if (selectedFile.value.name.endsWith('.csv')) {
-      const text = await selectedFile.value.text()
-      parsed = await parseCsv(text)
-    } else {
-      const text = await selectedFile.value.text()
-      parsed = JSON.parse(text)
-    }
-
-    const res = await fetch(`${API_BASE}/api/guests/bulk`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ replace: replaceGuests.value, guests: parsed })
-    })
-    if (!res.ok) throw new Error('Upload failed')
-    const data = await res.json()
-    guests.value = data.guests
-    alert('Guests updated')
-  } catch (e) {
-    alert(e.message)
-  } finally {
-    selectedFile.value = null
-  }
-}
-
-function startEdit(g){
-  editingGuestId.value = g.id
-  Object.assign(newGuest,{ fullName: g.fullName, whatsapp: g.whatsapp })
-  showAddGuest.value = true
-}
-
-async function saveGuest(){
-  try{
-    const payload = { fullName:newGuest.fullName, whatsapp:newGuest.whatsapp }
-    let url = `${API_BASE}/api/guests`;
-    let method = 'POST';
-    if(editingGuestId.value){
-      url += `/${editingGuestId.value}`
-      method = 'PUT'
-    }
-    const res = await fetch(url,{ method, headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) })
-    if(!res.ok) throw new Error('Failed to save guest')
-    const data = await res.json()
-    if(editingGuestId.value){
-      const idx = guests.value.findIndex(x=>x.id===editingGuestId.value)
-      guests.value[idx] = data.guest
-    }else{
-      guests.value.push(data.guest)
-    }
-    editingGuestId.value=null
-    Object.assign(newGuest,{fullName:'', whatsapp:''})
-    showAddGuest.value=false
-  }catch(e){ alert(e.message) }
-}
-
-async function deleteGuest(g){
-  if(!confirm('Delete this guest?')) return
-  try{
-    const res = await fetch(`${API_BASE}/api/guests/${g.id}`,{method:'DELETE'})
-    if(!res.ok) throw new Error('Failed')
-    guests.value = guests.value.filter(x=>x.id!==g.id)
-  }catch(e){ alert(e.message)}
 }
 </script>
