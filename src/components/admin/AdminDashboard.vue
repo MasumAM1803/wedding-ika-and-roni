@@ -147,7 +147,14 @@ const wishesEndpoint = `${API_BASE}/api/wishes`
 // helper to fetch wishes list
 async function fetchWishes () {
   const res = await fetch(wishesEndpoint)
-  if (!res.ok) throw new Error('Failed to fetch wishes')
+  if (!res.ok) throw new Error(`Failed to fetch wishes: ${res.status}`)
+  const ct = res.headers.get('content-type') || ''
+  if (!ct.includes('application/json')) {
+    // The backend returned HTML (likely an error page). Convert to text for logging.
+    const text = await res.text()
+    console.error('Unexpected non-JSON response:', text.slice(0, 200))
+    throw new Error('Unexpected response format')
+  }
   return await res.json()
 }
 const search = ref('')

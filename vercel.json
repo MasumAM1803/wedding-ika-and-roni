@@ -37,15 +37,6 @@
           "value": "audio/mpeg"
         }
       ]
-    },
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/json"
-        }
-      ]
     }
   ],
   "rewrites": [
@@ -54,8 +45,32 @@
       "destination": "/api/guest.js"
     },
     {
+      "source": "/api/guest/increment",
+      "destination": "/api/guest/increment.js"
+    },
+    {
       "source": "/api/guest/:slug",
       "destination": "/api/guest/[slug].js"
+    },
+    {
+      "source": "/api/guests/bulk",
+      "destination": "/api/guests/bulk.js"
+    },
+    {
+      "source": "/api/guests/:id",
+      "destination": "/api/guests.js"
+    },
+    {
+      "source": "/api/guests",
+      "destination": "/api/guests.js"
+    },
+    {
+      "source": "/api/config",
+      "destination": "/api/config.js"
+    },
+    {
+      "source": "/api/sendMessage",
+      "destination": "/api/sendMessage.js"
     },
     {
       "source": "/api/wishes",
