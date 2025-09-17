@@ -52,6 +52,67 @@
       </div>
     </section>
 
+    <!-- Guest import section -->
+    <section class="card">
+      <h2 class="text-xl font-semibold mb-4">Guests</h2>
+      <!-- Desktop controls -->
+      <div class="hidden sm:flex items-center gap-4 w-full mb-2">
+        <input ref="fileInput" type="file" accept=".csv,.json" class="hidden" @change="onFileChange" />
+        <button @click="fileInput.click()" class="btn-secondary">Select File</button>
+        <span v-if="selectedFile" class="text-sm truncate max-w-[200px]">{{ selectedFile.name }}</span>
+        <label class="flex items-center gap-2 ml-auto">
+          <input type="checkbox" v-model="replaceGuests" />
+          <span>Replace existing list</span>
+        </label>
+        <button :disabled="!selectedFile" @click="uploadGuests" class="btn-primary">Upload</button>
+        <button @click="showAddGuest=true" class="btn-secondary">Add Guest</button>
+      </div>
+
+      <!-- Mobile controls -->
+      <div class="flex sm:hidden justify-end items-center flex-wrap gap-2 w-full mb-4">
+        <label class="flex items-center gap-1">
+          <input type="checkbox" v-model="replaceGuests" />
+          <span class="text-xs">Replace</span>
+        </label>
+        <input ref="fileInput" type="file" accept=".csv,.json" class="hidden" @change="onFileChange" />
+        <button @click="fileInput.click()" class="btn-secondary btn-small px-3 py-2">Select</button>
+        <button :disabled="!selectedFile" @click="uploadGuests" class="btn-primary btn-small px-3 py-2">Upload</button>
+        <button @click="showAddGuest=true" class="btn-secondary btn-small px-3 py-2">Add Guest</button>
+      </div>
+      <span v-if="selectedFile" class="block text-xs truncate mt-1 sm:hidden">{{ selectedFile.name }}</span>
+
+      <!-- simple list -->
+      <div class="max-h-60 overflow-y-auto border rounded">
+        <table class="min-w-full text-sm">
+          <thead class="sticky top-0 bg-gray-100">
+            <tr><th class="px-2 py-1 text-left">Name</th><th class="px-2 py-1 text-left">Phone</th></tr>
+          </thead>
+          <tbody>
+            <tr v-for="g in guests" :key="g.id" class="border-b">
+              <td class="px-2 py-1">{{ g.fullName }}</td>
+              <td class="px-2 py-1">{{ g.whatsapp||'-' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Add Guest Modal -->
+    <div v-if="showAddGuest" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-lg p-6 w-80 space-y-4">
+        <h3 class="text-lg font-semibold">Add Guest</h3>
+        <div class="space-y-2">
+          <input v-model="newGuest.fullName" placeholder="Full Name" class="w-full border rounded px-2 py-1" />
+          <input :value="slugPreview" placeholder="Slug" disabled class="w-full border rounded px-2 py-1 bg-gray-100 text-gray-500" />
+          <input v-model="newGuest.whatsapp" placeholder="WhatsApp (optional)" class="w-full border rounded px-2 py-1" />
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button @click="showAddGuest=false" class="btn-secondary btn-small">Cancel</button>
+          <button @click="saveGuest" :disabled="!newGuest.fullName" class="btn-primary btn-small">Save</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Send invitation section -->
     <section class="card">
       <h2 class="text-xl font-semibold mb-4">Send Invitation via WhatsApp</h2>
@@ -84,7 +145,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, reactive } from 'vue'
+import { ref, computed, onMounted, reactive, watch } from 'vue'
 import guestsData from '../../assets/data/guests.json'
 
 // Determine API base URL: in dev we run Express at 3001, in prod same origin
@@ -96,6 +157,24 @@ const sendingAll = ref(false)
 const sendProgress = ref(0)
 const wishes = ref([])
 const sendCounts = reactive({})
+const replaceGuests = ref(false)
+const selectedFile = ref(null)
+const showAddGuest = ref(false)
+const newGuest = reactive({ fullName:'', whatsapp:'' })
+const fileInput = ref(null)
+
+const slugPreview = computed(()=>slugify(newGuest.fullName))
+
+watch(()=>newGuest.fullName, ()=>{
+  newGuest.slug = slugify(newGuest.fullName)
+})
+
+function slugify(str){
+  return str.toString().toLowerCase().trim()
+    .replace(/[^\w\s-]/g,'')
+    .replace(/\s+/g,'-')
+    .replace(/-+/g,'-');
+}
 
 onMounted(async () => {
   guests.value = guestsData.guests
@@ -234,5 +313,67 @@ function triggerDownload (blob, filename) {
   a.download = filename
   a.click()
   URL.revokeObjectURL(url)
+}
+
+function onFileChange (e) {
+  selectedFile.value = e.target.files[0] || null
+}
+
+async function parseCsv (text) {
+  const lines = text.trim().split(/\r?\n/)
+  const header = lines.shift().split(',').map(h=>h.trim().toLowerCase())
+  return lines.map(line=>{
+    const cols = line.split(',')
+    const obj = {}
+    header.forEach((h,i)=>{ obj[h] = cols[i]?.trim() })
+    if(obj.nama && !obj.name) obj.name = obj.nama
+    if(!obj.fullName) obj.fullName = obj.name || obj.nama
+    return obj
+  })
+}
+
+async function uploadGuests () {
+  if (!selectedFile.value) return
+  try {
+    let parsed
+    if (selectedFile.value.name.endsWith('.csv')) {
+      const text = await selectedFile.value.text()
+      parsed = await parseCsv(text)
+    } else {
+      const text = await selectedFile.value.text()
+      parsed = JSON.parse(text)
+    }
+
+    const res = await fetch(`${API_BASE}/api/guests/bulk`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ replace: replaceGuests.value, guests: parsed })
+    })
+    if (!res.ok) throw new Error('Upload failed')
+    const data = await res.json()
+    guests.value = data.guests
+    alert('Guests updated')
+  } catch (e) {
+    alert(e.message)
+  } finally {
+    selectedFile.value = null
+  }
+}
+
+async function saveGuest(){
+  try{
+    const res = await fetch(`${API_BASE}/api/guests`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ fullName:newGuest.fullName, whatsapp:newGuest.whatsapp })
+    })
+    if(!res.ok) throw new Error('Failed to save guest')
+    const data = await res.json()
+    guests.value.push(data.guest)
+    Object.assign(newGuest,{fullName:'', whatsapp:''})
+    showAddGuest.value=false
+  }catch(e){
+    alert(e.message)
+  }
 }
 </script>

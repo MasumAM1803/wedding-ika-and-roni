@@ -149,6 +149,13 @@ function normalizePhone(p) {
   return phone;
 }
 
+function slugify(str){
+  return str.toString().toLowerCase().trim()
+    .replace(/[^\w\s-]/g,'')
+    .replace(/\s+/g,'-')
+    .replace(/-+/g,'-');
+}
+
 // Send single WhatsApp message
 app.post('/api/sendMessage', async (req, res) => {
   try {
@@ -308,6 +315,35 @@ app.get('/api/guest/:slug', (req, res) => {
   }
 });
 
+// Add single guest
+app.post('/api/guests', (req,res)=>{
+  const { fullName, whatsapp } = req.body;
+  if(!fullName) return res.status(400).json({error:'fullName required'});
+
+  const data = readGuestsFromFile();
+  const nextId = data.guests.reduce((m,g)=>Math.max(m,g.id),0)+1;
+  const slugBase = slugify(fullName);
+  let slug = slugBase;
+  let counter = 1;
+  const existingSlugs = new Set(data.guests.map(g=>g.slug));
+  while(existingSlugs.has(slug)){
+    slug = `${slugBase}-${counter++}`;
+  }
+
+  const newGuest = {
+    id: nextId,
+    name: fullName.split(' ')[0],
+    fullName,
+    slug,
+    whatsapp: whatsapp||''
+  };
+  data.guests.push(newGuest);
+  if(writeGuestsToFile(data)){
+    return res.status(201).json({success:true, guest:newGuest});
+  }
+  res.status(500).json({error:'failed save'});
+});
+
 // Increment send count for guest
 app.post('/api/guest/increment', (req,res)=>{
   const { id } = req.body;
@@ -320,6 +356,56 @@ app.post('/api/guest/increment', (req,res)=>{
     return res.status(200).json({success:true, count:data.guests[idx].sent});
   }
   res.status(500).json({error:'failed save'});
+});
+
+// Bulk add/replace guests from dashboard upload
+app.post('/api/guests/bulk', (req, res) => {
+  try {
+    const { replace = false, guests } = req.body;
+    if (!Array.isArray(guests)) {
+      return res.status(400).json({ error: 'guests array required' });
+    }
+
+    function normalize(input, id){
+      const fullName = input.fullName || input.name || input.nama || '';
+      const slugBase = slugify(fullName);
+      return {
+        id,
+        name: input.name || input.nama || fullName.split(' ')[0],
+        fullName,
+        slug: input.slug || slugBase,
+        whatsapp: input.whatsapp || input.phone || input.nohp || ''
+      };
+    }
+
+    const currentData = readGuestsFromFile();
+    let newGuestsArr;
+
+    if (replace) {
+      newGuestsArr = guests.map((g, idx) => normalize(g, idx + 1));
+    } else {
+      newGuestsArr = [...currentData.guests];
+      const existingSlugs = new Set(currentData.guests.map(g => g.slug));
+      let nextId = newGuestsArr.reduce((m, g) => Math.max(m, g.id), 0) + 1;
+
+      guests.forEach(g => {
+        const obj = normalize(g, nextId);
+        if (existingSlugs.has(obj.slug)) return;
+        newGuestsArr.push(obj);
+        existingSlugs.add(obj.slug);
+        nextId++;
+      });
+    }
+
+    const dataToWrite = { guests: newGuestsArr };
+    if (writeGuestsToFile(dataToWrite)) {
+      return res.status(200).json({ success: true, guests: dataToWrite.guests });
+    }
+    res.status(500).json({ error: 'Failed to write guests' });
+  } catch (error) {
+    console.error('bulk guests error', error);
+    res.status(500).json({ error: 'Server error' });
+  }
 });
 
 // Start server
