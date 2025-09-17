@@ -286,6 +286,7 @@
               <h2 class="section-title">Dresscode</h2>
               <p class="dresscode-desc">Kami dengan hormat menganjurkan tamu kami untuk mengenakan warna-warna ini untuk hari istimewa kami.</p>
               <div class="dresscode-colors">
+                <div class="color-circle color-white"></div>
                 <div class="color-circle color-primary"></div>
                 <div class="color-circle color-secondary"></div>
               </div>
@@ -5067,6 +5068,11 @@ p {
 
 .created-by-logo {
   margin-bottom: 0; /* remove since inline */
+}
+
+.color-white {
+  background: #ffffff;
+  border: 1px solid #ddd;
 }
 
 </style>
