@@ -89,16 +89,19 @@
             <tr>
               <th class="px-2 py-1 text-left">Name</th>
               <th class="px-2 py-1 text-left">Phone</th>
-              <th class="px-2 py-1 text-center w-24">Action</th>
+              <th class="px-2 py-1 text-center">Sent</th>
+              <th class="px-2 py-1 text-center w-32">Action</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="g in filteredGuestList" :key="g.id" class="border-b">
               <td class="px-2 py-1">{{ g.fullName }}</td>
               <td class="px-2 py-1">{{ g.whatsapp||'-' }}</td>
-              <td class="px-2 py-1 text-center flex gap-1 justify-center">
-                <button @click="startEdit(g)" class="btn-secondary btn-small">Edit</button>
-                <button @click="deleteGuest(g)" class="bg-red-600 hover:bg-red-700 text-white text-xs rounded px-2">Del</button>
+              <td class="px-2 py-1 text-center">{{ sendCounts[g.id] || 0 }}</td>
+              <td class="px-2 py-1 text-center flex gap-1 justify-center flex-wrap">
+                <button @click="startEdit(g)" class="btn-secondary btn-small w-16 h-8">Edit</button>
+                <button @click="deleteGuest(g)" class="bg-red-600 hover:bg-red-700 text-white text-xs rounded w-16 h-8">Del</button>
+                <a v-if="g.whatsapp" :href="waLink(g)" target="_blank" class="btn-primary btn-small w-16 h-8 flex items-center justify-center" @click="incCount(g.id)">Send</a>
               </td>
             </tr>
           </tbody>
@@ -122,35 +125,6 @@
       </div>
     </div>
 
-    <!-- Send invitation section -->
-    <section class="card">
-      <h2 class="text-xl font-semibold mb-4">Send Invitation via WhatsApp</h2>
-      <input v-model="search" placeholder="Search guest" class="w-full border rounded px-3 py-2 mb-4" />
-      <div class="max-h-96 overflow-y-auto">
-        <table class="min-w-full text-sm">
-          <thead>
-            <tr class="border-b">
-              <th class="py-2 text-left">Name</th>
-              <th class="py-2 text-left">Phone</th>
-              <th class="py-2 text-left">Sent</th>
-              <th class="py-2">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="guest in filteredGuests" :key="guest.id" class="border-b hover:bg-gray-50">
-              <td class="py-2">{{ guest.fullName }}</td>
-              <td class="py-2">{{ guest.whatsapp || '-' }}</td>
-              <td class="py-2 text-center">{{ sendCounts[guest.id] || 0 }}</td>
-              <td class="py-2 text-center whitespace-nowrap">
-                <a v-if="guest.whatsapp" :href="waLink(guest)" target="_blank" class="btn-primary btn-small" @click="incCount(guest.id)">Send</a>
-                <span v-else class="text-gray-400 text-xs">No number</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
     <!-- Invitation Message section -->
     <section class="card">
       <h2 class="text-xl font-semibold mb-4">Invitation WhatsApp Message</h2>
@@ -169,6 +143,13 @@ import guestsData from '../../assets/data/guests.json'
 // Determine API base URL: in dev we run Express at 3001, in prod same origin
 const API_BASE = import.meta.env.VITE_API_BASE || (window.location.port === '3000' ? 'http://localhost:3001' : '')
 const wishesEndpoint = `${API_BASE}/api/wishes`
+
+// helper to fetch wishes list
+async function fetchWishes () {
+  const res = await fetch(wishesEndpoint)
+  if (!res.ok) throw new Error('Failed to fetch wishes')
+  return await res.json()
+}
 const search = ref('')
 const guests = ref([])
 const sendingAll = ref(false)
@@ -264,5 +245,184 @@ function waLink (guest) {
     phone = '62' + phone.slice(1)
   }
   return `https://wa.me/${phone}?text=${message}`
+}
+
+// ===== Wishes CRUD helpers =====
+async function updateWish (wish) {
+  try {
+    const res = await fetch(`${wishesEndpoint}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(wish)
+    })
+    if (!res.ok) throw new Error('Failed to update wish')
+    alert('Updated')
+  } catch (e) {
+    alert(e.message)
+  }
+}
+
+async function deleteWish (id) {
+  if (!confirm('Delete this wish?')) return
+  try {
+    const res = await fetch(`${wishesEndpoint}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id })
+    })
+    if (!res.ok) throw new Error('Failed to delete wish')
+    wishes.value = wishes.value.filter(w => w.id !== id)
+  } catch (e) {
+    alert(e.message)
+  }
+}
+
+async function downloadJson () {
+  try {
+    const data = await fetchWishes()
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+    triggerDownload(blob, 'wishes.json')
+  } catch (e) {
+    alert(e.message)
+  }
+}
+
+async function downloadCsv () {
+  try {
+    const data = await fetchWishes()
+    const rows = data.wishes
+    const header = ['id', 'name', 'message', 'attendance', 'guestCount', 'timestamp']
+    const csvContent = [header.join(',')].concat(
+      rows.map(w => header.map(h => `"${(w[h] || '').toString().replace(/"/g, '""')}"`).join(','))
+    ).join('\n')
+    const blob = new Blob([csvContent], { type: 'text/csv' })
+    triggerDownload(blob, 'wishes.csv')
+  } catch (e) {
+    alert(e.message)
+  }
+}
+
+async function sendAll () {
+  if (sendingAll.value) return
+  sendingAll.value = true
+  const list = guestsWithNumber.value
+  for (let i = 0; i < list.length; i++) {
+    const g = list[i]
+    try {
+      await fetch(`${API_BASE}/api/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: normalizePhone(g.whatsapp) })
+      })
+      incCount(g.id)
+    } catch (e) {
+      console.error('send failed', g.whatsapp, e)
+    }
+    sendProgress.value = Math.round(((i+1)/list.length)*100)
+    await new Promise(r=>setTimeout(r, 500)) // light throttle
+  }
+  sendingAll.value = false
+}
+
+function incCount(id){
+  sendCounts[id] = (sendCounts[id] || 0) + 1
+  fetch(`${API_BASE}/api/guest/increment`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({id})
+  }).catch(()=>{})
+}
+
+function triggerDownload (blob, filename) {
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  a.click()
+  URL.revokeObjectURL(url)
+}
+
+function onFileChange (e) {
+  selectedFile.value = e.target.files[0] || null
+}
+
+async function parseCsv (text) {
+  const lines = text.trim().split(/\r?\n/)
+  const header = lines.shift().split(',').map(h=>h.trim().toLowerCase())
+  return lines.map(line=>{
+    const cols = line.split(',')
+    const obj = {}
+    header.forEach((h,i)=>{ obj[h] = cols[i]?.trim() })
+    if(obj.nama && !obj.name) obj.name = obj.nama
+    if(!obj.fullName) obj.fullName = obj.name || obj.nama
+    return obj
+  })
+}
+
+async function uploadGuests () {
+  if (!selectedFile.value) return
+  try {
+    let parsed
+    if (selectedFile.value.name.endsWith('.csv')) {
+      const text = await selectedFile.value.text()
+      parsed = await parseCsv(text)
+    } else {
+      const text = await selectedFile.value.text()
+      parsed = JSON.parse(text)
+    }
+
+    const res = await fetch(`${API_BASE}/api/guests/bulk`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ replace: replaceGuests.value, guests: parsed })
+    })
+    if (!res.ok) throw new Error('Upload failed')
+    const data = await res.json()
+    guests.value = data.guests
+    alert('Guests updated')
+  } catch (e) {
+    alert(e.message)
+  } finally {
+    selectedFile.value = null
+  }
+}
+
+function startEdit(g){
+  editingGuestId.value = g.id
+  Object.assign(newGuest,{ fullName: g.fullName, whatsapp: g.whatsapp })
+  showAddGuest.value = true
+}
+
+async function saveGuest(){
+  try{
+    const payload = { fullName:newGuest.fullName, whatsapp:newGuest.whatsapp }
+    let url = `${API_BASE}/api/guests`;
+    let method = 'POST';
+    if(editingGuestId.value){
+      url += `/${editingGuestId.value}`
+      method = 'PUT'
+    }
+    const res = await fetch(url,{ method, headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) })
+    if(!res.ok) throw new Error('Failed to save guest')
+    const data = await res.json()
+    if(editingGuestId.value){
+      const idx = guests.value.findIndex(x=>x.id===editingGuestId.value)
+      guests.value[idx] = data.guest
+    }else{
+      guests.value.push(data.guest)
+    }
+    editingGuestId.value=null
+    Object.assign(newGuest,{fullName:'', whatsapp:''})
+    showAddGuest.value=false
+  }catch(e){ alert(e.message) }
+}
+
+async function deleteGuest(g){
+  if(!confirm('Delete this guest?')) return
+  try{
+    const res = await fetch(`${API_BASE}/api/guests/${g.id}`,{method:'DELETE'})
+    if(!res.ok) throw new Error('Failed')
+    guests.value = guests.value.filter(x=>x.id!==g.id)
+  }catch(e){ alert(e.message)}
 }
 </script>
