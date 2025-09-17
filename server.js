@@ -344,6 +344,43 @@ app.post('/api/guests', (req,res)=>{
   res.status(500).json({error:'failed save'});
 });
 
+// Update guest
+app.put('/api/guests/:id', (req,res)=>{
+  const guestId = parseInt(req.params.id,10);
+  const { fullName, whatsapp } = req.body;
+  if(!fullName) return res.status(400).json({error:'fullName required'});
+
+  const data = readGuestsFromFile();
+  const idx = data.guests.findIndex(g=>g.id===guestId);
+  if(idx===-1) return res.status(404).json({error:'guest not found'});
+
+  const slugBase = slugify(fullName);
+  let slug = slugBase;
+  const existingSlugs = new Set(data.guests.filter(g=>g.id!==guestId).map(g=>g.slug));
+  let counter=1;
+  while(existingSlugs.has(slug)) slug = `${slugBase}-${counter++}`;
+
+  data.guests[idx] = {
+    ...data.guests[idx],
+    name: fullName.split(' ')[0],
+    fullName,
+    slug,
+    whatsapp: whatsapp||''
+  };
+  if(writeGuestsToFile(data)) return res.status(200).json({success:true, guest:data.guests[idx]});
+  res.status(500).json({error:'failed save'});
+});
+
+// Delete guest
+app.delete('/api/guests/:id', (req,res)=>{
+  const guestId = parseInt(req.params.id,10);
+  const data = readGuestsFromFile();
+  const newArr = data.guests.filter(g=>g.id!==guestId);
+  if(newArr.length===data.guests.length) return res.status(404).json({error:'guest not found'});
+  if(writeGuestsToFile({guests:newArr})) return res.status(200).json({success:true});
+  res.status(500).json({error:'failed save'});
+});
+
 // Increment send count for guest
 app.post('/api/guest/increment', (req,res)=>{
   const { id } = req.body;

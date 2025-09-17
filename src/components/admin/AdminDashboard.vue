@@ -85,12 +85,20 @@
       <div class="max-h-60 overflow-y-auto border rounded">
         <table class="min-w-full text-sm">
           <thead class="sticky top-0 bg-gray-100">
-            <tr><th class="px-2 py-1 text-left">Name</th><th class="px-2 py-1 text-left">Phone</th></tr>
+            <tr>
+              <th class="px-2 py-1 text-left">Name</th>
+              <th class="px-2 py-1 text-left">Phone</th>
+              <th class="px-2 py-1 text-center w-24">Action</th>
+            </tr>
           </thead>
           <tbody>
             <tr v-for="g in guests" :key="g.id" class="border-b">
               <td class="px-2 py-1">{{ g.fullName }}</td>
               <td class="px-2 py-1">{{ g.whatsapp||'-' }}</td>
+              <td class="px-2 py-1 text-center flex gap-1 justify-center">
+                <button @click="startEdit(g)" class="btn-secondary btn-small">Edit</button>
+                <button @click="deleteGuest(g)" class="bg-red-600 hover:bg-red-700 text-white text-xs rounded px-2">Del</button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -162,6 +170,7 @@ const selectedFile = ref(null)
 const showAddGuest = ref(false)
 const newGuest = reactive({ fullName:'', whatsapp:'' })
 const fileInput = ref(null)
+const editingGuestId = ref(null)
 
 const slugPreview = computed(()=>slugify(newGuest.fullName))
 
@@ -360,20 +369,42 @@ async function uploadGuests () {
   }
 }
 
+function startEdit(g){
+  editingGuestId.value = g.id
+  Object.assign(newGuest,{ fullName: g.fullName, whatsapp: g.whatsapp })
+  showAddGuest.value = true
+}
+
 async function saveGuest(){
   try{
-    const res = await fetch(`${API_BASE}/api/guests`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({ fullName:newGuest.fullName, whatsapp:newGuest.whatsapp })
-    })
+    const payload = { fullName:newGuest.fullName, whatsapp:newGuest.whatsapp }
+    let url = `${API_BASE}/api/guests`;
+    let method = 'POST';
+    if(editingGuestId.value){
+      url += `/${editingGuestId.value}`
+      method = 'PUT'
+    }
+    const res = await fetch(url,{ method, headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) })
     if(!res.ok) throw new Error('Failed to save guest')
     const data = await res.json()
-    guests.value.push(data.guest)
+    if(editingGuestId.value){
+      const idx = guests.value.findIndex(x=>x.id===editingGuestId.value)
+      guests.value[idx] = data.guest
+    }else{
+      guests.value.push(data.guest)
+    }
+    editingGuestId.value=null
     Object.assign(newGuest,{fullName:'', whatsapp:''})
     showAddGuest.value=false
-  }catch(e){
-    alert(e.message)
-  }
+  }catch(e){ alert(e.message) }
+}
+
+async function deleteGuest(g){
+  if(!confirm('Delete this guest?')) return
+  try{
+    const res = await fetch(`${API_BASE}/api/guests/${g.id}`,{method:'DELETE'})
+    if(!res.ok) throw new Error('Failed')
+    guests.value = guests.value.filter(x=>x.id!==g.id)
+  }catch(e){ alert(e.message)}
 }
 </script>
