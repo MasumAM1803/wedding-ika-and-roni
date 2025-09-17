@@ -112,11 +112,12 @@
     <!-- Add Guest Modal -->
     <div v-if="showAddGuest" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div class="bg-white rounded-lg p-6 w-80 space-y-4">
-        <h3 class="text-lg font-semibold">Add Guest</h3>
+        <h3 class="text-lg font-semibold">{{ editingGuestId ? 'Edit Guest' : 'Add Guest' }}</h3>
         <div class="space-y-2">
           <input v-model="newGuest.fullName" placeholder="Full Name" class="w-full border rounded px-2 py-1" />
           <input :value="slugPreview" placeholder="Slug" disabled class="w-full border rounded px-2 py-1 bg-gray-100 text-gray-500" />
           <input v-model="newGuest.whatsapp" placeholder="WhatsApp (optional)" class="w-full border rounded px-2 py-1" />
+          <input v-model.number="newGuest.sent" placeholder="Sent count (optional)" type="number" min="0" class="w-full border rounded px-2 py-1" />
         </div>
         <div class="flex justify-end gap-2 pt-2">
           <button @click="showAddGuest=false" class="btn-secondary btn-small">Cancel</button>
@@ -166,7 +167,7 @@ const sendCounts = reactive({})
 const replaceGuests = ref(false)
 const selectedFile = ref(null)
 const showAddGuest = ref(false)
-const newGuest = reactive({ fullName:'', whatsapp:'' })
+const newGuest = reactive({ fullName:'', whatsapp:'', sent: 0 })
 const fileInput = ref(null)
 const editingGuestId = ref(null)
 const guestSearch = ref('')
@@ -396,30 +397,37 @@ async function uploadGuests () {
 
 function startEdit(g){
   editingGuestId.value = g.id
-  Object.assign(newGuest,{ fullName: g.fullName, whatsapp: g.whatsapp })
+  Object.assign(newGuest,{ fullName: g.fullName, whatsapp: g.whatsapp, sent: g.sent || 0 })
   showAddGuest.value = true
 }
 
 async function saveGuest(){
   try{
-    const payload = { fullName:newGuest.fullName, whatsapp:newGuest.whatsapp }
+    const payload = { fullName:newGuest.fullName, whatsapp:newGuest.whatsapp, sent: newGuest.sent || 0 }
     let url = `${API_BASE}/api/guests`;
     let method = 'POST';
-    if(editingGuestId.value){
+    const isEditing = !!editingGuestId.value;
+    if(isEditing){
       url += `/${editingGuestId.value}`
       method = 'PUT'
     }
     const res = await fetch(url,{ method, headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) })
     if(!res.ok) throw new Error('Failed to save guest')
     const data = await res.json()
-    if(editingGuestId.value){
+    if(isEditing){
       const idx = guests.value.findIndex(x=>x.id===editingGuestId.value)
       guests.value[idx] = data.guest
+      // Update the sendCounts reactive object to reflect the new sent count
+      sendCounts[data.guest.id] = data.guest.sent || 0
+      alert(`Guest "${data.guest.fullName}" updated successfully!`)
     }else{
       guests.value.push(data.guest)
+      // Initialize sendCounts for new guest
+      sendCounts[data.guest.id] = data.guest.sent || 0
+      alert(`Guest "${data.guest.fullName}" added successfully!`)
     }
     editingGuestId.value=null
-    Object.assign(newGuest,{fullName:'', whatsapp:''})
+    Object.assign(newGuest,{fullName:'', whatsapp:'', sent: 0})
     showAddGuest.value=false
   }catch(e){ alert(e.message) }
 }

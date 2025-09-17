@@ -324,7 +324,7 @@ app.get('/api/guest/:slug', (req, res) => {
 
 // Add single guest
 app.post('/api/guests', (req,res)=>{
-  const { fullName, whatsapp } = req.body;
+  const { fullName, whatsapp, sent } = req.body;
   if(!fullName) return res.status(400).json({error:'fullName required'});
 
   const data = readGuestsFromFile();
@@ -342,7 +342,8 @@ app.post('/api/guests', (req,res)=>{
     name: fullName.split(' ')[0],
     fullName,
     slug,
-    whatsapp: whatsapp||''
+    whatsapp: whatsapp||'',
+    sent: typeof sent === 'number' ? sent : 0
   };
   data.guests.push(newGuest);
   if(writeGuestsToFile(data)){
@@ -354,7 +355,7 @@ app.post('/api/guests', (req,res)=>{
 // Update guest
 app.put('/api/guests/:id', (req,res)=>{
   const guestId = parseInt(req.params.id,10);
-  const { fullName, whatsapp } = req.body;
+  const { fullName, whatsapp, sent } = req.body;
   if(!fullName) return res.status(400).json({error:'fullName required'});
 
   const data = readGuestsFromFile();
@@ -372,7 +373,8 @@ app.put('/api/guests/:id', (req,res)=>{
     name: fullName.split(' ')[0],
     fullName,
     slug,
-    whatsapp: whatsapp||''
+    whatsapp: whatsapp||'',
+    sent: typeof sent === 'number' ? sent : (data.guests[idx].sent || 0)
   };
   if(writeGuestsToFile(data)) return res.status(200).json({success:true, guest:data.guests[idx]});
   res.status(500).json({error:'failed save'});
