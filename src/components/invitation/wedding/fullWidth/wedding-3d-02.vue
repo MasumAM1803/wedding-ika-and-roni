@@ -3189,8 +3189,8 @@ p {
   padding: 0.75rem;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+  background: white;
+  color: #043B7E;
   font-size: 1rem;
   backdrop-filter: blur(10px);
 }
@@ -3995,6 +3995,8 @@ p {
   .form-group textarea {
     padding: 0.75rem;
     font-size: 1rem;
+    background: white;
+    color: #043B7E;
   }
 
   .attendance-section {
@@ -4390,7 +4392,7 @@ p {
   padding: 0.5rem;
   border: 1px solid rgba(139, 69, 19, 0.3);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.6);
+  background: white;
   color: #043B7E;
   font-size: 0.8rem;
   backdrop-filter: none;
