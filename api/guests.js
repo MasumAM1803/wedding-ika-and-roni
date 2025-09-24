@@ -114,14 +114,30 @@ export default function handler(req, res) {
   } else if (req.method === 'PUT') {
     // PUT: Update existing guest
     try {
-      const { id, fullName, whatsapp } = req.body;
-      
-      if (!id) {
+      const { id, fullName, whatsapp, sent } = req.body;
+
+      // Try to obtain id from body, query (Vercel rewrite), or URL path
+      let guestId = id;
+      // 1) From query string when using Vercel rewrite e.g. /api/guests/147 ➜ /api/guests.js?id=147
+      if (!guestId && req.query && req.query.id) {
+        const q = parseInt(req.query.id, 10);
+        if (!isNaN(q)) guestId = q;
+      }
+
+      // 2) Fallback: parse from path (local dev server pattern /api/guests/147)
+      if (!guestId) {
+        const pathParts = req.url.split('?')[0].split('/');
+        const last = pathParts[pathParts.length - 1];
+        const parsed = parseInt(last, 10);
+        if (!isNaN(parsed)) guestId = parsed;
+      }
+
+      if (!guestId) {
         return res.status(400).json({ error: 'Guest id is required' });
       }
 
       const guestsData = readGuestsFromFile();
-      const guestIndex = guestsData.guests.findIndex(g => g.id === id);
+      const guestIndex = guestsData.guests.findIndex(g => g.id === guestId);
       
       if (guestIndex === -1) {
         return res.status(404).json({ error: 'Guest not found' });
@@ -135,6 +151,9 @@ export default function handler(req, res) {
       }
       if (whatsapp !== undefined) {
         guestsData.guests[guestIndex].whatsapp = whatsapp.trim();
+      }
+      if (sent !== undefined) {
+        guestsData.guests[guestIndex].sent = sent;
       }
 
       // Save to file
@@ -151,13 +170,24 @@ export default function handler(req, res) {
       res.status(500).json({ error: 'Failed to update guest' });
     }
   } else if (req.method === 'DELETE') {
-    // DELETE: Remove guest by ID from URL path
+    // DELETE: Remove guest by ID from URL path or query string
     try {
-      // Extract ID from URL path (e.g., /api/guests/123)
-      const pathParts = req.url.split('/');
-      const id = parseInt(pathParts[pathParts.length - 1]);
-      
-      if (!id || isNaN(id)) {
+      // 1) Attempt to read from query string (Vercel rewrite provides ?id=123)
+      let id = undefined;
+      if (req.query && req.query.id) {
+        const q = parseInt(req.query.id, 10);
+        if (!isNaN(q)) id = q;
+      }
+
+      // 2) Fallback: parse from URL path (e.g., /api/guests/123)
+      if (!id) {
+        const pathParts = req.url.split('?')[0].split('/');
+        const last = pathParts[pathParts.length - 1];
+        const parsed = parseInt(last, 10);
+        if (!isNaN(parsed)) id = parsed;
+      }
+
+      if (!id) {
         return res.status(400).json({ error: 'Valid guest id is required' });
       }
 

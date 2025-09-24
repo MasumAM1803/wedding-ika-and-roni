@@ -321,30 +321,30 @@
             
             <div class="love-story-timeline">
               <div class="timeline-item">
-                <div class="timeline-date">2018</div>
+                <div class="timeline-date">Meeting</div>
                 <div class="timeline-content">
-                  <h3>Meeting</h3>
+                  <!-- <h3>Meeting</h3> -->
                   <p>In 2018, he already knew me while I didn’t know him yet, so he sent me a message. At first, I didn’t reply quickly, but later I started responding to his messages.</p>
                 </div>
               </div>
               <div class="timeline-item">
-                <div class="timeline-date">2019</div>
+                <div class="timeline-date">Getting Closer</div>
                 <div class="timeline-content">
-                  <h3>Getting Closer</h3>
+                  <!-- <h3>Getting Closer</h3> -->
                   <p>We kept in touch, shared stories, and supported each other. Finally, he confessed his feelings and committed to a relationship.</p>
                 </div>
               </div>
               <div class="timeline-item">
-                <div class="timeline-date">2024</div>
+                <div class="timeline-date">Engagement</div>
                 <div class="timeline-content">
-                  <h3>Engagement</h3>
+                  <!-- <h3>Engagement</h3> -->
                   <p>We felt complete with each other and believed we were meant to be partners in life. He came with his family to ask my parents’ blessing to take our relationship seriously.</p>
                 </div>
               </div>
               <div class="timeline-item">
-                <div class="timeline-date">2025</div>
+                <div class="timeline-date">Marriage</div>
                 <div class="timeline-content">
-                  <h3>Marriage</h3>
+                  <!-- <h3>Marriage</h3> -->
                   <p>We decided to continue our journey together. With both families’ blessings, we prepared for marriage.</p>
                 </div>
               </div>
