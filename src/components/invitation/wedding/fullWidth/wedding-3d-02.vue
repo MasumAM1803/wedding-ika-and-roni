@@ -345,7 +345,7 @@
                 <div class="timeline-date">Marriage</div>
                 <div class="timeline-content">
                   <!-- <h3>Marriage</h3> -->
-                  <p>We decided to continue our journey together. With both families’ blessings, we prepared for marriage.</p>
+                  <p>Not because we met that we are destined, but because we are destined that we were brought together. God willing, on October 3, 2025, we will hold the sacred bond of marriage, the akad nikah.</p>
                 </div>
               </div>
             </div>
