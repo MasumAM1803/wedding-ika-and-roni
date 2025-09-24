@@ -321,31 +321,31 @@
             
             <div class="love-story-timeline">
               <div class="timeline-item">
-                <div class="timeline-date">2020</div>
+                <div class="timeline-date">2018</div>
                 <div class="timeline-content">
-                  <h3>First Meeting</h3>
-                  <p>We met for the first time and felt an instant connection.</p>
+                  <h3>Meeting</h3>
+                  <p>In 2018, he already knew me while I didn’t know him yet, so he sent me a message. At first, I didn’t reply quickly, but later I started responding to his messages.</p>
                 </div>
               </div>
               <div class="timeline-item">
-                <div class="timeline-date">2021</div>
+                <div class="timeline-date">2019</div>
                 <div class="timeline-content">
-                  <h3>Dating</h3>
-                  <p>Our relationship grew stronger with each passing day.</p>
+                  <h3>Getting Closer</h3>
+                  <p>We kept in touch, shared stories, and supported each other. Finally, he confessed his feelings and committed to a relationship.</p>
                 </div>
               </div>
               <div class="timeline-item">
                 <div class="timeline-date">2024</div>
                 <div class="timeline-content">
                   <h3>Engagement</h3>
-                  <p>We decided to spend our lives together forever.</p>
+                  <p>We felt complete with each other and believed we were meant to be partners in life. He came with his family to ask my parents’ blessing to take our relationship seriously.</p>
                 </div>
               </div>
               <div class="timeline-item">
                 <div class="timeline-date">2025</div>
                 <div class="timeline-content">
-                  <h3>Wedding Day</h3>
-                  <p>The day we become one family.</p>
+                  <h3>Marriage</h3>
+                  <p>We decided to continue our journey together. With both families’ blessings, we prepared for marriage.</p>
                 </div>
               </div>
             </div>
@@ -4704,7 +4704,6 @@ p {
   font-size: 1rem;
   color: #bb6d0e;
   line-height: 1.4;
-  opacity: 0.8;
 }
 
 /* Gallery Section Styling */
