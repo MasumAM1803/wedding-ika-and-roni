@@ -15,6 +15,15 @@
       </div>
     </section>
 
+    <!-- Download guests section -->
+    <section class="card">
+      <h2 class="text-xl font-semibold mb-4">Download Guests</h2>
+      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+        <button @click="downloadGuestsJson" class="btn-secondary">Download JSON</button>
+        <button @click="downloadGuestsCsv" class="btn-primary">Download CSV</button>
+      </div>
+    </section>
+
     <!-- Wishes CRUD section -->
     <section class="card">
       <h2 class="text-xl font-semibold mb-4">Manage Wishes</h2>
@@ -102,6 +111,7 @@
                 <button @click="startEdit(g)" class="btn-secondary btn-small w-16 h-8">Edit</button>
                 <button @click="deleteGuest(g)" class="bg-red-600 hover:bg-red-700 text-white text-xs rounded w-16 h-8">Del</button>
                 <a v-if="g.whatsapp" :href="waLink(g)" target="_blank" class="btn-primary btn-small w-16 h-8 flex items-center justify-center" @click="incCount(g.id)">Send</a>
+                <button @click="copyInvite(g)" class="btn-secondary btn-small w-16 h-8">Copy</button>
               </td>
             </tr>
           </tbody>
@@ -348,6 +358,46 @@ function triggerDownload (blob, filename) {
   a.download = filename
   a.click()
   URL.revokeObjectURL(url)
+}
+
+function buildInviteMessage (guest) {
+  const baseUrl = window.location.origin
+  const inviteLink = `${baseUrl}/guest/${guest.slug}`
+  let text = invitationMessage.value || ''
+  if (text.includes('{{link}}')) {
+    text = text.replace(/{{link}}/g, inviteLink)
+  } else {
+    text += `\n${inviteLink}`
+  }
+  if (text.includes('{{name}}')) {
+    text = text.replace(/{{name}}/g, guest.fullName)
+  }
+  return text
+}
+
+async function copyInvite (guest) {
+  try {
+    const msg = buildInviteMessage(guest)
+    await navigator.clipboard.writeText(msg)
+    alert('Invitation message copied!')
+  } catch (e) {
+    console.error('Copy failed', e)
+    alert('Failed to copy')
+  }
+}
+
+function downloadGuestsJson () {
+  const blob = new Blob([JSON.stringify({ guests: guests.value }, null, 2)], { type: 'application/json' })
+  triggerDownload(blob, 'guests.json')
+}
+
+function downloadGuestsCsv () {
+  const header = ['id', 'fullName', 'slug', 'whatsapp', 'sent']
+  const csvContent = [header.join(',')].concat(
+    guests.value.map(g => header.map(h => `"${(g[h] || '').toString().replace(/"/g, '""')}` ).join(','))
+  ).join('\n')
+  const blob = new Blob([csvContent], { type: 'text/csv' })
+  triggerDownload(blob, 'guests.csv')
 }
 
 function onFileChange (e) {
