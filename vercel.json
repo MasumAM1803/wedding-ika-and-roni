@@ -89,6 +89,18 @@
       "destination": "/api/status.js"
     },
     {
+      "source": "/api/debug-wishes",
+      "destination": "/api/debug-wishes.js"
+    },
+    {
+      "source": "/api/test-storage",
+      "destination": "/api/test-storage.js"
+    },
+    {
+      "source": "/api/test-post-wish",
+      "destination": "/api/test-post-wish.js"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
