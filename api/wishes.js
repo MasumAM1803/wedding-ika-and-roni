@@ -1,4 +1,4 @@
-import { getJson, setJson } from '../lib/upstash.js';
+import { getJson, setJson, getStorageStatus } from '../lib/storage.js';
 
 // Timeout wrapper for Redis operations
 function withTimeout(promise, timeoutMs = 10000) {
@@ -67,13 +67,18 @@ export default async function handler(req, res) {
     try {
       console.log('GET /api/wishes - Starting request');
       
-      // Get data from Redis
+      // Log storage status for debugging
+      const storageStatus = getStorageStatus();
+      console.log('Storage status:', storageStatus);
+      
+      // Get data from storage
       const wishesData = await readWishes();
       
       console.log('GET /api/wishes - Retrieved data:', {
         wishesCount: wishesData.wishes?.length || 0,
         totalWishes: wishesData.totalWishes || 0,
-        hasWishes: !!wishesData.wishes
+        hasWishes: !!wishesData.wishes,
+        storageType: storageStatus.status
       });
       
       res.status(200).json(wishesData);
@@ -100,6 +105,10 @@ export default async function handler(req, res) {
         });
       }
 
+      // Log storage status for debugging
+      const storageStatus = getStorageStatus();
+      console.log('Storage status:', storageStatus);
+      
       // Read current wishes data
       let wishesData = await readWishes();
       console.log('Current wishes data before adding:', JSON.stringify(wishesData, null, 2));

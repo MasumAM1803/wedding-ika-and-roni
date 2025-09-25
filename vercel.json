@@ -85,6 +85,10 @@
       "destination": "/api/wishes-simple.js"
     },
     {
+      "source": "/api/status",
+      "destination": "/api/status.js"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
