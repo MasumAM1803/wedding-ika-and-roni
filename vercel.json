@@ -77,6 +77,10 @@
       "destination": "/api/wishes.js"
     },
     {
+      "source": "/api/test",
+      "destination": "/api/test.js"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
