@@ -81,6 +81,10 @@
       "destination": "/api/test.js"
     },
     {
+      "source": "/api/wishes-simple",
+      "destination": "/api/wishes-simple.js"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

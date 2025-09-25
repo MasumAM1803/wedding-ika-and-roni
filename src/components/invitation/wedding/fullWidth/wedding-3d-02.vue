@@ -738,6 +738,7 @@ export default {
         // Try to fetch wishes from API first (use local server for development)
         const apiUrl = import.meta.env.DEV ? 'http://localhost:3001/api/wishes' : '/api/wishes';
         const response = await fetch(apiUrl);
+        
         if (response.ok) {
           const apiData = await response.json();
           this.wishes = apiData.wishes.map(wish => ({

@@ -1,9 +1,26 @@
 {
-  "wishes": [],
-  "totalWishes": 0,
+  "wishes": [
+    {
+      "id": 2,
+      "name": "Debug Test",
+      "message": "Testing from frontend",
+      "attendance": "present",
+      "timestamp": "2025-09-25T13:49:21.915Z",
+      "guestCount": 1
+    },
+    {
+      "id": 1,
+      "name": "Test User",
+      "message": "Test message",
+      "attendance": "present",
+      "timestamp": "2025-09-25T13:47:46.903Z",
+      "guestCount": 1
+    }
+  ],
+  "totalWishes": 2,
   "attendanceStats": {
-    "present": 0,
+    "present": 2,
     "absent": 0
   },
-  "lastUpdated": "2025-09-17T22:24:33.337Z"
+  "lastUpdated": "2025-09-25T13:49:21.915Z"
 }

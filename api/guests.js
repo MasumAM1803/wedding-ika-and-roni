@@ -1,39 +1,51 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { getJson, setJson } from '../lib/upstash.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const GUESTS_FILE_PATH = path.join(__dirname, '..', 'src/assets/data/guests.json');
 
+const useRedis = !!process.env.REDIS_URL || !!process.env.UPSTASH_REDIS_REST_URL;
+
 // In-memory storage for Vercel serverless environment (read-only filesystem)
 let guestsCache = null;
 
-function readGuestsFromFile() {
+async function readGuests() {
+  if (useRedis) {
+    const data = await getJson('guests', null);
+    if (data) return data;
+  }
+  // fallback to file / memory (local dev)
   try {
     if (!guestsCache) {
       const fileContent = fs.readFileSync(GUESTS_FILE_PATH, 'utf8');
       guestsCache = JSON.parse(fileContent);
     }
-    return JSON.parse(JSON.stringify(guestsCache)); // Return a copy
-  } catch (err) {
-    console.error('Failed to read guests.json:', err);
-    return { guests: [] };
-  }
+    return JSON.parse(JSON.stringify(guestsCache));
+  } catch (e) { console.error('read file error', e); return { guests: [] }; }
 }
 
-// Note: In Vercel serverless environment, we can't write to filesystem
-// This function simulates writing but data won't persist between requests
-function writeGuestsToFile(data) {
-  try {
-    // Update in-memory cache only (won't persist in serverless environment)
-    guestsCache = JSON.parse(JSON.stringify(data));
-    console.log('Data updated in memory (note: will not persist in serverless environment)');
-    return true;
-  } catch (err) {
-    console.error('Failed to update guests data:', err);
-    return false;
+async function writeGuests(data) {
+  if (useRedis) {
+    try {
+      await setJson('guests', data);
+      return true;
+    } catch (e) {
+      console.error('Redis write error', e);
+      return false;
+    }
   }
+  // fallback local (dev only)
+  if (process.env.NODE_ENV !== 'production') {
+    try {
+      guestsCache = JSON.parse(JSON.stringify(data));
+      fs.writeFileSync(GUESTS_FILE_PATH, JSON.stringify(data, null, 2), 'utf8');
+      return true;
+    } catch (e) { console.error('write file error', e); }
+  }
+  return false;
 }
 
 function slugify(str) {
@@ -43,7 +55,7 @@ function slugify(str) {
     .replace(/-+/g, '-');
 }
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -58,7 +70,27 @@ export default function handler(req, res) {
   if (req.method === 'GET') {
     // GET: Retrieve all guests
     try {
-      const guestsData = readGuestsFromFile();
+      const guestsData = await readGuests();
+
+      // If ID supplied return single guest
+      let idParam;
+      if (req.query && req.query.id) {
+        const q = parseInt(req.query.id, 10);
+        if (!isNaN(q)) idParam = q;
+      }
+      if (!idParam) {
+        const parts = req.url.split('?')[0].split('/');
+        const last = parts[parts.length-1];
+        const p = parseInt(last,10);
+        if (!isNaN(p)) idParam=p;
+      }
+
+      if (idParam) {
+        const g = guestsData.guests.find(x=>x.id===idParam);
+        if (!g) return res.status(404).json({error:'Guest not found'});
+        return res.status(200).json({success:true,guest:g});
+      }
+
       res.status(200).json(guestsData);
     } catch (error) {
       console.error('GET error:', error);
@@ -76,7 +108,7 @@ export default function handler(req, res) {
         });
       }
 
-      const guestsData = readGuestsFromFile();
+      const guestsData = await readGuests();
       const slug = slugify(fullName);
       
       // Check if slug already exists
@@ -98,7 +130,7 @@ export default function handler(req, res) {
       guestsData.guests.push(newGuest);
       
       // Save to file
-      if (!writeGuestsToFile(guestsData)) {
+      if (!await writeGuests(guestsData)) {
         return res.status(500).json({ error: 'Failed to save guest' });
       }
 
@@ -136,7 +168,7 @@ export default function handler(req, res) {
         return res.status(400).json({ error: 'Guest id is required' });
       }
 
-      const guestsData = readGuestsFromFile();
+      const guestsData = await readGuests();
       const guestIndex = guestsData.guests.findIndex(g => g.id === guestId);
       
       if (guestIndex === -1) {
@@ -157,7 +189,7 @@ export default function handler(req, res) {
       }
 
       // Save to file
-      if (!writeGuestsToFile(guestsData)) {
+      if (!await writeGuests(guestsData)) {
         return res.status(500).json({ error: 'Failed to save guest' });
       }
 
@@ -191,7 +223,7 @@ export default function handler(req, res) {
         return res.status(400).json({ error: 'Valid guest id is required' });
       }
 
-      const guestsData = readGuestsFromFile();
+      const guestsData = await readGuests();
       const originalLength = guestsData.guests.length;
       
       // Filter out the guest with matching ID
@@ -202,7 +234,7 @@ export default function handler(req, res) {
       }
 
       // Save to file
-      if (!writeGuestsToFile(guestsData)) {
+      if (!await writeGuests(guestsData)) {
         return res.status(500).json({ error: 'Failed to save changes' });
       }
 
