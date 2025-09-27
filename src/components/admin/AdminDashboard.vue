@@ -125,7 +125,7 @@
         <h3 class="text-lg font-semibold">{{ editingGuestId ? 'Edit Guest' : 'Add Guest' }}</h3>
         <div class="space-y-2">
           <input v-model="newGuest.fullName" placeholder="Full Name" class="w-full border rounded px-2 py-1" />
-          <input :value="slugPreview" placeholder="Slug" disabled class="w-full border rounded px-2 py-1 bg-gray-100 text-gray-500" />
+          <input :value="slugPreview" placeholder="Slug" class="w-full border rounded px-2 py-1 bg-gray-100 text-gray-500" />
           <input v-model="newGuest.whatsapp" placeholder="WhatsApp (optional)" class="w-full border rounded px-2 py-1" />
           <input v-model.number="newGuest.sent" placeholder="Sent count (optional)" type="number" min="0" class="w-full border rounded px-2 py-1" />
         </div>
@@ -149,11 +149,11 @@
 
 <script setup>
 import { ref, computed, onMounted, reactive, watch } from 'vue'
-import guestsData from '../../assets/data/guests.json'
 
 // Determine API base URL: in dev we run Express at 3001, in prod same origin
 const API_BASE = import.meta.env.VITE_API_BASE || (window.location.port === '3000' ? 'http://localhost:3001' : '')
 const wishesEndpoint = `${API_BASE}/api/wishes`
+const guestsEndpoint = `${API_BASE}/api/guests`
 
 // helper to fetch wishes list
 async function fetchWishes () {
@@ -167,6 +167,23 @@ async function fetchWishes () {
     throw new Error('Unexpected response format')
   }
   return await res.json()
+}
+
+// helper to fetch guests list from database
+async function fetchGuests () {
+  console.log('Fetching guests from database...')
+  const res = await fetch(guestsEndpoint)
+  if (!res.ok) throw new Error(`Failed to fetch guests: ${res.status}`)
+  const ct = res.headers.get('content-type') || ''
+  if (!ct.includes('application/json')) {
+    // The backend returned HTML (likely an error page). Convert to text for logging.
+    const text = await res.text()
+    console.error('Unexpected non-JSON response:', text.slice(0, 200))
+    throw new Error('Unexpected response format')
+  }
+  const data = await res.json()
+  console.log('Fetched guests from database:', data)
+  return data
 }
 const search = ref('')
 const guests = ref([])
@@ -198,15 +215,24 @@ function slugify(str){
 }
 
 onMounted(async () => {
-  guests.value = guestsData.guests
-  guests.value.forEach(g=>{ if(g.sent) sendCounts[g.id]=g.sent })
+  // fetch guests from database
+  try {
+    const guestsData = await fetchGuests()
+    guests.value = guestsData.guests || []
+    guests.value.forEach(g=>{ if(g.sent) sendCounts[g.id]=g.sent })
+    console.log('Loaded guests from database:', guests.value.length)
+  } catch (e) {
+    console.error('Failed to fetch guests from database:', e)
+    // Fallback to empty array if database fetch fails
+    guests.value = []
+  }
 
   // fetch wishes list
   try {
     const data = await fetchWishes()
     wishes.value = data.wishes
   } catch (e) {
-    console.error(e)
+    console.error('Failed to fetch wishes:', e)
   }
 })
 
@@ -435,8 +461,12 @@ async function uploadGuests () {
       body: JSON.stringify({ replace: replaceGuests.value, guests: parsed })
     })
     if (!res.ok) throw new Error('Upload failed')
-    const data = await res.json()
-    guests.value = data.guests
+    
+    // Refresh guests from database after upload
+    const guestsData = await fetchGuests()
+    guests.value = guestsData.guests || []
+    guests.value.forEach(g=>{ if(g.sent) sendCounts[g.id]=g.sent })
+    
     alert('Guests updated')
   } catch (e) {
     alert(e.message)
@@ -464,16 +494,15 @@ async function saveGuest(){
     const res = await fetch(url,{ method, headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) })
     if(!res.ok) throw new Error('Failed to save guest')
     const data = await res.json()
+    
+    // Refresh guests from database after save
+    const guestsData = await fetchGuests()
+    guests.value = guestsData.guests || []
+    guests.value.forEach(g=>{ if(g.sent) sendCounts[g.id]=g.sent })
+    
     if(isEditing){
-      const idx = guests.value.findIndex(x=>x.id===editingGuestId.value)
-      guests.value[idx] = data.guest
-      // Update the sendCounts reactive object to reflect the new sent count
-      sendCounts[data.guest.id] = data.guest.sent || 0
       alert(`Guest "${data.guest.fullName}" updated successfully!`)
     }else{
-      guests.value.push(data.guest)
-      // Initialize sendCounts for new guest
-      sendCounts[data.guest.id] = data.guest.sent || 0
       alert(`Guest "${data.guest.fullName}" added successfully!`)
     }
     editingGuestId.value=null
@@ -487,7 +516,13 @@ async function deleteGuest(g){
   try{
     const res = await fetch(`${API_BASE}/api/guests/${g.id}`,{method:'DELETE'})
     if(!res.ok) throw new Error('Failed')
-    guests.value = guests.value.filter(x=>x.id!==g.id)
+    
+    // Refresh guests from database after delete
+    const guestsData = await fetchGuests()
+    guests.value = guestsData.guests || []
+    guests.value.forEach(g=>{ if(g.sent) sendCounts[g.id]=g.sent })
+    
+    alert('Guest deleted successfully!')
   }catch(e){ alert(e.message)}
 }
 </script>

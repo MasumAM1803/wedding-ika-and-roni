@@ -101,6 +101,30 @@
       "destination": "/api/test-post-wish.js"
     },
     {
+      "source": "/api/test-guests",
+      "destination": "/api/test-guests.js"
+    },
+    {
+      "source": "/api/test-guest-retrieval",
+      "destination": "/api/test-guest-retrieval.js"
+    },
+    {
+      "source": "/api/debug-guest-data",
+      "destination": "/api/debug-guest-data.js"
+    },
+    {
+      "source": "/api/test-admin-data",
+      "destination": "/api/test-admin-data.js"
+    },
+    {
+      "source": "/api/test-admin-production",
+      "destination": "/api/test-admin-production.js"
+    },
+    {
+      "source": "/api/test-guest-path",
+      "destination": "/api/test-guest-path.js"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

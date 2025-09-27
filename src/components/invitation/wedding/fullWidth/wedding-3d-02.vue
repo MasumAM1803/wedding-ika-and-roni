@@ -585,7 +585,6 @@
 <script>
 import wishesData from '../../../../assets/data/wishes.json'
 import weddingConfig from '../../../../assets/data/wedding-config.json'
-import guestsData from '../../../../assets/data/guests.json'
 import adatSundaAudio from '../../../../assets/audio/background.mp3'
 import chipImg from '../../../../assets/images/icon/chip.png'
 import cardBg from '../../../../assets/images/background/card-bg.jpg'
@@ -630,7 +629,6 @@ export default {
       giftAddress: weddingConfig.giftAddress,
       quotes: weddingConfig.quotes,
       settings: weddingConfig.settings,
-             guest: guestsData.guests,
       showInitialAnim: true,
       isMusicPlaying: false,
       audioSrc: adatSundaAudio,
@@ -700,15 +698,27 @@ export default {
       
       if (guestSlug) {
         try {
+          console.log('Fetching guest data for slug:', guestSlug);
+          
           // Try to fetch guest information from API
-          const apiUrl = import.meta.env.DEV ? `http://localhost:3001/api/guest/${guestSlug}` : `/api/guest/${guestSlug}`;
+          const apiUrl = import.meta.env.DEV ? `http://localhost:3001/api/guest?slug=${guestSlug}` : `/api/guest?slug=${guestSlug}`;
+          console.log('API URL:', apiUrl);
+          
           const response = await fetch(apiUrl);
+          console.log('Response status:', response.status);
           
           if (response.ok && response.headers.get('content-type')?.includes('application/json')) {
             try {
               const guestData = await response.json();
-              this.currentGuest = guestData.guest;
-              console.log('Guest found:', this.currentGuest);
+              console.log('Guest API response:', guestData);
+              
+              if (guestData.success && guestData.guest) {
+                this.currentGuest = guestData.guest;
+                console.log('Guest found:', this.currentGuest);
+              } else {
+                console.warn('Guest not found in API response');
+                this.currentGuest = null;
+              }
             } catch (jsonErr) {
               console.error('Invalid JSON from guest API:', jsonErr);
               this.currentGuest = null;
@@ -723,6 +733,7 @@ export default {
         }
       } else {
         // No guest slug, reset to null
+        console.log('No guest slug provided');
         this.currentGuest = null;
       }
     },
